@@ -7,6 +7,7 @@ import (
 
 	config "github.com/Asliddin3/cykel-omni/config"
 	"github.com/Asliddin3/cykel-omni/pkg/logger"
+	"github.com/Asliddin3/cykel-omni/server"
 )
 
 func main() {
@@ -20,7 +21,8 @@ func main() {
 		os.Exit(1)
 	}
 	// Close the listener when the application closes.
-	defer l.Close()
 	fmt.Println("Listening on " + cfg.LockHost + ":" + cfg.LockPort)
-	
+	server.ListenTCP(l)
+	defer l.Close()
+
 }

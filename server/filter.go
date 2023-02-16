@@ -20,7 +20,7 @@ func giveResponse(req string) (string, error) {
 		" lockIMEI ", lockIMEI)
 
 	switch lockCommand {
-	case "QO":
+	case "Q0":
 		return checkInCommand(reqArr)
 	case "H0":
 		return heartBeatCommand(reqArr)

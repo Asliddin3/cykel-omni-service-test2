@@ -16,6 +16,8 @@ func giveResponse(req string) (string, error) {
 	lockCommand := reqArr[4]
 	resArr[2] = lockIMEI
 	resArr[3] = timeFormat
+	fmt.Println("command ", lockCommand,
+		" lockIMEI ", lockIMEI)
 
 	switch lockCommand {
 	case "QO":

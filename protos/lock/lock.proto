@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package lock;
+
+
+service LockService {
+  rpc UnlockLocker (LockIMEI) returns (Empty);
+  rpc GetLocation (LockIMEI) returns (Empty);
+}
+message Empty {}
+
+message LockIMEI {
+  int64 IMEI = 1;
+}

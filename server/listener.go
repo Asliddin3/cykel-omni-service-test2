@@ -4,10 +4,29 @@ import (
 	"context"
 	"fmt"
 	"net"
+	"sync"
 )
+//ServerCommand map for saving commands from server
+type ServerCommand struct {
+	lockerCommands map[int][]string
+	mx             sync.RWMutex
+}
+
+//AddCommand this command will add command to array of commands in map
+func (c *ServerCommand) AddCommand(key int, command string) {
+	c.lockerCommands[key] = append(c.lockerCommands[key], command)
+}
+
+//Load this command with load val from map by key
+func (c *ServerCommand) Load(key int) ([]string, bool) {
+	c.mx.RLock()
+	defer c.mx.RUnlock()
+	val, ok := c.lockerCommands[key]
+	return val, ok
+}
 
 //ListenTCP this func run loop for connection from client
-func ListenTCP(l net.Listener) {
+func ListenTCP(l net.Listener, commands *ServerCommand, ch chan struct{}) {
 	for {
 		conn, err := l.Accept()
 		fmt.Println("accepted error", err)
@@ -17,6 +36,7 @@ func ListenTCP(l net.Listener) {
 		}
 		go handleRequest(conn)
 	}
+	ch <- struct{}{}
 }
 
 func handleRequest(conn net.Conn) {

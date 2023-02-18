@@ -5,12 +5,10 @@ import (
 	"strings"
 )
 
-func giveResponse(req string) (string, error) {
+func giveResponse(reqArr []string) (string, error) {
 	resArr := make([]string, 4)
 	resArr[0] = "*CMDS"
 	resArr[1] = "OM"
-	req = strings.TrimLeft(req, "#\n")
-	reqArr := strings.Split(req, ",")
 	lockIMEI := reqArr[2]
 	timeFormat := reqArr[3]
 	lockCommand := reqArr[4]

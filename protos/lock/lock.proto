@@ -4,11 +4,18 @@ package lock;
 
 
 service LockService {
-  rpc UnlockLocker (LockIMEI) returns (Empty);
-  rpc GetLocation (LockIMEI) returns (Empty);
+  rpc UnlockLocker (UnlockRequest) returns (UnlockResponse);
+  // rpc GetLocation (LockIMEI) returns (Empty);
 }
 message Empty {}
 
-message LockIMEI {
+message UnlockResponse {
+  int32 UnlockResult = 1;
+  int64 UserID= 2;
+  string UnlockedTime= 3;
+}
+
+message UnlockRequest {
   int64 IMEI = 1;
+  int64 UserID = 2;
 }

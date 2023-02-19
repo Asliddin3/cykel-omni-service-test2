@@ -5,6 +5,7 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"time"
 )
 
 //ListenTCP this func run loop for connection from client
@@ -39,7 +40,6 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 		fmt.Println("error converting lockIMEI to int")
 		return
 	}
-	response += "*CMDS,OM,860537062636022,20200318123020,Re,L0#\n"
 	if response != "" {
 		res := AddByte([]byte(response))
 		fmt.Println("send message <-------", string(res))
@@ -55,6 +55,8 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	if err != nil {
 		fmt.Println("waiting grpc command error", err)
 	}
+	time.Sleep(time.Second * 3)
+	fmt.Println("waiting for response")
 	buf1 := make([]byte, 1024)
 	_, err = conn.Read(buf1)
 	if err != nil {

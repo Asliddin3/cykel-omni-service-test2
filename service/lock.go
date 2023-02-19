@@ -56,7 +56,7 @@ func (l *LockService) UnlockLocker(ctx context.Context, req *pb.UnlockRequest) (
 		}
 	}(lockerRequest, lockerResponse)
 
-	time.Sleep(31 * time.Second)
+	// time.Sleep(31 * time.Second)
 	result := <-lockerResponse
 	if result == "" {
 		lockerRequest <- ""

@@ -39,6 +39,7 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 		fmt.Println("error converting lockIMEI to int")
 		return
 	}
+	response += "*CMDS,OM,860537062636022,20200318123020,Re,L0#\n"
 	if response != "" {
 		res := AddByte([]byte(response))
 		fmt.Println("send message <-------", string(res))

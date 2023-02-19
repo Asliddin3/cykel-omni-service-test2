@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"sync"
 
 	config "github.com/Asliddin3/cykel-omni/config"
 	pb "github.com/Asliddin3/cykel-omni/genproto/lock"
@@ -24,7 +25,10 @@ func main() {
 		fmt.Println("Error listening:", err.Error())
 		os.Exit(1)
 	}
-	commandsMap := &server.ConnectLockerToGrpc{}
+	commandsMap := &server.ConnectLockerToGrpc{
+		Connector: make(map[int64]server.Connect),
+		Mx:        sync.RWMutex{},
+	}
 	// Close the listener when the application closes.
 	fmt.Println("Listening on " + cfg.LockHost + ":" + cfg.LockPort)
 	tcpChannel := make(chan struct{})

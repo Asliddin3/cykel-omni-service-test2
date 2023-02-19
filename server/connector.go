@@ -31,12 +31,12 @@ type grpcToLocker struct {
 //ConnectLockerToGrpc map for saving commands from server
 type ConnectLockerToGrpc struct {
 	Connector map[int64]Connect
-	mx        sync.RWMutex
+	Mx        sync.RWMutex
 }
 
 func (c *ConnectLockerToGrpc) addLocker(imie int64) {
-	defer c.mx.Unlock()
-	c.mx.Lock()
+	defer c.Mx.Unlock()
+	c.Mx.Lock()
 	if _, ok := c.Connector[imie]; ok {
 		return
 	}
@@ -48,8 +48,8 @@ func (c *ConnectLockerToGrpc) addLocker(imie int64) {
 }
 
 func (c *ConnectLockerToGrpc) AddCommand(imei int64, command string, ch chan string) error {
-	defer c.mx.Unlock()
-	c.mx.Lock()
+	defer c.Mx.Unlock()
+	c.Mx.Lock()
 	if lockConn, ok := c.Connector[imei]; ok {
 		lockConn.Channels = append(lockConn.Channels, ch)
 		lockConn.Commands = append(lockConn.Commands, command)
@@ -60,8 +60,8 @@ func (c *ConnectLockerToGrpc) AddCommand(imei int64, command string, ch chan str
 }
 
 func (c *ConnectLockerToGrpc) CheckLastCall(imie int64, command string) (chan string, error) {
-	defer c.mx.RUnlock()
-	c.mx.RLock()
+	defer c.Mx.RUnlock()
+	c.Mx.RLock()
 	lockerConnector := c.Connector[imie]
 	for i := len(lockerConnector.Commands) - 1; i >= 0; i++ {
 		if strings.Contains(lockerConnector.Commands[i], command) {
@@ -72,8 +72,8 @@ func (c *ConnectLockerToGrpc) CheckLastCall(imie int64, command string) (chan st
 }
 
 func (c *ConnectLockerToGrpc) RemoveCall(imie int64) error {
-	defer c.mx.Unlock()
-	c.mx.Lock()
+	defer c.Mx.Unlock()
+	c.Mx.Lock()
 	if val, ok := c.Connector[imie]; ok {
 		val.Channels = val.Channels[:len(val.Channels)-2]
 		val.Commands = val.Commands[:len(val.Commands)-2]
@@ -84,8 +84,8 @@ func (c *ConnectLockerToGrpc) RemoveCall(imie int64) error {
 }
 
 func (c *ConnectLockerToGrpc) GetChannel(imie int64) chan string {
-	c.mx.RLock()
-	defer c.mx.RUnlock()
+	c.Mx.RLock()
+	defer c.Mx.RUnlock()
 	if val, ok := c.Connector[imie]; ok {
 		return val.Channels[len(val.Channels)-1]
 	}
@@ -93,8 +93,8 @@ func (c *ConnectLockerToGrpc) GetChannel(imie int64) chan string {
 }
 
 func (c *ConnectLockerToGrpc) GetCommands(imie int64) []string {
-	c.mx.RLock()
-	defer c.mx.RUnlock()
+	c.Mx.RLock()
+	defer c.Mx.RUnlock()
 	if val, ok := c.Connector[imie]; ok {
 		return val.Commands
 	}

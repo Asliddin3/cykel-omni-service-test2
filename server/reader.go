@@ -54,12 +54,14 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		return
 	case "L0":
 		locker := lockers.Lockers[int64(imei)]
-		locker.SendUnlockResponse(reqStr)
+		if timeFormat != "000000000000" && reqArr[5] != "0" && reqArr[6] != "0" {
+			locker.SendUnlockResponse(reqStr)
+		}
 		resArr := prepareResponse(lockIMEI, timeFormat)
 		resArr = append(resArr, "Re", "L0#\n")
 		responseStr := strings.Join(resArr, ",")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
-		fmt.Println("sended return to unlock ",responseStr)
+		fmt.Println("sended return to unlock ", responseStr)
 		if err != nil {
 			fmt.Println("error sending return unlock response")
 			return

@@ -102,3 +102,9 @@ func AddByte(b2 []byte) []byte {
 	arrByte = append(arrByte, b2...)
 	return arrByte
 }
+func getTime() string {
+	timeStr := time.Now().Format("20060102150405")
+	timeStr = strings.TrimPrefix(timeStr, "20")
+	return timeStr
+	// res := lockerServer.AddByte([]byte(fmt.Sprintf("*CMDS,OM,860537062636022,20200318123020,L0,0,0,%s#\n", timeStr)))
+}

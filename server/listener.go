@@ -23,15 +23,10 @@ func ListenTCP(l net.Listener, commands *ConnectLockerToGrpc, ch chan struct{}) 
 
 func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	buf := make([]byte, 2048)
-	for {
-		_, err := conn.Read(buf)
-		fmt.Println("buffer result", string(buf))
-		if err != nil {
-			fmt.Println("Error reading:", err.Error())
-			break
-		}
+	_, err := conn.Read(buf)
+	if err != nil {
+		fmt.Println("Error reading:", err.Error())
 	}
-
 	fmt.Println("get command ------->", string(buf))
 	req := strings.TrimLeft(string(buf), "#\n")
 	reqArr := strings.Split(req, ",")
@@ -44,7 +39,7 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 		fmt.Println("error converting lockIMEI to int")
 		return
 	}
-	// response += "*CMDS,OM,860537062636022,20200318123020,Re,L0#\n"
+	response += "*CMDS,OM,860537062636022,20200318123020,Re,L0#\n"
 	if response != "" {
 		res := AddByte([]byte(response))
 		fmt.Println("send message <-------", string(res))

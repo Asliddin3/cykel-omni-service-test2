@@ -31,8 +31,8 @@ func NewLockService(db *sqlx.DB, locker *lockerServer.ConnectLockerToGrpc, log l
 }
 
 //UnlockLocker this func will unlock locker
-func (l *LockService) UnlockLocker(ctx context.Context, req *pb.UnlockRequest) (*pb.UnlockData, error) {
-	request := fmt.Sprintf("*CMDS,OM,%d,20200318123020,L0,0,%d,%s#\n", req.IMEI, req.UserID, getTime())
+func (l *LockService) UnlockLocker(ctx context.Context, req *pb.UnlockRequest) (*pb.UnlockResponse, error) {
+	request := fmt.Sprintf("*CMDS,OM,%d,20200318123020,L0,%d,%d,%s#\n", req.IMEI, req.ResetTime, req.UserID, getTime())
 	lockerRequest := make(chan string)
 	lockerResponse := make(chan string)
 
@@ -65,7 +65,7 @@ func (l *LockService) UnlockLocker(ctx context.Context, req *pb.UnlockRequest) (
 	}
 	// ticker.Stop()
 
-	return &pb.UnlockData{}, nil
+	return &pb.UnlockResponse{}, nil
 }
 
 // *CMDS,OM,860537062636022,20200318123020,L0,0,0,%s#\n

@@ -65,25 +65,27 @@ func (m *Empty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
-type UnlockData struct {
-	Response             string   `protobuf:"bytes,1,opt,name=Response,proto3" json:"Response"`
+type UnlockResponse struct {
+	UnlockResult         int32    `protobuf:"varint,1,opt,name=UnlockResult,proto3" json:"UnlockResult"`
+	UserID               int64    `protobuf:"varint,2,opt,name=UserID,proto3" json:"UserID"`
+	UnlockedTime         string   `protobuf:"bytes,3,opt,name=UnlockedTime,proto3" json:"UnlockedTime"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *UnlockData) Reset()         { *m = UnlockData{} }
-func (m *UnlockData) String() string { return proto.CompactTextString(m) }
-func (*UnlockData) ProtoMessage()    {}
-func (*UnlockData) Descriptor() ([]byte, []int) {
+func (m *UnlockResponse) Reset()         { *m = UnlockResponse{} }
+func (m *UnlockResponse) String() string { return proto.CompactTextString(m) }
+func (*UnlockResponse) ProtoMessage()    {}
+func (*UnlockResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ebe517841b49c3eb, []int{1}
 }
-func (m *UnlockData) XXX_Unmarshal(b []byte) error {
+func (m *UnlockResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *UnlockData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *UnlockResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_UnlockData.Marshal(b, m, deterministic)
+		return xxx_messageInfo_UnlockResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -93,21 +95,35 @@ func (m *UnlockData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *UnlockData) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UnlockData.Merge(m, src)
+func (m *UnlockResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnlockResponse.Merge(m, src)
 }
-func (m *UnlockData) XXX_Size() int {
+func (m *UnlockResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *UnlockData) XXX_DiscardUnknown() {
-	xxx_messageInfo_UnlockData.DiscardUnknown(m)
+func (m *UnlockResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnlockResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_UnlockData proto.InternalMessageInfo
+var xxx_messageInfo_UnlockResponse proto.InternalMessageInfo
 
-func (m *UnlockData) GetResponse() string {
+func (m *UnlockResponse) GetUnlockResult() int32 {
 	if m != nil {
-		return m.Response
+		return m.UnlockResult
+	}
+	return 0
+}
+
+func (m *UnlockResponse) GetUserID() int64 {
+	if m != nil {
+		return m.UserID
+	}
+	return 0
+}
+
+func (m *UnlockResponse) GetUnlockedTime() string {
+	if m != nil {
+		return m.UnlockedTime
 	}
 	return ""
 }
@@ -115,6 +131,7 @@ func (m *UnlockData) GetResponse() string {
 type UnlockRequest struct {
 	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
 	UserID               int64    `protobuf:"varint,2,opt,name=UserID,proto3" json:"UserID"`
+	ResetTime            int64    `protobuf:"varint,3,opt,name=ResetTime,proto3" json:"ResetTime"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -167,28 +184,37 @@ func (m *UnlockRequest) GetUserID() int64 {
 	return 0
 }
 
+func (m *UnlockRequest) GetResetTime() int64 {
+	if m != nil {
+		return m.ResetTime
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Empty)(nil), "lock.Empty")
-	proto.RegisterType((*UnlockData)(nil), "lock.UnlockData")
+	proto.RegisterType((*UnlockResponse)(nil), "lock.UnlockResponse")
 	proto.RegisterType((*UnlockRequest)(nil), "lock.UnlockRequest")
 }
 
 func init() { proto.RegisterFile("lock/lock.proto", fileDescriptor_ebe517841b49c3eb) }
 
 var fileDescriptor_ebe517841b49c3eb = []byte{
-	// 189 bytes of a gzipped FileDescriptorProto
+	// 224 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0xcf, 0xc9, 0x4f, 0xce,
 	0xd6, 0x07, 0x11, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0x2c, 0x20, 0xb6, 0x12, 0x3b, 0x17,
-	0xab, 0x6b, 0x6e, 0x41, 0x49, 0xa5, 0x92, 0x06, 0x17, 0x57, 0x68, 0x1e, 0x48, 0xc8, 0x25, 0xb1,
-	0x24, 0x51, 0x48, 0x8a, 0x8b, 0x23, 0x28, 0xb5, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x82, 0x51,
-	0x81, 0x51, 0x83, 0x33, 0x08, 0xce, 0x57, 0xb2, 0xe6, 0xe2, 0x85, 0xa8, 0x0c, 0x4a, 0x2d, 0x2c,
-	0x4d, 0x2d, 0x2e, 0x11, 0x12, 0xe2, 0x62, 0xf1, 0xf4, 0x75, 0xf5, 0x04, 0x2b, 0x64, 0x0e, 0x02,
-	0xb3, 0x85, 0xc4, 0xb8, 0xd8, 0x42, 0x8b, 0x53, 0x8b, 0x3c, 0x5d, 0x24, 0x98, 0xc0, 0xa2, 0x50,
-	0x9e, 0x91, 0x0b, 0x17, 0xb7, 0x4f, 0x7e, 0x72, 0x76, 0x70, 0x6a, 0x51, 0x59, 0x66, 0x72, 0xaa,
-	0x90, 0x29, 0x17, 0x0f, 0xc4, 0x2c, 0x90, 0x60, 0x6a, 0x91, 0x90, 0xb0, 0x1e, 0xd8, 0x85, 0x28,
-	0xe6, 0x4b, 0x09, 0x20, 0x0b, 0x82, 0x9c, 0xe7, 0x24, 0x70, 0xe2, 0x91, 0x1c, 0xe3, 0x85, 0x47,
-	0x72, 0x8c, 0x0f, 0x1e, 0xc9, 0x31, 0xce, 0x78, 0x2c, 0xc7, 0x90, 0xc4, 0x06, 0xf6, 0x94, 0x31,
-	0x20, 0x00, 0x00, 0xff, 0xff, 0x60, 0x1e, 0x53, 0xeb, 0xe7, 0x00, 0x00, 0x00,
+	0xab, 0x6b, 0x6e, 0x41, 0x49, 0xa5, 0x52, 0x01, 0x17, 0x5f, 0x68, 0x1e, 0x48, 0x28, 0x28, 0xb5,
+	0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x89, 0x8b, 0x07, 0x2e, 0x52, 0x9a, 0x53, 0x22, 0xc1,
+	0xa8, 0xc0, 0xa8, 0xc1, 0x1a, 0x84, 0x22, 0x26, 0x24, 0xc6, 0xc5, 0x16, 0x5a, 0x9c, 0x5a, 0xe4,
+	0xe9, 0x22, 0xc1, 0xa4, 0xc0, 0xa8, 0xc1, 0x1c, 0x04, 0xe5, 0x21, 0xf4, 0xa6, 0xa6, 0x84, 0x64,
+	0xe6, 0xa6, 0x4a, 0x30, 0x2b, 0x30, 0x6a, 0x70, 0x06, 0xa1, 0x88, 0x29, 0x45, 0x72, 0xf1, 0xc2,
+	0xcc, 0x2a, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0x12, 0xe2, 0x62, 0xf1, 0xf4, 0x75, 0xf5, 0x04, 0x5b,
+	0xc4, 0x1c, 0x04, 0x66, 0xe3, 0xb4, 0x40, 0x86, 0x8b, 0x33, 0x28, 0xb5, 0x38, 0xb5, 0x04, 0x6e,
+	0x3a, 0x73, 0x10, 0x42, 0xc0, 0xc8, 0x83, 0x8b, 0xdb, 0x27, 0x3f, 0x39, 0x3b, 0x38, 0xb5, 0xa8,
+	0x2c, 0x33, 0x39, 0x55, 0xc8, 0x12, 0xe6, 0x1a, 0x90, 0x60, 0x6a, 0x91, 0x90, 0xb0, 0x1e, 0x38,
+	0x1c, 0x50, 0x6c, 0x97, 0x12, 0x41, 0x15, 0x84, 0x04, 0x82, 0x93, 0xc0, 0x89, 0x47, 0x72, 0x8c,
+	0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe3, 0xb1, 0x1c, 0x43, 0x12, 0x1b, 0x38,
+	0xf8, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0x0e, 0xc5, 0x53, 0x97, 0x51, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -203,7 +229,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LockServiceClient interface {
-	UnlockLocker(ctx context.Context, in *UnlockRequest, opts ...grpc.CallOption) (*UnlockData, error)
+	UnlockLocker(ctx context.Context, in *UnlockRequest, opts ...grpc.CallOption) (*UnlockResponse, error)
 }
 
 type lockServiceClient struct {
@@ -214,8 +240,8 @@ func NewLockServiceClient(cc *grpc.ClientConn) LockServiceClient {
 	return &lockServiceClient{cc}
 }
 
-func (c *lockServiceClient) UnlockLocker(ctx context.Context, in *UnlockRequest, opts ...grpc.CallOption) (*UnlockData, error) {
-	out := new(UnlockData)
+func (c *lockServiceClient) UnlockLocker(ctx context.Context, in *UnlockRequest, opts ...grpc.CallOption) (*UnlockResponse, error) {
+	out := new(UnlockResponse)
 	err := c.cc.Invoke(ctx, "/lock.LockService/UnlockLocker", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -225,14 +251,14 @@ func (c *lockServiceClient) UnlockLocker(ctx context.Context, in *UnlockRequest,
 
 // LockServiceServer is the server API for LockService service.
 type LockServiceServer interface {
-	UnlockLocker(context.Context, *UnlockRequest) (*UnlockData, error)
+	UnlockLocker(context.Context, *UnlockRequest) (*UnlockResponse, error)
 }
 
 // UnimplementedLockServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedLockServiceServer struct {
 }
 
-func (*UnimplementedLockServiceServer) UnlockLocker(ctx context.Context, req *UnlockRequest) (*UnlockData, error) {
+func (*UnimplementedLockServiceServer) UnlockLocker(ctx context.Context, req *UnlockRequest) (*UnlockResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnlockLocker not implemented")
 }
 
@@ -298,7 +324,7 @@ func (m *Empty) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *UnlockData) Marshal() (dAtA []byte, err error) {
+func (m *UnlockResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -308,12 +334,12 @@ func (m *UnlockData) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *UnlockData) MarshalTo(dAtA []byte) (int, error) {
+func (m *UnlockResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *UnlockData) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *UnlockResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -322,12 +348,22 @@ func (m *UnlockData) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.Response) > 0 {
-		i -= len(m.Response)
-		copy(dAtA[i:], m.Response)
-		i = encodeVarintLock(dAtA, i, uint64(len(m.Response)))
+	if len(m.UnlockedTime) > 0 {
+		i -= len(m.UnlockedTime)
+		copy(dAtA[i:], m.UnlockedTime)
+		i = encodeVarintLock(dAtA, i, uint64(len(m.UnlockedTime)))
 		i--
-		dAtA[i] = 0xa
+		dAtA[i] = 0x1a
+	}
+	if m.UserID != 0 {
+		i = encodeVarintLock(dAtA, i, uint64(m.UserID))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.UnlockResult != 0 {
+		i = encodeVarintLock(dAtA, i, uint64(m.UnlockResult))
+		i--
+		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -355,6 +391,11 @@ func (m *UnlockRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.ResetTime != 0 {
+		i = encodeVarintLock(dAtA, i, uint64(m.ResetTime))
+		i--
+		dAtA[i] = 0x18
 	}
 	if m.UserID != 0 {
 		i = encodeVarintLock(dAtA, i, uint64(m.UserID))
@@ -392,13 +433,19 @@ func (m *Empty) Size() (n int) {
 	return n
 }
 
-func (m *UnlockData) Size() (n int) {
+func (m *UnlockResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.Response)
+	if m.UnlockResult != 0 {
+		n += 1 + sovLock(uint64(m.UnlockResult))
+	}
+	if m.UserID != 0 {
+		n += 1 + sovLock(uint64(m.UserID))
+	}
+	l = len(m.UnlockedTime)
 	if l > 0 {
 		n += 1 + l + sovLock(uint64(l))
 	}
@@ -419,6 +466,9 @@ func (m *UnlockRequest) Size() (n int) {
 	}
 	if m.UserID != 0 {
 		n += 1 + sovLock(uint64(m.UserID))
+	}
+	if m.ResetTime != 0 {
+		n += 1 + sovLock(uint64(m.ResetTime))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -483,7 +533,7 @@ func (m *Empty) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *UnlockData) Unmarshal(dAtA []byte) error {
+func (m *UnlockResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -506,15 +556,53 @@ func (m *UnlockData) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: UnlockData: wiretype end group for non-group")
+			return fmt.Errorf("proto: UnlockResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: UnlockData: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: UnlockResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UnlockResult", wireType)
+			}
+			m.UnlockResult = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.UnlockResult |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserID", wireType)
+			}
+			m.UserID = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.UserID |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Response", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field UnlockedTime", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -542,7 +630,7 @@ func (m *UnlockData) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Response = string(dAtA[iNdEx:postIndex])
+			m.UnlockedTime = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -629,6 +717,25 @@ func (m *UnlockRequest) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 				m.UserID |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ResetTime", wireType)
+			}
+			m.ResetTime = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ResetTime |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}

@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"net"
 	"sync"
 
@@ -38,9 +39,11 @@ func (c *LockersMap) AddLocker(imie int64, conn net.Conn) {
 	defer c.Mx.Unlock()
 	c.Mx.Lock()
 	if _, ok := c.Lockers[imie]; ok {
+		fmt.Println("such kind of connection exists")
 		return
 	}
 	c.Lockers[imie] = NewLocker(conn)
+	fmt.Println("added connection")
 	return
 }
 

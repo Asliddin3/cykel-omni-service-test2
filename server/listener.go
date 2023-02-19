@@ -1,12 +1,10 @@
 package server
 
 import (
-	"context"
 	"fmt"
 	"net"
 	"strconv"
 	"strings"
-	"time"
 )
 
 //ListenTCP this func run loop for connection from client
@@ -31,18 +29,14 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	}
 	req := strings.TrimLeft(string(buf), "#\n")
 	reqArr := strings.Split(req, ",")
-	response, err := giveResponse(reqArr)
+	response, err := giveResponse(reqArr, commands)
+	if err != nil {
+		fmt.Println("Error filtering request data", err)
+	}
 	lockIMEI := reqArr[2]
-	imei, err := strconv.Atoi(lockIMEI)
 	if err != nil {
 		fmt.Println("error converting lockIMEI to int")
 		return
-	}
-	grpcChannel := commands.GetChannel(int64(imei))
-	grpcChannel <- string(buf)
-
-	if err != nil {
-		fmt.Println("Error filtering request data", err)
 	}
 	if response != "" {
 		res := AddByte([]byte(response))
@@ -54,12 +48,10 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	} else {
 		fmt.Println("nothing to send to ", string(buf))
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*12)
-	defer cancel()
-	err = waitServerCommand(ctx, conn, lockIMEI, commands)
+
+	err = waitServerCommand(conn, lockIMEI, commands)
 	if err != nil {
 		fmt.Println("waiting grpc command error", err)
-		recover()
 	}
 	// ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	// defer cancel()
@@ -68,7 +60,7 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	defer conn.Close()
 }
 
-func waitServerCommand(ctx context.Context, conn net.Conn, lockImei string, lockerChannel *ConnectLockerToGrpc) error {
+func waitServerCommand(conn net.Conn, lockImei string, lockerChannel *ConnectLockerToGrpc) error {
 	imei, err := strconv.Atoi(lockImei)
 	if err != nil {
 		fmt.Println("error converting lockImei to int", err)

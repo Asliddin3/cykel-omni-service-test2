@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 )
 
@@ -56,6 +57,18 @@ func (c *ConnectLockerToGrpc) AddCommand(imei int64, command string, ch chan str
 		return nil
 	}
 	return fmt.Errorf("this %d locker never been connected", imei)
+}
+
+func (c *ConnectLockerToGrpc) CheckLastCall(imie int64, command string) (chan string, error) {
+	defer c.mx.RUnlock()
+	c.mx.RLock()
+	lockerConnector := c.Connector[imie]
+	for i := len(lockerConnector.Commands) - 1; i >= 0; i++ {
+		if strings.Contains(lockerConnector.Commands[i], command) {
+			return lockerConnector.Channels[i], nil
+		}
+	}
+	return nil, fmt.Errorf("This command does't exists in map commands array")
 }
 
 func (c *ConnectLockerToGrpc) RemoveCall(imie int64) error {

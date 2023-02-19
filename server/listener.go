@@ -54,6 +54,11 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	if err != nil {
 		fmt.Println("waiting grpc command error", err)
 	}
+	_, err = conn.Read(buf)
+	if err != nil {
+		fmt.Println("Error reading:", err.Error())
+	}
+	fmt.Println("get command after writing------->", string(buf))
 	// ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	// defer cancel()
 	// waitServerCommand(ctx, conn)

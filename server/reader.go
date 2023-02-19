@@ -27,14 +27,14 @@ func ReadClientRequests(conn net.Conn, ch chan struct{}, lockers *LockersMap) {
 		}
 		res := strings.TrimRight(string(buf), "#\n")
 		reqArr := strings.Split(res, ",")
-		giveResponse(reqArr, res, lockers)
+		giveResponse(reqArr, res, lockers, conn)
 	}
 	ch <- struct{}{}
 }
 
-func giveResponse(reqArr []string, reqStr string, lockers *LockersMap) {
+func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.Conn) {
 	lockIMEI := reqArr[2]
-	// timeFormat := reqArr[3]
+	timeFormat := reqArr[3]
 	lockCommand := reqArr[4]
 	fmt.Println("command ", lockCommand,
 		" lockIMEI ", lockIMEI)
@@ -53,6 +53,15 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap) {
 	case "L0":
 		locker := lockers.Lockers[int64(imei)]
 		locker.SendUnlockResponse(reqStr)
+		resArr := prepareResponse(lockIMEI, timeFormat)
+		resArr = append(resArr, "Re", "L0#\n")
+		responseStr := strings.Join(resArr, ",")
+		_, err = conn.Write(AddByte([]byte(responseStr)))
+		if err != nil {
+			fmt.Println("error sending return unlock response")
+			return
+		}
+
 		return
 
 	default:

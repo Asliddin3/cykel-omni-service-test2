@@ -11,7 +11,6 @@ import (
 	"github.com/Asliddin3/cykel-omni/server"
 	"github.com/Asliddin3/cykel-omni/service"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -35,13 +34,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error while listening: %v", logger.Error(err))
 	}
-	s := grpc.NewServer(
-		grpc.WithKeepaliveParams(keepalive.ClientParameters{
-			Time:                20,
-			Timeout:             30,
-			PermitWithoutStream: true,
-		}),
-	)
+	s := grpc.NewServer()
 	reflection.Register(s)
 	pb.RegisterLockServiceServer(s, lockService)
 	log.Info("main: server running",

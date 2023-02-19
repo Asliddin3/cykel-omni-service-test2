@@ -27,6 +27,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 		fmt.Println("error reading from connection")
 		return
 	}
+	fmt.Println("first bufer after connection ", string(bufer))
 	arr := strings.Split(string(bufer), ",")
 	lockerIMIE, err := strconv.Atoi(arr[2])
 	if err != nil {

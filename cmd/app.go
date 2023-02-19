@@ -9,8 +9,8 @@ import (
 	config "github.com/Asliddin3/cykel-omni/config"
 	pb "github.com/Asliddin3/cykel-omni/genproto/lock"
 	"github.com/Asliddin3/cykel-omni/pkg/logger"
-	server "github.com/Asliddin3/cykel-omni/server/server2"
-	"github.com/Asliddin3/cykel-omni/server/server2/handleMethods/repo"
+	server "github.com/Asliddin3/cykel-omni/server"
+	"github.com/Asliddin3/cykel-omni/server/lockerMethods/repo"
 	"github.com/Asliddin3/cykel-omni/service"
 
 	"google.golang.org/grpc"

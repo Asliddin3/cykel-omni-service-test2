@@ -8,7 +8,7 @@ import (
 
 	pb "github.com/Asliddin3/cykel-omni/genproto/lock"
 	l "github.com/Asliddin3/cykel-omni/pkg/logger"
-	server "github.com/Asliddin3/cykel-omni/server/server2"
+	server "github.com/Asliddin3/cykel-omni/server"
 	storage "github.com/Asliddin3/cykel-omni/storage"
 	"github.com/jmoiron/sqlx"
 )

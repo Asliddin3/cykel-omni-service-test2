@@ -15,7 +15,6 @@ func ListenTCP(l net.Listener, lockers *LockersMap, ch chan struct{}) {
 			fmt.Println("some error", err)
 			break
 		}
-		conn.RemoteAddr()
 		go handleRequest(conn, lockers)
 	}
 	ch <- struct{}{}
@@ -36,7 +35,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 	}
 	lockers.AddLocker(int64(lockerIMIE), conn)
 	readCh := make(chan struct{})
-	go ReadClientRequests(conn, readCh,lockers)
+	go ReadClientRequests(conn, readCh, lockers)
 	<-readCh
 	defer func(conn net.Conn, lockers *LockersMap) {
 		lockers.RemoveConnection(int64(lockerIMIE))

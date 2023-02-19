@@ -4,8 +4,8 @@ import (
 	"net"
 	"sync"
 
-	methods "github.com/Asliddin3/cykel-omni/server/server2/handleMethods/methods"
-	repo "github.com/Asliddin3/cykel-omni/server/server2/handleMethods/repo"
+	methods "github.com/Asliddin3/cykel-omni/server/lockerMethods/methods"
+	repo "github.com/Asliddin3/cykel-omni/server/lockerMethods/repo"
 )
 
 //LockersMap store all lockers connection

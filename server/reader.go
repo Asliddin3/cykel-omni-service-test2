@@ -45,9 +45,11 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 	}
 	switch lockCommand {
 	case "Q0":
+		fmt.Println("get check in command")
 		//send locker check-in to server
 		return
 	case "H0":
+		fmt.Println("get heartbeat command")
 		//send locker heartbeat to sever
 		return
 	case "L0":
@@ -57,6 +59,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		resArr = append(resArr, "Re", "L0#\n")
 		responseStr := strings.Join(resArr, ",")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
+		fmt.Println("sended return to unlock ",responseStr)
 		if err != nil {
 			fmt.Println("error sending return unlock response")
 			return

@@ -23,10 +23,15 @@ func ListenTCP(l net.Listener, commands *ConnectLockerToGrpc, ch chan struct{}) 
 
 func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	buf := make([]byte, 2048)
-	_, err := conn.Read(buf)
-	if err != nil {
-		fmt.Println("Error reading:", err.Error())
+	for {
+		_, err := conn.Read(buf)
+		fmt.Println("buffer result", string(buf))
+		if err != nil {
+			fmt.Println("Error reading:", err.Error())
+			break
+		}
 	}
+
 	fmt.Println("get command ------->", string(buf))
 	req := strings.TrimLeft(string(buf), "#\n")
 	reqArr := strings.Split(req, ",")

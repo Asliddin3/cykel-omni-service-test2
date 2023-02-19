@@ -38,6 +38,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 	lockCommand := reqArr[4]
 	fmt.Println("command ", lockCommand,
 		" lockIMEI ", lockIMEI)
+	fmt.Println("gotten command <----", reqStr)
 	imei, err := strconv.Atoi(lockIMEI)
 	if err != nil {
 		fmt.Println("error converting lock imei to int", err)
@@ -57,9 +58,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		if timeFormat != "000000000000" && reqArr[5] != "0" && reqArr[6] != "0" {
 			locker.SendUnlockResponse(reqStr)
 		}
-		resArr := prepareResponse(lockIMEI, timeFormat)
-		resArr = append(resArr, "Re", "L0#\n")
-		responseStr := strings.Join(resArr, ",")
+		responseStr := makeReturn(lockIMEI, timeFormat, "L0")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to unlock ", responseStr)
 		if err != nil {
@@ -70,19 +69,31 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		return
 	case "L1":
 		// there should be implemetation for lock command
-		resArr := prepareResponse(lockIMEI, timeFormat)
-		resArr = append(resArr, "Re", "L1#\n")
-		responseStr := strings.Join(resArr, ",")
+		responseStr := makeReturn(lockIMEI, timeFormat, "L1")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
-		fmt.Println("sended return to unlock ", responseStr)
+		fmt.Println("sended return to lock ", responseStr)
 		if err != nil {
 			fmt.Println("error sending return unlock response")
 			return
 		}
-
+	case "D0":
+		responseStr := makeReturn(lockIMEI, timeFormat, "D0")
+		_, err = conn.Write(AddByte([]byte(responseStr)))
+		fmt.Println("sended return to getting position ", responseStr)
+		if err != nil {
+			fmt.Println("error sending return  getting position response")
+			return
+		}
 	default:
 		fmt.Println("I don't know this command")
 	}
+}
+func makeReturn(lockIMEI string, timeFormat string, command string) string {
+	resArr := prepareResponse(lockIMEI, timeFormat)
+	command = command + "#\n"
+	resArr = append(resArr, "Re", command)
+	responseStr := strings.Join(resArr, ",")
+	return responseStr
 }
 
 func joinCommand(resArr []string) (string, error) {

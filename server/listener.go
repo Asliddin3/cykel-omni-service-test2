@@ -39,6 +39,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 	go ReadClientRequests(conn, readCh, lockers)
 	<-readCh
 	defer func(conn net.Conn, lockers *LockersMap) {
+		fmt.Println("connection removed from map")
 		lockers.RemoveConnection(int64(lockerIMIE))
 		conn.Close()
 	}(conn, lockers)

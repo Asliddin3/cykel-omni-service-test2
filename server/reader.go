@@ -84,6 +84,14 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 			fmt.Println("error sending return  getting position response")
 			return
 		}
+	case "W0":
+		responseStr := makeReturn(lockIMEI, timeFormat, "W0")
+		_, err = conn.Write(AddByte([]byte(responseStr)))
+		fmt.Println("sended return to getting position ", responseStr)
+		if err != nil {
+			fmt.Println("error sending return  getting position response")
+			return
+		}
 	default:
 		fmt.Println("I don't know this command")
 	}

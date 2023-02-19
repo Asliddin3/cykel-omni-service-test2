@@ -74,7 +74,12 @@ func waitServerCommand(conn net.Conn, lockImei string, lockerChannel *ConnectLoc
 			return err
 		}
 	}
-	fmt.Println("server commands sended successfully")
+	if len(commands) != 0 {
+		fmt.Println("server commands sended successfully")
+	} else {
+		fmt.Println("nothing to send to locker")
+	}
+
 	return nil
 }
 

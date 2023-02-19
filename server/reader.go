@@ -68,6 +68,17 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		}
 
 		return
+	case "L1":
+		// there should be implemetation for lock command
+		resArr := prepareResponse(lockIMEI, timeFormat)
+		resArr = append(resArr, "Re", "L0#\n")
+		responseStr := strings.Join(resArr, ",")
+		_, err = conn.Write(AddByte([]byte(responseStr)))
+		fmt.Println("sended return to unlock ", responseStr)
+		if err != nil {
+			fmt.Println("error sending return unlock response")
+			return
+		}
 
 	default:
 		fmt.Println("I don't know this command")

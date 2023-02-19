@@ -27,6 +27,7 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	if err != nil {
 		fmt.Println("Error reading:", err.Error())
 	}
+	fmt.Println("get command ------->", string(buf))
 	req := strings.TrimLeft(string(buf), "#\n")
 	reqArr := strings.Split(req, ",")
 	response, err := giveResponse(reqArr, commands)
@@ -40,7 +41,7 @@ func handleRequest(conn net.Conn, commands *ConnectLockerToGrpc) {
 	}
 	if response != "" {
 		res := AddByte([]byte(response))
-		fmt.Println("send message", string(res))
+		fmt.Println("send message <-------", string(res))
 		_, err = conn.Write([]byte(res))
 		if err != nil {
 			fmt.Println("write error", err)
@@ -73,6 +74,7 @@ func waitServerCommand(conn net.Conn, lockImei string, lockerChannel *ConnectLoc
 		if err != nil {
 			return err
 		}
+		fmt.Println("send command by server <-------", string(command))
 	}
 	if len(commands) != 0 {
 		fmt.Println("server commands sended successfully")

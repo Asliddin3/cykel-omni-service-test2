@@ -26,7 +26,8 @@ func ReadClientRequests(conn net.Conn, ch chan struct{}, lockers *LockersMap) {
 
 		if err == io.EOF {
 			fmt.Println("error reading from client connection ", err)
-			break
+			time.Sleep(time.Second * 1)
+			continue
 		} else if err != nil {
 			fmt.Println("error reading from client connection ", err)
 			time.Sleep(time.Second * 1)

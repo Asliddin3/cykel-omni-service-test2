@@ -2,9 +2,11 @@ package server
 
 import (
 	"fmt"
+	"io"
 	"net"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func prepareResponse(lockIMEI string, timeFormat string) []string {
@@ -21,9 +23,13 @@ func ReadClientRequests(conn net.Conn, ch chan struct{}, lockers *LockersMap) {
 	for {
 		buf := make([]byte, 1024)
 		_, err := conn.Read(buf)
-		if err != nil {
-			fmt.Println("error reading from client connection", err)
+
+		if err == io.EOF {
+			fmt.Println("error reading from client connection ", err)
 			break
+		} else if err != nil {
+			time.Sleep(time.Second * 1)
+			continue
 		}
 		res := strings.TrimRight(string(buf), "#\n")
 		reqArr := strings.Split(res, ",")

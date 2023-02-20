@@ -37,6 +37,7 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 		return &pb.UnlockResponse{}, fmt.Errorf("error while writing to locker connection: %v", err)
 	}
 	lockerCommand := <-l.UnlockCh
+	fmt.Println("gotten from locker channel command ", lockerCommand)
 	responseArr := strings.Split(lockerCommand, ",")
 	unlockResult, err := strconv.Atoi(responseArr[5])
 	if err != nil {

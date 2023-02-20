@@ -64,6 +64,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 	case "L0":
 		locker := lockers.Lockers[int64(imei)]
 		// if timeFormat != "000000000000" && reqArr[5] != "0" && reqArr[6] != "0" {
+		fmt.Println("send locker response to unlock channel", reqStr)
 		locker.SendUnlockResponse(reqStr)
 		// }
 		responseStr := makeReturn(lockIMEI, timeFormat, "L0")

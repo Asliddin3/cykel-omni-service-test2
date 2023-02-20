@@ -42,7 +42,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 	lockIMEI := reqArr[2]
 	// timeFormat := reqArr[3]
 	lockCommand := reqArr[4]
-	fmt.Println("command ", lockCommand,
+	fmt.Println("------>command --------> ", lockCommand,
 		" lockIMEI ", lockIMEI)
 	fmt.Println("gotten command <----", reqStr)
 	imei, err := strconv.Atoi(lockIMEI)
@@ -67,7 +67,6 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		// }
 		responseStr := makeReturn(lockIMEI, "L0")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
-		fmt.Println("sended return to unlock ", responseStr)
 		if err != nil {
 			fmt.Println("error sending return unlock response")
 			return

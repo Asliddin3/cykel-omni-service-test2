@@ -32,14 +32,11 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, timeInSecond)
 	unlockReqByteArr := []byte(strings.Join(unlockReqArr, ","))
 	val := *l.LockerConn
-	fmt.Println("sended command to client connection ", string(AddByte(unlockReqByteArr)))
 	_, err := val.Write(AddByte(unlockReqByteArr))
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error while writing to locker connection: %v", err)
 	}
 	lockerCommand := <-l.UnlockCh
-	fmt.Println("gotten from locker channel command ", lockerCommand)
-	fmt.Println("before", lockerCommand)
 	lockerCommand = strings.Replace(lockerCommand, "#", "", 1)
 	lockerCommand = strings.Replace(lockerCommand, "\n", "", 1)
 	fmt.Println("after", lockerCommand)
@@ -59,7 +56,7 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	// if err != nil {
 	// 	return &pb.UnlockResponse{}, fmt.Errorf("error converting time to int %v", err)
 	// }
-	unlockedTime := responseArr[7]
+	unlockedTime := responseArr[7] + "sec"
 
 	unlockResp := &pb.UnlockResponse{
 		UnlockResult: unlockResult,

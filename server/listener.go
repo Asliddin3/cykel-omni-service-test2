@@ -39,16 +39,17 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 		fmt.Println("error converting lockerIMIE to int", err)
 		return
 	}
+	fmt.Println("")
 	lockers.AddLocker(int64(lockerIMIE), &conn)
-	imei := strconv.Itoa(lockerIMIE)
-	timeFormat := "200318123020"
-	unlockReqArr := prepareRequest(imei, timeFormat)
-	resetTime := "0"
-	userID := "1"
-	unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, getTime())
-	res := strings.Join(unlockReqArr, ",")
-	res += "#\n"
-	_, err = conn.Write(AddByte([]byte(res)))
+	// imei := strconv.Itoa(lockerIMIE)
+	// timeFormat := "200318123020"
+	// unlockReqArr := prepareRequest(imei, timeFormat)
+	// resetTime := "0"
+	// userID := "1"
+	// unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, getTime())
+	// res := strings.Join(unlockReqArr, ",")
+	// res += "#\n"
+	// _, err = conn.Write(AddByte([]byte(res)))
 	readCh := make(chan struct{})
 	go ReadClientRequests(conn, readCh, lockers)
 	<-readCh

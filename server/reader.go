@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+const (
+	timeFormat string = "200318123020"
+)
+
 func prepareResponse(lockIMEI string, timeFormat string) []string {
 	resArr := make([]string, 4)
 	resArr[0] = "*CMDS"
@@ -42,7 +46,7 @@ func ReadClientRequests(conn net.Conn, ch chan struct{}, lockers *LockersMap) {
 
 func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.Conn) {
 	lockIMEI := reqArr[2]
-	timeFormat := reqArr[3]
+	// timeFormat := reqArr[3]
 	lockCommand := reqArr[4]
 	fmt.Println("command ", lockCommand,
 		" lockIMEI ", lockIMEI)

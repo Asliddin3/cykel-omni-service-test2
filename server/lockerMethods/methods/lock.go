@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode"
 
 	pb "github.com/Asliddin3/cykel-omni/genproto/lock"
 )
@@ -56,7 +57,16 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	// if err != nil {
 	// 	return &pb.UnlockResponse{}, fmt.Errorf("error converting time to int %v", err)
 	// }
-	unlockedTime := responseArr[7] + "sec"
+	unlockStr := strings.TrimFunc(responseArr[7], func(r rune) bool {
+		if unicode.IsDigit(r) {
+			return false
+		}
+		return true
+	})
+	unlockedTime, err := strconv.Atoi(unlockStr)
+	if err != nil {
+		return &pb.UnlockResponse{}, fmt.Errorf("error converting unlocked time to int %v", err)
+	}
 
 	unlockResp := &pb.UnlockResponse{
 		UnlockResult: unlockResult,

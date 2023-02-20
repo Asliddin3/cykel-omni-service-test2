@@ -12,7 +12,7 @@ message Empty {}
 message UnlockResponse {
   string UnlockResult = 1;
   string UserID= 2;
-  string UnlockedTime= 3;
+  int64 UnlockedTime= 3;
 }
 
 message UnlockRequest {

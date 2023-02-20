@@ -38,7 +38,9 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	}
 	lockerCommand := <-l.UnlockCh
 	fmt.Println("gotten from locker channel command ", lockerCommand)
+	fmt.Println("before",lockerCommand)
 	lockerCommand = strings.TrimRight(lockerCommand, "#\n")
+	fmt.Println("after",lockerCommand)
 	responseArr := strings.Split(lockerCommand, ",")
 	fmt.Println("data from channel arr", responseArr)
 	unlockResult, err := strconv.Atoi(responseArr[5])

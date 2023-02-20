@@ -2,11 +2,9 @@ package server
 
 import (
 	"fmt"
-	"io"
 	"net"
 	"strconv"
 	"strings"
-	"time"
 )
 
 const (
@@ -27,14 +25,9 @@ func ReadClientRequests(conn net.Conn, ch chan struct{}, lockers *LockersMap) {
 	for {
 		buf := make([]byte, 1024)
 		_, err := conn.Read(buf)
-		if err == io.EOF {
+		if err != nil {
 			fmt.Println("error reading from client connection ", err)
-			time.Sleep(time.Second * 1)
 			break
-		} else if err != nil {
-			fmt.Println("error reading from client connection ", err)
-			time.Sleep(time.Second * 1)
-			continue
 		}
 		res := strings.TrimRight(string(buf), "#\n")
 		reqArr := strings.Split(res, ",")

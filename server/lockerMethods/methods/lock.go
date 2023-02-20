@@ -38,8 +38,8 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 		return &pb.UnlockResponse{}, fmt.Errorf("error while writing to locker connection: %v", err)
 	}
 	lockerCommand := <-l.UnlockCh
-	lockerCommand = strings.Replace(lockerCommand, "#", "", 1)
-	lockerCommand = strings.Replace(lockerCommand, "\n", "", 1)
+	// lockerCommand = strings.Replace(lockerCommand, "#", "", 1)
+	// lockerCommand = strings.Replace(lockerCommand, "\n", "", 1)
 	fmt.Println("after", lockerCommand)
 	responseArr := strings.Split(lockerCommand, ",")
 	fmt.Println("data from channel arr", responseArr)
@@ -59,9 +59,9 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	// }
 	unlockStr := strings.TrimFunc(responseArr[7], func(r rune) bool {
 		if unicode.IsDigit(r) {
-			return false
+			return true
 		}
-		return true
+		return false
 	})
 	unlockedTime, err := strconv.Atoi(unlockStr)
 	if err != nil {

@@ -38,8 +38,11 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	}
 	lockerCommand := <-l.UnlockCh
 	fmt.Println("gotten from locker channel command ", lockerCommand)
+	lockerCommand = strings.TrimRight(lockerCommand, "#\n")
 	responseArr := strings.Split(lockerCommand, ",")
+	fmt.Println("data from channel arr", responseArr)
 	unlockResult, err := strconv.Atoi(responseArr[5])
+	fmt.Println("converted unlock data from arr to int ", responseArr[5], "--->", unlockResult)
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error converting unlock result to int %v", err)
 	}

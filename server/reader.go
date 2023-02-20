@@ -65,7 +65,6 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 			fmt.Println("error sending return unlock response")
 			return
 		}
-
 		return
 	case "L1":
 		// there should be implemetation for lock command

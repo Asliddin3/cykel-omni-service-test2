@@ -39,7 +39,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 		fmt.Println("error converting lockerIMIE to int", err)
 		return
 	}
-	lockers.AddLocker(int64(lockerIMIE), conn)
+	lockers.AddLocker(int64(lockerIMIE), &conn)
 	imei := strconv.Itoa(lockerIMIE)
 	timeFormat := "200318123020"
 	unlockReqArr := prepareRequest(imei, timeFormat)

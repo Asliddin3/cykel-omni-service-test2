@@ -16,7 +16,7 @@ type LockersMap struct {
 }
 
 //NewLocker declared struct with implemented methods and connection
-func NewLocker(conn net.Conn) repo.LockerMethods {
+func NewLocker(conn *net.Conn) repo.LockerMethods {
 	return &methods.Locker{
 		UnlockCh:   make(chan string),
 		LockerConn: conn,
@@ -35,7 +35,7 @@ func (c *LockersMap) CheckLockerConn(imie int64) repo.LockerMethods {
 }
 
 //AddLocker this func add locker struct with methods to map
-func (c *LockersMap) AddLocker(imie int64, conn net.Conn) {
+func (c *LockersMap) AddLocker(imie int64, conn *net.Conn) {
 	defer c.Mx.Unlock()
 	c.Mx.Lock()
 	if _, ok := c.Lockers[imie]; ok {

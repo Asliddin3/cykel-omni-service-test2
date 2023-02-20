@@ -15,7 +15,7 @@ const (
 )
 
 type Locker struct {
-	LockerConn net.Conn
+	LockerConn *net.Conn
 	UnlockCh   chan string
 }
 
@@ -30,7 +30,8 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	unlockReqArr := prepareRequest(imei, timeFormat)
 	unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, getTime())
 	unlockReqByteArr := []byte(strings.Join(unlockReqArr, ","))
-	_, err := l.LockerConn.Write(AddByte(unlockReqByteArr))
+	val := *l.LockerConn
+	_, err := val.Write(AddByte(unlockReqByteArr))
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error while writing to locker connection: %v", err)
 	}

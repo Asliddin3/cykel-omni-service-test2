@@ -18,16 +18,25 @@ const (
 type Locker struct {
 	LockerConn *net.Conn
 	UnlockCh   chan string
+	LocationCh chan string
 }
 
 func (l *Locker) SendUnlockResponse(response string) {
 	l.UnlockCh <- response
 }
+func (l *Locker) SendLocationResponse(response string) {
+	l.LocationCh <- response
+}
 
 func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error) {
 	imei := strconv.Itoa(int(req.IMEI))
 	userID := strconv.Itoa(int(req.UserID))
-	resetTime := strconv.Itoa(int(req.ResetTime))
+	var resetTime string
+	if req.ResetTime == false {
+		resetTime = "1"
+	} else {
+		resetTime = "0"
+	}
 	unlockReqArr := prepareRequest(imei)
 	timeInSecond := strconv.Itoa(int(getTimeInSecond()))
 	unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, timeInSecond)
@@ -42,8 +51,12 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	// lockerCommand = strings.Replace(lockerCommand, "\n", "", 1)
 
 	responseArr := strings.Split(lockerCommand, ",")
-
-	unlockResult := responseArr[5]
+	var unlockResult bool
+	if responseArr[5] == "0" {
+		unlockResult = true
+	} else {
+		unlockResult = false
+	}
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error converting unlock result to int %v", err)
 	}
@@ -52,10 +65,6 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error converting userID to int %v", err)
 	}
-	// unlockedTime, err := strconv.Atoi(responseArr[7])
-	// if err != nil {
-	// 	return &pb.UnlockResponse{}, fmt.Errorf("error converting time to int %v", err)
-	// }
 	unlockStr := strings.TrimFunc(responseArr[7], func(r rune) bool {
 		if unicode.IsDigit(r) {
 			return false
@@ -75,6 +84,73 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	}
 	return unlockResp, nil
 }
+
+func (l *Locker) GetLockerLocation(req *pb.LocationRequest) (*pb.LocationResponse, error) {
+	imei := strconv.Itoa(int(req.IMEI))
+	reqArr := prepareRequest(imei)
+	reqArr = append(reqArr, "D0")
+	reqStr := strings.Join(reqArr, ",")
+	conn := *l.LockerConn
+	_, err := conn.Write([]byte(AddByte([]byte(reqStr))))
+	if err != nil {
+		return nil, fmt.Errorf("error writing to client connection %v", err)
+	}
+	response := <-l.UnlockCh
+	response = strings.TrimRight(response, "#\n")
+	responseArr := strings.Split(response, ",")
+	resToGrpc := &pb.LocationResponse{}
+	if responseArr[5] == "0" {
+		resToGrpc.Tracking = true
+	} else {
+		resToGrpc.Tracking = false
+	}
+	resToGrpc.UTCtime = responseArr[6]
+	if responseArr[7] != "A" {
+		resToGrpc.ValidLocation = false
+		resToGrpc.UTCdate = responseArr[14]
+	}
+	resToGrpc.ValidLocation = true
+	latitude, err := strconv.ParseFloat(responseArr[8], 32)
+	if err != nil {
+		return nil, fmt.Errorf("error converting latitude %v", err)
+	}
+	resToGrpc.Latitude = float32(latitude)
+	if responseArr[9] == "N" {
+		resToGrpc.IsNorth = true
+	} else {
+		resToGrpc.IsNorth = false
+	}
+	longitude, err := strconv.ParseFloat(responseArr[10], 32)
+	if err != nil {
+		return nil, fmt.Errorf("error converting longitude %v", err)
+	}
+	resToGrpc.Longitude = float32(longitude)
+	if responseArr[11] == "E" {
+		resToGrpc.IsEast = true
+	} else {
+		resToGrpc.IsEast = false
+	}
+	sateCount, err := strconv.Atoi(responseArr[12])
+	if err != nil {
+		return nil, fmt.Errorf("error converting sate count to int %v", err)
+	}
+	resToGrpc.CountSate = int64(sateCount)
+	accuracy, err := strconv.ParseFloat(responseArr[13], 32)
+	if err != nil {
+		return nil, fmt.Errorf("error converting accuracy to float %v", err)
+	}
+	resToGrpc.PositionAccuracy = float32(accuracy)
+	resToGrpc.UTCdate = responseArr[14]
+	altitude, err := strconv.Atoi(responseArr[15])
+	if err != nil {
+		return nil, fmt.Errorf("error converting altitude to int %v", err)
+	}
+	resToGrpc.Altitude = int64(altitude)
+	resToGrpc.HeightUnit = responseArr[16]
+	resToGrpc.ModeIndicatino = responseArr[17]
+	return resToGrpc, nil
+}
+
 func prepareRequest(lockIMEI string) []string {
 	resArr := make([]string, 4)
 	resArr[0] = "*CMDS"

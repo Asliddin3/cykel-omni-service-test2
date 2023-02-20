@@ -29,6 +29,13 @@ func NewLockService(db *sqlx.DB, lockers *server.LockersMap, log l.Logger) *Lock
 	}
 }
 
+func (l *LockService) GetLockerLocatinon(ctx context.Context, req *pb.LocationRequest) (*pb.LocationResponse, error) {
+	if l.lockers.CheckLockerConn(req.IMEI) == false {
+		return &pb.LocationResponse{}, fmt.Errorf("no such imie locker never been connected")
+	}
+	return l.lockers.Lockers[req.IMEI].GetLockerLocation(req)
+}
+
 //UnlockLocker connect to locker tcp client connection and send command then get response
 func (l *LockService) UnlockLocker(ctx context.Context, req *pb.UnlockRequest) (*pb.UnlockResponse, error) {
 	if l.lockers.CheckLockerConn(req.IMEI) == false {

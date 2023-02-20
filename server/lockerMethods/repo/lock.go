@@ -6,5 +6,7 @@ import (
 
 type LockerMethods interface {
 	UnlockLocker(*pb.UnlockRequest) (*pb.UnlockResponse, error)
+	GetLockerLocation(*pb.LocationRequest) (*pb.LocationResponse, error)
 	SendUnlockResponse(string)
+	SendLocationResponse(string)
 }

@@ -5,6 +5,7 @@ package lock
 
 import (
 	context "context"
+	encoding_binary "encoding/binary"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
@@ -26,6 +27,196 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type LocationRequest struct {
+	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LocationRequest) Reset()         { *m = LocationRequest{} }
+func (m *LocationRequest) String() string { return proto.CompactTextString(m) }
+func (*LocationRequest) ProtoMessage()    {}
+func (*LocationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ebe517841b49c3eb, []int{0}
+}
+func (m *LocationRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LocationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LocationRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LocationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LocationRequest.Merge(m, src)
+}
+func (m *LocationRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *LocationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LocationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LocationRequest proto.InternalMessageInfo
+
+func (m *LocationRequest) GetIMEI() int64 {
+	if m != nil {
+		return m.IMEI
+	}
+	return 0
+}
+
+type LocationResponse struct {
+	Tracking             bool     `protobuf:"varint,1,opt,name=Tracking,proto3" json:"Tracking"`
+	UTCtime              string   `protobuf:"bytes,2,opt,name=UTCtime,proto3" json:"UTCtime"`
+	ValidLocation        bool     `protobuf:"varint,3,opt,name=ValidLocation,proto3" json:"ValidLocation"`
+	Latitude             float32  `protobuf:"fixed32,4,opt,name=Latitude,proto3" json:"Latitude"`
+	IsNorth              bool     `protobuf:"varint,5,opt,name=IsNorth,proto3" json:"IsNorth"`
+	Longitude            float32  `protobuf:"fixed32,6,opt,name=Longitude,proto3" json:"Longitude"`
+	IsEast               bool     `protobuf:"varint,8,opt,name=IsEast,proto3" json:"IsEast"`
+	CountSate            int64    `protobuf:"varint,7,opt,name=CountSate,proto3" json:"CountSate"`
+	PositionAccuracy     float32  `protobuf:"fixed32,9,opt,name=PositionAccuracy,proto3" json:"PositionAccuracy"`
+	UTCdate              string   `protobuf:"bytes,10,opt,name=UTCdate,proto3" json:"UTCdate"`
+	Altitude             int64    `protobuf:"varint,11,opt,name=Altitude,proto3" json:"Altitude"`
+	HeightUnit           string   `protobuf:"bytes,12,opt,name=HeightUnit,proto3" json:"HeightUnit"`
+	ModeIndicatino       string   `protobuf:"bytes,13,opt,name=ModeIndicatino,proto3" json:"ModeIndicatino"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LocationResponse) Reset()         { *m = LocationResponse{} }
+func (m *LocationResponse) String() string { return proto.CompactTextString(m) }
+func (*LocationResponse) ProtoMessage()    {}
+func (*LocationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ebe517841b49c3eb, []int{1}
+}
+func (m *LocationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LocationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LocationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LocationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LocationResponse.Merge(m, src)
+}
+func (m *LocationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *LocationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LocationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LocationResponse proto.InternalMessageInfo
+
+func (m *LocationResponse) GetTracking() bool {
+	if m != nil {
+		return m.Tracking
+	}
+	return false
+}
+
+func (m *LocationResponse) GetUTCtime() string {
+	if m != nil {
+		return m.UTCtime
+	}
+	return ""
+}
+
+func (m *LocationResponse) GetValidLocation() bool {
+	if m != nil {
+		return m.ValidLocation
+	}
+	return false
+}
+
+func (m *LocationResponse) GetLatitude() float32 {
+	if m != nil {
+		return m.Latitude
+	}
+	return 0
+}
+
+func (m *LocationResponse) GetIsNorth() bool {
+	if m != nil {
+		return m.IsNorth
+	}
+	return false
+}
+
+func (m *LocationResponse) GetLongitude() float32 {
+	if m != nil {
+		return m.Longitude
+	}
+	return 0
+}
+
+func (m *LocationResponse) GetIsEast() bool {
+	if m != nil {
+		return m.IsEast
+	}
+	return false
+}
+
+func (m *LocationResponse) GetCountSate() int64 {
+	if m != nil {
+		return m.CountSate
+	}
+	return 0
+}
+
+func (m *LocationResponse) GetPositionAccuracy() float32 {
+	if m != nil {
+		return m.PositionAccuracy
+	}
+	return 0
+}
+
+func (m *LocationResponse) GetUTCdate() string {
+	if m != nil {
+		return m.UTCdate
+	}
+	return ""
+}
+
+func (m *LocationResponse) GetAltitude() int64 {
+	if m != nil {
+		return m.Altitude
+	}
+	return 0
+}
+
+func (m *LocationResponse) GetHeightUnit() string {
+	if m != nil {
+		return m.HeightUnit
+	}
+	return ""
+}
+
+func (m *LocationResponse) GetModeIndicatino() string {
+	if m != nil {
+		return m.ModeIndicatino
+	}
+	return ""
+}
+
 type Empty struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -36,7 +227,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ebe517841b49c3eb, []int{0}
+	return fileDescriptor_ebe517841b49c3eb, []int{2}
 }
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -66,7 +257,7 @@ func (m *Empty) XXX_DiscardUnknown() {
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 type UnlockResponse struct {
-	UnlockResult         string   `protobuf:"bytes,1,opt,name=UnlockResult,proto3" json:"UnlockResult"`
+	UnlockResult         bool     `protobuf:"varint,1,opt,name=UnlockResult,proto3" json:"UnlockResult"`
 	UserID               string   `protobuf:"bytes,2,opt,name=UserID,proto3" json:"UserID"`
 	UnlockedTime         int64    `protobuf:"varint,3,opt,name=UnlockedTime,proto3" json:"UnlockedTime"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -78,7 +269,7 @@ func (m *UnlockResponse) Reset()         { *m = UnlockResponse{} }
 func (m *UnlockResponse) String() string { return proto.CompactTextString(m) }
 func (*UnlockResponse) ProtoMessage()    {}
 func (*UnlockResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ebe517841b49c3eb, []int{1}
+	return fileDescriptor_ebe517841b49c3eb, []int{3}
 }
 func (m *UnlockResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -107,11 +298,11 @@ func (m *UnlockResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_UnlockResponse proto.InternalMessageInfo
 
-func (m *UnlockResponse) GetUnlockResult() string {
+func (m *UnlockResponse) GetUnlockResult() bool {
 	if m != nil {
 		return m.UnlockResult
 	}
-	return ""
+	return false
 }
 
 func (m *UnlockResponse) GetUserID() string {
@@ -131,7 +322,7 @@ func (m *UnlockResponse) GetUnlockedTime() int64 {
 type UnlockRequest struct {
 	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
 	UserID               int64    `protobuf:"varint,2,opt,name=UserID,proto3" json:"UserID"`
-	ResetTime            int64    `protobuf:"varint,3,opt,name=ResetTime,proto3" json:"ResetTime"`
+	ResetTime            bool     `protobuf:"varint,3,opt,name=ResetTime,proto3" json:"ResetTime"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -141,7 +332,7 @@ func (m *UnlockRequest) Reset()         { *m = UnlockRequest{} }
 func (m *UnlockRequest) String() string { return proto.CompactTextString(m) }
 func (*UnlockRequest) ProtoMessage()    {}
 func (*UnlockRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ebe517841b49c3eb, []int{2}
+	return fileDescriptor_ebe517841b49c3eb, []int{4}
 }
 func (m *UnlockRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -184,14 +375,16 @@ func (m *UnlockRequest) GetUserID() int64 {
 	return 0
 }
 
-func (m *UnlockRequest) GetResetTime() int64 {
+func (m *UnlockRequest) GetResetTime() bool {
 	if m != nil {
 		return m.ResetTime
 	}
-	return 0
+	return false
 }
 
 func init() {
+	proto.RegisterType((*LocationRequest)(nil), "lock.LocationRequest")
+	proto.RegisterType((*LocationResponse)(nil), "lock.LocationResponse")
 	proto.RegisterType((*Empty)(nil), "lock.Empty")
 	proto.RegisterType((*UnlockResponse)(nil), "lock.UnlockResponse")
 	proto.RegisterType((*UnlockRequest)(nil), "lock.UnlockRequest")
@@ -200,21 +393,36 @@ func init() {
 func init() { proto.RegisterFile("lock/lock.proto", fileDescriptor_ebe517841b49c3eb) }
 
 var fileDescriptor_ebe517841b49c3eb = []byte{
-	// 222 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0xcf, 0xc9, 0x4f, 0xce,
-	0xd6, 0x07, 0x11, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0x2c, 0x20, 0xb6, 0x12, 0x3b, 0x17,
-	0xab, 0x6b, 0x6e, 0x41, 0x49, 0xa5, 0x52, 0x01, 0x17, 0x5f, 0x68, 0x1e, 0x48, 0x28, 0x28, 0xb5,
-	0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x89, 0x8b, 0x07, 0x2e, 0x52, 0x9a, 0x53, 0x22, 0xc1,
-	0xa8, 0xc0, 0xa8, 0xc1, 0x19, 0x84, 0x22, 0x26, 0x24, 0xc6, 0xc5, 0x16, 0x5a, 0x9c, 0x5a, 0xe4,
-	0xe9, 0x22, 0xc1, 0x04, 0x96, 0x85, 0xf2, 0x10, 0x7a, 0x53, 0x53, 0x42, 0x32, 0x73, 0x53, 0x25,
-	0x98, 0x15, 0x18, 0x35, 0x98, 0x83, 0x50, 0xc4, 0x94, 0x22, 0xb9, 0x78, 0x61, 0x66, 0x15, 0x96,
-	0xa6, 0x16, 0x97, 0x08, 0x09, 0x71, 0xb1, 0x78, 0xfa, 0xba, 0x7a, 0x82, 0x2d, 0x62, 0x0e, 0x02,
-	0xb3, 0xd1, 0x2c, 0x60, 0x86, 0x5b, 0x20, 0xc3, 0xc5, 0x19, 0x94, 0x5a, 0x9c, 0x5a, 0x82, 0x64,
-	0x3a, 0x42, 0xc0, 0xc8, 0x83, 0x8b, 0xdb, 0x27, 0x3f, 0x39, 0x3b, 0x38, 0xb5, 0xa8, 0x2c, 0x33,
-	0x39, 0x55, 0xc8, 0x12, 0xe6, 0x1a, 0x90, 0x60, 0x6a, 0x91, 0x90, 0xb0, 0x1e, 0x38, 0x1c, 0x50,
-	0x6c, 0x97, 0x12, 0x41, 0x15, 0x84, 0x04, 0x82, 0x93, 0xc0, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e,
-	0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe3, 0xb1, 0x1c, 0x43, 0x12, 0x1b, 0x38, 0xf8, 0x8c,
-	0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0x50, 0x8a, 0x75, 0xb4, 0x51, 0x01, 0x00, 0x00,
+	// 464 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x93, 0xcf, 0x6e, 0xd3, 0x40,
+	0x10, 0xc6, 0x71, 0x9d, 0xe6, 0xcf, 0xb4, 0x69, 0xa3, 0x05, 0xaa, 0x55, 0x54, 0x59, 0x91, 0x05,
+	0x28, 0xe2, 0x50, 0x24, 0x38, 0x71, 0x2c, 0x21, 0x02, 0x4b, 0x29, 0x42, 0x6e, 0x82, 0xc4, 0xd1,
+	0xd8, 0xa3, 0x74, 0x95, 0x74, 0x37, 0x78, 0xc7, 0x48, 0x7d, 0x08, 0xee, 0x9c, 0x79, 0x1a, 0x8e,
+	0x3c, 0x02, 0x0a, 0x2f, 0x82, 0x76, 0xfd, 0x0f, 0x1b, 0x71, 0xb1, 0xfc, 0xfd, 0xb4, 0xdf, 0x37,
+	0x3b, 0x3b, 0xbb, 0x70, 0xba, 0x55, 0xf1, 0xe6, 0x99, 0xf9, 0x5c, 0xec, 0x52, 0x45, 0x8a, 0x75,
+	0xcc, 0xbf, 0xff, 0x18, 0x4e, 0x17, 0x2a, 0x8e, 0x48, 0x28, 0x19, 0xe2, 0xe7, 0x0c, 0x35, 0x31,
+	0x06, 0x9d, 0xe0, 0x6a, 0x1e, 0x70, 0x67, 0xe2, 0x4c, 0xdd, 0xd0, 0xfe, 0xfb, 0xdf, 0x5d, 0x18,
+	0xd5, 0xeb, 0xf4, 0x4e, 0x49, 0x8d, 0x6c, 0x0c, 0xfd, 0x65, 0x1a, 0xc5, 0x1b, 0x21, 0xd7, 0x76,
+	0x71, 0x3f, 0xac, 0x34, 0xe3, 0xd0, 0x5b, 0x2d, 0x67, 0x24, 0x6e, 0x91, 0x1f, 0x4c, 0x9c, 0xe9,
+	0x20, 0x2c, 0x25, 0x7b, 0x04, 0xc3, 0x0f, 0xd1, 0x56, 0x24, 0x65, 0x1c, 0x77, 0xad, 0xb5, 0x09,
+	0x4d, 0xf6, 0x22, 0x22, 0x41, 0x59, 0x82, 0xbc, 0x33, 0x71, 0xa6, 0x07, 0x61, 0xa5, 0x4d, 0x76,
+	0xa0, 0xdf, 0xa9, 0x94, 0x6e, 0xf8, 0xa1, 0xf5, 0x96, 0x92, 0x9d, 0xc3, 0x60, 0xa1, 0xe4, 0x3a,
+	0xb7, 0x75, 0xad, 0xad, 0x06, 0xec, 0x0c, 0xba, 0x81, 0x9e, 0x47, 0x9a, 0x78, 0xdf, 0xda, 0x0a,
+	0x65, 0x5c, 0x33, 0x95, 0x49, 0xba, 0x8e, 0x08, 0x79, 0xcf, 0x76, 0x5d, 0x03, 0xf6, 0x14, 0x46,
+	0xef, 0x95, 0x16, 0x66, 0x57, 0x97, 0x71, 0x9c, 0xa5, 0x51, 0x7c, 0xc7, 0x07, 0x36, 0xfa, 0x1f,
+	0x5e, 0x74, 0x9d, 0x98, 0x1c, 0xa8, 0xba, 0x36, 0xd2, 0xf4, 0x73, 0xb9, 0x2d, 0xfa, 0x39, 0xb2,
+	0x25, 0x2a, 0xcd, 0x3c, 0x80, 0xb7, 0x28, 0xd6, 0x37, 0xb4, 0x92, 0x82, 0xf8, 0xb1, 0x35, 0xfe,
+	0x45, 0xd8, 0x13, 0x38, 0xb9, 0x52, 0x09, 0x06, 0x32, 0x11, 0xe6, 0x74, 0xa4, 0xe2, 0x43, 0xbb,
+	0xa6, 0x45, 0xfd, 0x1e, 0x1c, 0xce, 0x6f, 0x77, 0x74, 0xe7, 0xef, 0xe0, 0x64, 0x25, 0xcd, 0x78,
+	0xab, 0x51, 0xf9, 0x70, 0x5c, 0x91, 0x6c, 0x4b, 0xc5, 0xb8, 0x1a, 0xcc, 0x1c, 0xcf, 0x4a, 0x63,
+	0x1a, 0xbc, 0x2e, 0x26, 0x56, 0xa8, 0xda, 0x8b, 0xc9, 0xd2, 0xcc, 0xd3, 0xb5, 0xdb, 0x6f, 0x30,
+	0xff, 0x23, 0x0c, 0xcb, 0xac, 0xff, 0x5e, 0xa2, 0x56, 0x01, 0xb7, 0x2a, 0x70, 0x0e, 0x83, 0x10,
+	0x35, 0x52, 0x95, 0xde, 0x0f, 0x6b, 0xf0, 0xfc, 0xab, 0x03, 0x47, 0x0b, 0x15, 0x6f, 0xae, 0x31,
+	0xfd, 0x22, 0x62, 0x64, 0x2f, 0xcb, 0xed, 0x18, 0x88, 0x29, 0xbb, 0x7f, 0x61, 0x2f, 0x75, 0xa3,
+	0xfc, 0xf8, 0x41, 0x13, 0x16, 0xa7, 0x30, 0x03, 0xf6, 0x06, 0x29, 0xf7, 0xe5, 0x37, 0x4d, 0x2a,
+	0xc9, 0x1e, 0xe6, 0x6b, 0x5b, 0xcf, 0x60, 0x7c, 0xd6, 0xc6, 0x79, 0xc8, 0xab, 0xd1, 0x8f, 0xbd,
+	0xe7, 0xfc, 0xdc, 0x7b, 0xce, 0xaf, 0xbd, 0xe7, 0x7c, 0xfb, 0xed, 0xdd, 0xfb, 0xd4, 0xb5, 0x0f,
+	0xea, 0xc5, 0x9f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xda, 0x9a, 0x67, 0xe6, 0x63, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -230,6 +438,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LockServiceClient interface {
 	UnlockLocker(ctx context.Context, in *UnlockRequest, opts ...grpc.CallOption) (*UnlockResponse, error)
+	GetLockerLocatinon(ctx context.Context, in *LocationRequest, opts ...grpc.CallOption) (*LocationResponse, error)
 }
 
 type lockServiceClient struct {
@@ -249,9 +458,19 @@ func (c *lockServiceClient) UnlockLocker(ctx context.Context, in *UnlockRequest,
 	return out, nil
 }
 
+func (c *lockServiceClient) GetLockerLocatinon(ctx context.Context, in *LocationRequest, opts ...grpc.CallOption) (*LocationResponse, error) {
+	out := new(LocationResponse)
+	err := c.cc.Invoke(ctx, "/lock.LockService/GetLockerLocatinon", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LockServiceServer is the server API for LockService service.
 type LockServiceServer interface {
 	UnlockLocker(context.Context, *UnlockRequest) (*UnlockResponse, error)
+	GetLockerLocatinon(context.Context, *LocationRequest) (*LocationResponse, error)
 }
 
 // UnimplementedLockServiceServer can be embedded to have forward compatible implementations.
@@ -260,6 +479,9 @@ type UnimplementedLockServiceServer struct {
 
 func (*UnimplementedLockServiceServer) UnlockLocker(ctx context.Context, req *UnlockRequest) (*UnlockResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnlockLocker not implemented")
+}
+func (*UnimplementedLockServiceServer) GetLockerLocatinon(ctx context.Context, req *LocationRequest) (*LocationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLockerLocatinon not implemented")
 }
 
 func RegisterLockServiceServer(s *grpc.Server, srv LockServiceServer) {
@@ -284,6 +506,24 @@ func _LockService_UnlockLocker_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LockService_GetLockerLocatinon_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LocationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockServiceServer).GetLockerLocatinon(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/lock.LockService/GetLockerLocatinon",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockServiceServer).GetLockerLocatinon(ctx, req.(*LocationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _LockService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "lock.LockService",
 	HandlerType: (*LockServiceServer)(nil),
@@ -292,9 +532,168 @@ var _LockService_serviceDesc = grpc.ServiceDesc{
 			MethodName: "UnlockLocker",
 			Handler:    _LockService_UnlockLocker_Handler,
 		},
+		{
+			MethodName: "GetLockerLocatinon",
+			Handler:    _LockService_GetLockerLocatinon_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "lock/lock.proto",
+}
+
+func (m *LocationRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LocationRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LocationRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.IMEI != 0 {
+		i = encodeVarintLock(dAtA, i, uint64(m.IMEI))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LocationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LocationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LocationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.ModeIndicatino) > 0 {
+		i -= len(m.ModeIndicatino)
+		copy(dAtA[i:], m.ModeIndicatino)
+		i = encodeVarintLock(dAtA, i, uint64(len(m.ModeIndicatino)))
+		i--
+		dAtA[i] = 0x6a
+	}
+	if len(m.HeightUnit) > 0 {
+		i -= len(m.HeightUnit)
+		copy(dAtA[i:], m.HeightUnit)
+		i = encodeVarintLock(dAtA, i, uint64(len(m.HeightUnit)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if m.Altitude != 0 {
+		i = encodeVarintLock(dAtA, i, uint64(m.Altitude))
+		i--
+		dAtA[i] = 0x58
+	}
+	if len(m.UTCdate) > 0 {
+		i -= len(m.UTCdate)
+		copy(dAtA[i:], m.UTCdate)
+		i = encodeVarintLock(dAtA, i, uint64(len(m.UTCdate)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if m.PositionAccuracy != 0 {
+		i -= 4
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.PositionAccuracy))))
+		i--
+		dAtA[i] = 0x4d
+	}
+	if m.IsEast {
+		i--
+		if m.IsEast {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x40
+	}
+	if m.CountSate != 0 {
+		i = encodeVarintLock(dAtA, i, uint64(m.CountSate))
+		i--
+		dAtA[i] = 0x38
+	}
+	if m.Longitude != 0 {
+		i -= 4
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Longitude))))
+		i--
+		dAtA[i] = 0x35
+	}
+	if m.IsNorth {
+		i--
+		if m.IsNorth {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.Latitude != 0 {
+		i -= 4
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Latitude))))
+		i--
+		dAtA[i] = 0x25
+	}
+	if m.ValidLocation {
+		i--
+		if m.ValidLocation {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.UTCtime) > 0 {
+		i -= len(m.UTCtime)
+		copy(dAtA[i:], m.UTCtime)
+		i = encodeVarintLock(dAtA, i, uint64(len(m.UTCtime)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Tracking {
+		i--
+		if m.Tracking {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *Empty) Marshal() (dAtA []byte, err error) {
@@ -360,12 +759,15 @@ func (m *UnlockResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.UnlockResult) > 0 {
-		i -= len(m.UnlockResult)
-		copy(dAtA[i:], m.UnlockResult)
-		i = encodeVarintLock(dAtA, i, uint64(len(m.UnlockResult)))
+	if m.UnlockResult {
 		i--
-		dAtA[i] = 0xa
+		if m.UnlockResult {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -394,8 +796,13 @@ func (m *UnlockRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if m.ResetTime != 0 {
-		i = encodeVarintLock(dAtA, i, uint64(m.ResetTime))
+	if m.ResetTime {
+		i--
+		if m.ResetTime {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
 		i--
 		dAtA[i] = 0x18
 	}
@@ -423,6 +830,76 @@ func encodeVarintLock(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *LocationRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.IMEI != 0 {
+		n += 1 + sovLock(uint64(m.IMEI))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *LocationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Tracking {
+		n += 2
+	}
+	l = len(m.UTCtime)
+	if l > 0 {
+		n += 1 + l + sovLock(uint64(l))
+	}
+	if m.ValidLocation {
+		n += 2
+	}
+	if m.Latitude != 0 {
+		n += 5
+	}
+	if m.IsNorth {
+		n += 2
+	}
+	if m.Longitude != 0 {
+		n += 5
+	}
+	if m.CountSate != 0 {
+		n += 1 + sovLock(uint64(m.CountSate))
+	}
+	if m.IsEast {
+		n += 2
+	}
+	if m.PositionAccuracy != 0 {
+		n += 5
+	}
+	l = len(m.UTCdate)
+	if l > 0 {
+		n += 1 + l + sovLock(uint64(l))
+	}
+	if m.Altitude != 0 {
+		n += 1 + sovLock(uint64(m.Altitude))
+	}
+	l = len(m.HeightUnit)
+	if l > 0 {
+		n += 1 + l + sovLock(uint64(l))
+	}
+	l = len(m.ModeIndicatino)
+	if l > 0 {
+		n += 1 + l + sovLock(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
 func (m *Empty) Size() (n int) {
 	if m == nil {
 		return 0
@@ -441,9 +918,8 @@ func (m *UnlockResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.UnlockResult)
-	if l > 0 {
-		n += 1 + l + sovLock(uint64(l))
+	if m.UnlockResult {
+		n += 2
 	}
 	l = len(m.UserID)
 	if l > 0 {
@@ -470,8 +946,8 @@ func (m *UnlockRequest) Size() (n int) {
 	if m.UserID != 0 {
 		n += 1 + sovLock(uint64(m.UserID))
 	}
-	if m.ResetTime != 0 {
-		n += 1 + sovLock(uint64(m.ResetTime))
+	if m.ResetTime {
+		n += 2
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -484,6 +960,406 @@ func sovLock(x uint64) (n int) {
 }
 func sozLock(x uint64) (n int) {
 	return sovLock(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *LocationRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowLock
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LocationRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LocationRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
+			}
+			m.IMEI = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.IMEI |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipLock(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthLock
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LocationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowLock
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LocationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LocationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tracking", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.Tracking = bool(v != 0)
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UTCtime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLock
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLock
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UTCtime = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidLocation", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.ValidLocation = bool(v != 0)
+		case 4:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Latitude = float32(math.Float32frombits(v))
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsNorth", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsNorth = bool(v != 0)
+		case 6:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Longitude", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Longitude = float32(math.Float32frombits(v))
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CountSate", wireType)
+			}
+			m.CountSate = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CountSate |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsEast", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsEast = bool(v != 0)
+		case 9:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionAccuracy", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.PositionAccuracy = float32(math.Float32frombits(v))
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UTCdate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLock
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLock
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UTCdate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Altitude", wireType)
+			}
+			m.Altitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Altitude |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HeightUnit", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLock
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLock
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.HeightUnit = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ModeIndicatino", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLock
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLock
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLock
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ModeIndicatino = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipLock(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthLock
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *Empty) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -566,10 +1442,10 @@ func (m *UnlockResponse) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UnlockResult", wireType)
 			}
-			var stringLen uint64
+			var v int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLock
@@ -579,24 +1455,12 @@ func (m *UnlockResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				v |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLock
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLock
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.UnlockResult = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
+			m.UnlockResult = bool(v != 0)
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserID", wireType)
@@ -741,7 +1605,7 @@ func (m *UnlockRequest) Unmarshal(dAtA []byte) error {
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ResetTime", wireType)
 			}
-			m.ResetTime = 0
+			var v int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLock
@@ -751,11 +1615,12 @@ func (m *UnlockRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ResetTime |= int64(b&0x7F) << shift
+				v |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			m.ResetTime = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skipLock(dAtA[iNdEx:])

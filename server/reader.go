@@ -5,7 +5,6 @@ import (
 	"net"
 	"strconv"
 	"strings"
-	"time"
 )
 
 const (
@@ -33,7 +32,6 @@ func ReadClientRequests(conn net.Conn, ch chan struct{}, lockers *LockersMap) {
 		res := strings.TrimRight(string(buf), "#\n")
 		reqArr := strings.Split(res, ",")
 		giveResponse(reqArr, res, lockers, conn)
-		time.Sleep(time.Second * 1)
 	}
 	ch <- struct{}{}
 }
@@ -60,6 +58,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		//send locker heartbeat to sever
 		return
 	case "L0":
+		fmt.Println("get unlock command")
 		locker := lockers.Lockers[int64(imei)]
 		// if timeFormat != "000000000000" && reqArr[5] != "0" && reqArr[6] != "0" {
 		fmt.Println("send locker response to unlock channel", reqStr)
@@ -73,6 +72,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		}
 		return
 	case "L1":
+		fmt.Println("get lock command")
 		// there should be implemetation for lock command
 		responseStr := makeReturn(lockIMEI, "L1")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
@@ -82,7 +82,10 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 			return
 		}
 	case "D0":
+		fmt.Println("get location command")
 		responseStr := makeReturn(lockIMEI, "D0")
+		locker := lockers.Lockers[int64(imei)]
+		locker.SendLocationResponse(reqStr)
 		_, err = conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to getting position ", responseStr)
 		if err != nil {
@@ -105,6 +108,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 			return
 		}
 	default:
+		fmt.Println(lockCommand)
 		fmt.Println("I don't know this command")
 	}
 }

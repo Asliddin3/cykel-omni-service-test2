@@ -5,6 +5,7 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"time"
 )
 
 //ListenTCP this func run loop for connection from client
@@ -27,6 +28,10 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 		fmt.Println("error reading from connection")
 		return
 	}
+	if err != nil {
+
+		return
+	}
 	fmt.Println("first bufer after connection ", string(bufer))
 	arr := strings.Split(string(bufer), ",")
 	lockerIMIE, err := strconv.Atoi(arr[2])
@@ -35,6 +40,15 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 		return
 	}
 	lockers.AddLocker(int64(lockerIMIE), conn)
+	imei := strconv.Itoa(lockerIMIE)
+	timeFormat := "200318123020"
+	unlockReqArr := prepareRequest(imei, timeFormat)
+	resetTime := "0"
+	userID := "1"
+	unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, getTime())
+	res := strings.Join(unlockReqArr, ",")
+	res += "#\n"
+	_, err = conn.Write(AddByte([]byte(res)))
 	readCh := make(chan struct{})
 	go ReadClientRequests(conn, readCh, lockers)
 	<-readCh
@@ -52,4 +66,19 @@ func AddByte(b2 []byte) []byte {
 	arrByte[1] = 0xFF
 	arrByte = append(arrByte, b2...)
 	return arrByte
+}
+func prepareRequest(lockIMEI string, timeFormat string) []string {
+	resArr := make([]string, 4)
+	resArr[0] = "*CMDS"
+	resArr[1] = "OM"
+	resArr[2] = lockIMEI
+	resArr[3] = timeFormat
+	return resArr
+}
+
+func getTime() string {
+	timeStr := time.Now().Format("20060102150405")
+	timeStr = strings.TrimPrefix(timeStr, "20")
+	return timeStr
+	// res := lockerServer.AddByte([]byte(fmt.Sprintf("*CMDS,OM,860537062636022,20200318123020,L0,0,0,%s#\n", timeStr)))
 }

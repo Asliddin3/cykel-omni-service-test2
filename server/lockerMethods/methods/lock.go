@@ -62,7 +62,7 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	return &pb.UnlockResponse{
 		UnlockResult: int32(unlockResult),
 		UserID:       int64(userIDInt),
-		UnlockedTime: unlockedTime,
+		UnlockedTime: string(unlockedTime),
 	}, nil
 }
 func prepareRequest(lockIMEI string, timeFormat string) []string {

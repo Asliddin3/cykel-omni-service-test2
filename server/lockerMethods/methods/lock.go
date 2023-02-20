@@ -40,11 +40,10 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	lockerCommand := <-l.UnlockCh
 	// lockerCommand = strings.Replace(lockerCommand, "#", "", 1)
 	// lockerCommand = strings.Replace(lockerCommand, "\n", "", 1)
-	fmt.Println("after", lockerCommand)
+
 	responseArr := strings.Split(lockerCommand, ",")
-	fmt.Println("data from channel arr", responseArr)
+
 	unlockResult := responseArr[5]
-	fmt.Println("converted unlock data from arr to int ", responseArr[5], "--->", unlockResult)
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error converting unlock result to int %v", err)
 	}
@@ -59,10 +58,11 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	// }
 	unlockStr := strings.TrimFunc(responseArr[7], func(r rune) bool {
 		if unicode.IsDigit(r) {
-			return true
+			return false
 		}
-		return false
+		return true
 	})
+	fmt.Println("trimed unlock str ", unlockStr)
 	unlockedTime, err := strconv.Atoi(unlockStr)
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error converting unlocked time to int %v", err)

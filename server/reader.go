@@ -63,9 +63,9 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		return
 	case "L0":
 		locker := lockers.Lockers[int64(imei)]
-		if timeFormat != "000000000000" && reqArr[5] != "0" && reqArr[6] != "0" {
-			locker.SendUnlockResponse(reqStr)
-		}
+		// if timeFormat != "000000000000" && reqArr[5] != "0" && reqArr[6] != "0" {
+		locker.SendUnlockResponse(reqStr)
+		// }
 		responseStr := makeReturn(lockIMEI, timeFormat, "L0")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to unlock ", responseStr)

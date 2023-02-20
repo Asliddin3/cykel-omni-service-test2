@@ -5,6 +5,7 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const (
@@ -32,6 +33,7 @@ func ReadClientRequests(conn net.Conn, ch chan struct{}, lockers *LockersMap) {
 		res := strings.TrimRight(string(buf), "#\n")
 		reqArr := strings.Split(res, ",")
 		giveResponse(reqArr, res, lockers, conn)
+		time.Sleep(time.Second * 1)
 	}
 	ch <- struct{}{}
 }

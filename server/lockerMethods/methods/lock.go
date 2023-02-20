@@ -45,13 +45,13 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	fmt.Println("after", lockerCommand)
 	responseArr := strings.Split(lockerCommand, ",")
 	fmt.Println("data from channel arr", responseArr)
-	unlockResult, err := strconv.Atoi(responseArr[5])
+	unlockResult := responseArr[5]
 	fmt.Println("converted unlock data from arr to int ", responseArr[5], "--->", unlockResult)
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error converting unlock result to int %v", err)
 	}
 
-	userIDInt, err := strconv.Atoi(responseArr[6])
+	userIDStr := responseArr[6]
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error converting userID to int %v", err)
 	}
@@ -62,8 +62,8 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	unlockedTime := responseArr[7]
 
 	unlockResp := &pb.UnlockResponse{
-		UnlockResult: int32(unlockResult),
-		UserID:       int64(userIDInt),
+		UnlockResult: unlockResult,
+		UserID:       userIDStr,
 		UnlockedTime: string(unlockedTime),
 	}
 	return unlockResp, nil

@@ -35,7 +35,11 @@ func (l *LockService) UnlockLocker(ctx context.Context, req *pb.UnlockRequest) (
 		return &pb.UnlockResponse{}, fmt.Errorf("no such imie locker connected")
 	}
 	locker, _ := l.lockers.Lockers[req.IMEI]
-	return locker.UnlockLocker(req)
+	unlockRes, err := locker.UnlockLocker(req)
+	if err != nil {
+		return &pb.UnlockResponse{}, err
+	}
+	return unlockRes, nil
 }
 
 //For server1

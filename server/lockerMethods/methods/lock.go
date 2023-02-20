@@ -31,6 +31,7 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, getTime())
 	unlockReqByteArr := []byte(strings.Join(unlockReqArr, ","))
 	val := *l.LockerConn
+	fmt.Println("sended command to client connection ", string(AddByte(unlockReqByteArr)))
 	_, err := val.Write(AddByte(unlockReqByteArr))
 	if err != nil {
 		return &pb.UnlockResponse{}, fmt.Errorf("error while writing to locker connection: %v", err)

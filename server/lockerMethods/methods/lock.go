@@ -71,7 +71,7 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	unlockResp := &pb.UnlockResponse{
 		UnlockResult: unlockResult,
 		UserID:       userIDStr,
-		UnlockedTime: string(unlockedTime),
+		UnlockedTime: int64(unlockedTime),
 	}
 	return unlockResp, nil
 }

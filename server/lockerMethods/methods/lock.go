@@ -59,11 +59,12 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	// 	return &pb.UnlockResponse{}, fmt.Errorf("error converting time to int %v", err)
 	// }
 	unlockedTime := responseArr[7]
-	return &pb.UnlockResponse{
+	unlockResp := &pb.UnlockResponse{
 		UnlockResult: int32(unlockResult),
 		UserID:       int64(userIDInt),
 		UnlockedTime: string(unlockedTime),
-	}, nil
+	}
+	return unlockResp, nil
 }
 func prepareRequest(lockIMEI string, timeFormat string) []string {
 	resArr := make([]string, 4)

@@ -13,12 +13,12 @@ const (
 	timeFormat string = "200318123020"
 )
 
-func prepareResponse(lockIMEI string, timeFormat string) []string {
+func prepareResponse(lockIMEI string) []string {
 	resArr := make([]string, 4)
 	resArr[0] = "*CMDS"
 	resArr[1] = "OM"
 	resArr[2] = lockIMEI
-	resArr[3] = timeFormat
+	resArr[3] = getTime()
 	return resArr
 }
 
@@ -27,11 +27,10 @@ func ReadClientRequests(conn net.Conn, ch chan struct{}, lockers *LockersMap) {
 	for {
 		buf := make([]byte, 1024)
 		_, err := conn.Read(buf)
-
 		if err == io.EOF {
 			fmt.Println("error reading from client connection ", err)
 			time.Sleep(time.Second * 1)
-			continue
+			break
 		} else if err != nil {
 			fmt.Println("error reading from client connection ", err)
 			time.Sleep(time.Second * 1)
@@ -71,7 +70,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		fmt.Println("send locker response to unlock channel", reqStr)
 		locker.SendUnlockResponse(reqStr)
 		// }
-		responseStr := makeReturn(lockIMEI, timeFormat, "L0")
+		responseStr := makeReturn(lockIMEI, "L0")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to unlock ", responseStr)
 		if err != nil {
@@ -81,7 +80,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		return
 	case "L1":
 		// there should be implemetation for lock command
-		responseStr := makeReturn(lockIMEI, timeFormat, "L1")
+		responseStr := makeReturn(lockIMEI, "L1")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to lock ", responseStr)
 		if err != nil {
@@ -89,7 +88,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 			return
 		}
 	case "D0":
-		responseStr := makeReturn(lockIMEI, timeFormat, "D0")
+		responseStr := makeReturn(lockIMEI, "D0")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to getting position ", responseStr)
 		if err != nil {
@@ -97,19 +96,26 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 			return
 		}
 	case "W0":
-		responseStr := makeReturn(lockIMEI, timeFormat, "W0")
+		responseStr := makeReturn(lockIMEI, "W0")
 		_, err = conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to getting position ", responseStr)
 		if err != nil {
 			fmt.Println("error sending return  getting position response")
 			return
 		}
+	case "U0":
+		res := fmt.Sprintf("*CMDS,OM,%s,%s,U0,220,128,32434,A1,h566m", lockIMEI, getTime())
+		_, err := conn.Write([]byte(res))
+		if err != nil {
+			fmt.Println("error writing upgrade command", err)
+			return
+		}
 	default:
 		fmt.Println("I don't know this command")
 	}
 }
-func makeReturn(lockIMEI string, timeFormat string, command string) string {
-	resArr := prepareResponse(lockIMEI, timeFormat)
+func makeReturn(lockIMEI string, command string) string {
+	resArr := prepareResponse(lockIMEI)
 	command = command + "#\n"
 	resArr = append(resArr, "Re", command)
 	responseStr := strings.Join(resArr, ",")

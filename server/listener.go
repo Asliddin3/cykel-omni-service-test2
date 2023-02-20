@@ -68,17 +68,22 @@ func AddByte(b2 []byte) []byte {
 	arrByte = append(arrByte, b2...)
 	return arrByte
 }
-func prepareRequest(lockIMEI string, timeFormat string) []string {
+func prepareRequest(lockIMEI string) []string {
 	resArr := make([]string, 4)
 	resArr[0] = "*CMDS"
 	resArr[1] = "OM"
 	resArr[2] = lockIMEI
-	resArr[3] = timeFormat
+	resArr[3] = getTime()
 	return resArr
 }
 
 func getTime() string {
-	timeStr := time.Now().Format("20060102150405")
+	loc, err := time.LoadLocation("Asia/Tashkent")
+	if err != nil {
+		fmt.Println("error loading loc time", err)
+		return ""
+	}
+	timeStr := time.Now().In(loc).Format("20060102150405")
 	timeStr = strings.TrimPrefix(timeStr, "20")
 	return timeStr
 	// res := lockerServer.AddByte([]byte(fmt.Sprintf("*CMDS,OM,860537062636022,20200318123020,L0,0,0,%s#\n", timeStr)))

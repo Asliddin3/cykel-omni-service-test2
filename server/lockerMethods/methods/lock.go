@@ -27,8 +27,9 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	imei := strconv.Itoa(int(req.IMEI))
 	userID := strconv.Itoa(int(req.UserID))
 	resetTime := strconv.Itoa(int(req.ResetTime))
-	unlockReqArr := prepareRequest(imei, timeFormat)
-	unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, getTime())
+	unlockReqArr := prepareRequest(imei)
+	timeInSecond := strconv.Itoa(int(getTimeInSecond()))
+	unlockReqArr = append(unlockReqArr, "L0", resetTime, userID, timeInSecond)
 	unlockReqByteArr := []byte(strings.Join(unlockReqArr, ","))
 	val := *l.LockerConn
 	fmt.Println("sended command to client connection ", string(AddByte(unlockReqByteArr)))
@@ -58,26 +59,31 @@ func (l *Locker) UnlockLocker(req *pb.UnlockRequest) (*pb.UnlockResponse, error)
 	// if err != nil {
 	// 	return &pb.UnlockResponse{}, fmt.Errorf("error converting time to int %v", err)
 	// }
-	// unlockedTime := responseArr[7]
+	unlockedTime := responseArr[7]
 
 	unlockResp := &pb.UnlockResponse{
 		UnlockResult: int32(unlockResult),
 		UserID:       int64(userIDInt),
-		// UnlockedTime: string(unlockedTime),
+		UnlockedTime: string(unlockedTime),
 	}
 	return unlockResp, nil
 }
-func prepareRequest(lockIMEI string, timeFormat string) []string {
+func prepareRequest(lockIMEI string) []string {
 	resArr := make([]string, 4)
 	resArr[0] = "*CMDS"
 	resArr[1] = "OM"
 	resArr[2] = lockIMEI
-	resArr[3] = timeFormat
+	resArr[3] = getTime()
 	return resArr
 }
 
 func getTime() string {
-	timeStr := time.Now().Format("20060102150405")
+	loc, err := time.LoadLocation("Asia/Tashkent")
+	if err != nil {
+		fmt.Println("error getting location for time in methods", err)
+		return ""
+	}
+	timeStr := time.Now().In(loc).Format("20060102150405")
 	timeStr = strings.TrimPrefix(timeStr, "20")
 	return timeStr
 	// res := lockerServer.AddByte([]byte(fmt.Sprintf("*CMDS,OM,860537062636022,20200318123020,L0,0,0,%s#\n", timeStr)))
@@ -91,4 +97,13 @@ func AddByte(b2 []byte) []byte {
 	arrByte = append(arrByte, b2...)
 	arrByte = append(arrByte, []byte("#\n")...)
 	return arrByte
+}
+func getTimeInSecond() int64 {
+	loc, err := time.LoadLocation("Asia/Tashkent")
+	if err != nil {
+		fmt.Println("error loading loc time for second")
+		return 0
+	}
+	timeInt := time.Now().In(loc).Unix()
+	return timeInt
 }

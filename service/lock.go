@@ -31,7 +31,7 @@ func NewLockService(db *sqlx.DB, lockers *server.LockersMap, log l.Logger) *Lock
 
 //UnlockLocker connect to locker tcp client connection and send command then get response
 func (l *LockService) UnlockLocker(ctx context.Context, req *pb.UnlockRequest) (*pb.UnlockResponse, error) {
-	if l.lockers.CheckLockerConn(req.IMEI) != nil {
+	if l.lockers.CheckLockerConn(req.IMEI) == false {
 		return &pb.UnlockResponse{}, fmt.Errorf("no such imie locker connected")
 	}
 	locker, _ := l.lockers.Lockers[req.IMEI]

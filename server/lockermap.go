@@ -24,15 +24,11 @@ func NewLocker(conn *net.Conn) repo.LockerMethods {
 }
 
 //CheckLockerConn checks locker client connection to server
-func (c *LockersMap) CheckLockerConn(imie int64) repo.LockerMethods {
+func (c *LockersMap) CheckLockerConn(imie int64) bool {
 	c.Mx.RLock()
-	val, ok := c.Lockers[imie]
+	_, ok := c.Lockers[imie]
 	c.Mx.RUnlock()
-	fmt.Println("checking locker connection", val, ok)
-	if ok {
-		return val
-	}
-	return nil
+	return ok
 }
 
 //AddLocker this func add locker struct with methods to map

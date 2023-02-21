@@ -46,7 +46,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 			lockers.AddLocker(int64(lockerIMIE), &conn)
 		}
 		reqArr := strings.Split(string(command), ",")
-		giveResponse(reqArr, string(bufer), lockers, conn)
+		giveResponse(reqArr, string(command), lockers, conn)
 
 	}
 

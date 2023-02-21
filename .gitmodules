@@ -1,0 +1,3 @@
+[submodule "cykel-protos"]
+	path = cykel-protos
+	url = git@github.com:Asliddin3/cykel-protos.git

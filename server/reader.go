@@ -3,7 +3,6 @@ package server
 import (
 	"fmt"
 	"net"
-	"strconv"
 	"strings"
 )
 
@@ -43,11 +42,11 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 	fmt.Println("------>command --------> ", lockCommand,
 		" lockIMEI ", lockIMEI)
 	fmt.Println("gotten command <----", reqStr)
-	imei, err := strconv.Atoi(lockIMEI)
-	if err != nil {
-		fmt.Println("error converting lock imei to int", err)
-		return
-	}
+	// imei, err := strconv.Atoi(lockIMEI)
+	// if err != nil {
+	// 	fmt.Println("error converting lock imei to int", err)
+	// 	return
+	// }
 	switch lockCommand {
 	case "Q0":
 		fmt.Println("get check in command")
@@ -65,7 +64,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		// locker.SendUnlockResponse(reqStr)
 		// }
 		responseStr := makeReturn(lockIMEI, "L0")
-		_, err = conn.Write(AddByte([]byte(responseStr)))
+		_, err := conn.Write(AddByte([]byte(responseStr)))
 		if err != nil {
 			fmt.Println("error sending return unlock response")
 			return
@@ -75,7 +74,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		fmt.Println("get lock command")
 		// there should be implemetation for lock command
 		responseStr := makeReturn(lockIMEI, "L1")
-		_, err = conn.Write(AddByte([]byte(responseStr)))
+		_, err := conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to lock ", responseStr)
 		if err != nil {
 			fmt.Println("error sending return unlock response")
@@ -84,9 +83,9 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 	case "D0":
 		fmt.Println("get location command")
 		responseStr := makeReturn(lockIMEI, "D0")
-		locker := lockers.Lockers[int64(imei)]
-		locker.SendLocationResponse(reqStr)
-		_, err = conn.Write(AddByte([]byte(responseStr)))
+		// locker := lockers.Lockers[int64(imei)]
+		// locker.SendLocationResponse(reqStr)
+		_, err := conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to getting position ", responseStr)
 		if err != nil {
 			fmt.Println("error sending return  getting position response")
@@ -94,7 +93,7 @@ func giveResponse(reqArr []string, reqStr string, lockers *LockersMap, conn net.
 		}
 	case "W0":
 		responseStr := makeReturn(lockIMEI, "W0")
-		_, err = conn.Write(AddByte([]byte(responseStr)))
+		_, err := conn.Write(AddByte([]byte(responseStr)))
 		fmt.Println("sended return to getting position ", responseStr)
 		if err != nil {
 			fmt.Println("error sending return  getting position response")

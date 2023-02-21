@@ -81,8 +81,9 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 			errorCh <- fmt.Errorf("error while reading from locker connection %v", err)
 			return
 		}
+		fmt.Println("gotten command ", string(buf))
 		if lockerIMEI == 0 {
-			imeiStr := strings.Split(string(buf), ",")[2]
+			imeiStr := strings.Split(string(buf[:byteSize]), ",")[2]
 			lockerIMEI, err = strconv.Atoi(imeiStr)
 			if err != nil {
 				errorCh <- fmt.Errorf("error converting locker imei to int %v", err)

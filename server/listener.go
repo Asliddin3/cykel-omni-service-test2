@@ -74,7 +74,7 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, errorCh chan error, lockerMutex *sync.Mutex) {
 	var lockerIMEI int
 	for {
-		buf := make([]byte, 0, 1024)
+		buf := make([]byte, 1024)
 		lockerMutex.Lock()
 		byteSize, err := conn.Read(buf)
 		lockerMutex.Unlock()

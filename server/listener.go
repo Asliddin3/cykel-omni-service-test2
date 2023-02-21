@@ -82,7 +82,7 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 			return
 		}
 		if byteSize == 0 {
-
+			time.Sleep(time.Second * 1)
 		}
 		fmt.Println("gotten command ", string(buf), "with size", byteSize)
 		if byteSize == 0 {

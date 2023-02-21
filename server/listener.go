@@ -61,6 +61,7 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 		if message.AdminMessage == "" {
 			continue
 		}
+		fmt.Println("gotten message from streaming ", message)
 		_, err = conn.Write(AddByte([]byte(message.AdminMessage)))
 		if err != nil {
 			errorCh <- fmt.Errorf("error while writing to locker connection %v", err)

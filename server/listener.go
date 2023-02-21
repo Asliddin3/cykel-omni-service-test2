@@ -90,7 +90,9 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 			}
 		}
 		arrRune := []rune(string(buf[:]))
+		fmt.Println("array of rune", arrRune)
 		res := string(arrRune[:len(arrRune)-2])
+		fmt.Println("after removing ", res)
 		err = sendStream.Send(&pbAdmin.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),
 			LockerMessage: res,

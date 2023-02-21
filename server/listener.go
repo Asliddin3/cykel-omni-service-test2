@@ -34,9 +34,10 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 	}
 	fmt.Println("first bufer after connection ", string(bufer))
 	commands := strings.Split(strings.TrimRight(string(bufer), "#\n"), "#\n")
+	fmt.Println("trimed  command", commands)
 	var lockerIMIE int
-	for i, command := range commands {
-		if i == 1 {
+	for i := 0; i < len(commands)-2; i++ {
+		if i == 0 {
 			arr := strings.Split(string(bufer), ",")
 			lockerIMIE, err := strconv.Atoi(arr[2])
 			if err != nil {
@@ -45,8 +46,8 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 			}
 			lockers.AddLocker(int64(lockerIMIE), &conn)
 		}
-		reqArr := strings.Split(string(command), ",")
-		giveResponse(reqArr, string(command), lockers, conn)
+		reqArr := strings.Split(string(commands[i]), ",")
+		giveResponse(reqArr, string(commands[i]), lockers, conn)
 
 	}
 

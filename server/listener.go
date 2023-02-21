@@ -82,9 +82,6 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 			errorCh <- fmt.Errorf("error while reading from locker connection %v", err)
 			return
 		}
-		if byteSize == 0 {
-			time.Sleep(time.Second * 1)
-		}
 		fmt.Println("gotten command ", string(buf), "with size", byteSize)
 		if byteSize == 0 {
 			continue
@@ -97,9 +94,7 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 				return
 			}
 		}
-		arrRune := []rune(string(buf[:byteSize]))
-		fmt.Println("array of rune", arrRune)
-		res := string(arrRune[:len(arrRune)-2])
+		res := string(buf[:byteSize])
 		fmt.Println("after removing ", res)
 		err = sendStream.Send(&pbAdmin.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),

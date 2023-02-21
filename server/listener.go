@@ -73,9 +73,9 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, errorCh chan error, lockerMutex *sync.Mutex) {
 	var lockerIMEI int
 	for {
-		buf := make([]byte, 1024)
+		buf := make([]byte, 0, 1024)
 		lockerMutex.Lock()
-		_, err := conn.Read(buf)
+		byteSize, err := conn.Read(buf)
 		lockerMutex.Unlock()
 		if err != nil {
 			errorCh <- fmt.Errorf("error while reading from locker connection %v", err)
@@ -89,7 +89,7 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 				return
 			}
 		}
-		arrRune := []rune(string(buf[:]))
+		arrRune := []rune(string(buf[:byteSize]))
 		fmt.Println("array of rune", arrRune)
 		res := string(arrRune[:len(arrRune)-2])
 		fmt.Println("after removing ", res)

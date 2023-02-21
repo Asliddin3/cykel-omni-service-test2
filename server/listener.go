@@ -89,7 +89,7 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 				return
 			}
 		}
-		res := strings.TrimRight(string(buf), "#\n")
+		res := strings.TrimRight(string(buf[:]), "#\n")
 		err = sendStream.Send(&pbAdmin.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),
 			LockerMessage: res,

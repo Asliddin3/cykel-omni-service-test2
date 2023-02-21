@@ -33,16 +33,23 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 		return
 	}
 	fmt.Println("first bufer after connection ", string(bufer))
-	reqArr := strings.Split(string(bufer), ",")
-	giveResponse(reqArr, string(bufer), lockers, conn)
-	arr := strings.Split(string(bufer), ",")
-	lockerIMIE, err := strconv.Atoi(arr[2])
-	if err != nil {
-		fmt.Println("error converting lockerIMIE to int", err)
-		return
+	commands := strings.Split(strings.TrimRight(string(bufer), "#\n"), "#\n")
+	var lockerIMIE int
+	for i, command := range commands {
+		if i == 1 {
+			arr := strings.Split(string(bufer), ",")
+			lockerIMIE, err := strconv.Atoi(arr[2])
+			if err != nil {
+				fmt.Println("error converting lockerIMIE to int", err)
+				return
+			}
+			lockers.AddLocker(int64(lockerIMIE), &conn)
+		}
+		reqArr := strings.Split(string(command), ",")
+		giveResponse(reqArr, string(bufer), lockers, conn)
+
 	}
-	fmt.Println("")
-	lockers.AddLocker(int64(lockerIMIE), &conn)
+
 	readCh := make(chan struct{})
 	go ReadClientRequests(conn, readCh, lockers)
 	<-readCh

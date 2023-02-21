@@ -33,6 +33,8 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 		return
 	}
 	fmt.Println("first bufer after connection ", string(bufer))
+	reqArr := strings.Split(string(bufer), ",")
+	giveResponse(reqArr, string(bufer), lockers, conn)
 	arr := strings.Split(string(bufer), ",")
 	lockerIMIE, err := strconv.Atoi(arr[2])
 	if err != nil {

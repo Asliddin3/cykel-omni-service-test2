@@ -38,7 +38,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 	var lockerIMIE int
 	for i := 0; i < len(commands)-2; i++ {
 		if i == 0 {
-			arr := strings.Split(string(bufer), ",")
+			arr := strings.Split(string(commands[i]), ",")
 			lockerIMIE, err := strconv.Atoi(arr[2])
 			if err != nil {
 				fmt.Println("error converting lockerIMIE to int", err)

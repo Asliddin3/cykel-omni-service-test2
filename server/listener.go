@@ -23,7 +23,7 @@ func ListenTCP(l net.Listener, lockers *LockersMap, ch chan struct{}) {
 
 func handleRequest(conn net.Conn, lockers *LockersMap) {
 	bufer := make([]byte, 1024)
-	_, err := conn.Read(bufer)
+	sizeByte, err := conn.Read(bufer)
 	if err != nil {
 		fmt.Println("error reading from connection")
 		return
@@ -33,7 +33,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 		return
 	}
 	fmt.Println("first bufer after connection ", string(bufer))
-	commands := strings.Split(strings.TrimRight(string(bufer), "#\n"), "#\n")
+	commands := strings.Split(strings.TrimRight(string(bufer[:sizeByte]), "#\n"), "#\n")
 	fmt.Println("trimed  command", commands)
 	var lockerIMIE int
 	for i := 0; i < len(commands)-2; i++ {
@@ -87,7 +87,7 @@ func getTime() string {
 	// timeStr := time.Now().In(loc).Format("20060102150405")
 	// timeStr = strings.TrimPrefix(timeStr, "20")
 	timeStr := time.Now().In(loc).Format("20060102150405")
-	timeStr = strings.TrimLeft(timeStr, "20")
+	timeStr = string([]rune(timeStr[2:]))
 	return timeStr
 	// res := lockerServer.AddByte([]byte(fmt.Sprintf("*CMDS,OM,860537062636022,20200318123020,L0,0,0,%s#\n", timeStr)))
 }

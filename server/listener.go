@@ -38,9 +38,9 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 	clientError := make(chan error)
 	serverError := make(chan error)
 	// var lockerMutex sync.Mutex
-
-	go recvMessage(adminStream, conn, clientError, serverError)
-	go sendMessage(adminStream, conn, clientError, serverError)
+	ctx := adminStream.Context()
+	go recvMessage(ctx, adminStream, conn, clientError, serverError)
+	go sendMessage(ctx, adminStream, conn, clientError, serverError)
 	catcherCh := make(chan error)
 	go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
 	err := <-catcherCh
@@ -67,7 +67,7 @@ func catchStreamError(clientError chan error, serverError chan error, stream pbA
 	}
 }
 
-func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
+func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
 	for {
 		message, err := recvStream.Recv()
 		if err == io.EOF {
@@ -94,7 +94,7 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 	}
 }
 
-func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
+func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
 	var lockerIMEI int
 	rdr := bufio.NewReader(conn)
 	for {

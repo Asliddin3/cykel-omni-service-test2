@@ -45,6 +45,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 				return
 			}
 			lockers.AddLocker(int64(lockerIMIE), &conn)
+			fmt.Println("added connection with imei ", lockerIMIE)
 		}
 		reqArr := strings.Split(string(commands[i]), ",")
 		giveResponse(reqArr, string(commands[i]), lockers, conn)

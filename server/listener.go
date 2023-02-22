@@ -7,7 +7,6 @@ import (
 	"net"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	pbAdmin "github.com/Asliddin3/cykel-omni/genproto/admin"
@@ -37,10 +36,10 @@ func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan s
 func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreamingClient, cancel context.CancelFunc) {
 	clientError := make(chan error)
 	serverError := make(chan error)
-	var lockerMutex sync.Mutex
+	// var lockerMutex sync.Mutex
 
-	go recvMessage(adminStream, conn, clientError, serverError, &lockerMutex)
-	go sendMessage(adminStream, conn, clientError, serverError, &lockerMutex)
+	go recvMessage(adminStream, conn, clientError, serverError)
+	go sendMessage(adminStream, conn, clientError, serverError)
 	catcherCh := make(chan error)
 	go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
 	err := <-catcherCh
@@ -67,7 +66,7 @@ func catchStreamError(clientError chan error, serverError chan error, stream pbA
 	}
 }
 
-func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error, lockerMutex *sync.Mutex) {
+func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
 	for {
 		message, err := recvStream.Recv()
 		if err == io.EOF {
@@ -81,10 +80,10 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 		if message.GetAdminMessage() == "" {
 			continue
 		}
-		lockerMutex.Lock()
+		// lockerMutex.Lock()
 		fmt.Println("before writing message to locker conn ", string(AddByte([]byte(message.AdminMessage))))
 		_, err = conn.Write(AddByte([]byte(message.GetAdminMessage())))
-		defer lockerMutex.Unlock()
+		// defer lockerMutex.Unlock()
 		if err != nil {
 			clientError <- fmt.Errorf("error while writing to locker connection %v", err)
 			return
@@ -93,14 +92,14 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 	}
 }
 
-func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error, lockerMutex *sync.Mutex) {
+func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
 	var lockerIMEI int
 	for {
 		buf := make([]byte, 1024)
-		lockerMutex.Lock()
-		byteSize, err := conn.Read(buf)
-		lockerMutex.Unlock()
 		time.Sleep(time.Second * 1)
+		// lockerMutex.Lock()
+		byteSize, err := conn.Read(buf)
+		// lockerMutex.Unlock()
 		if err != nil {
 			clientError <- fmt.Errorf("error while reading from locker connection %v", err)
 			return

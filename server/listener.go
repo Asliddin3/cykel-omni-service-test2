@@ -36,7 +36,7 @@ func handleRequest(conn net.Conn, lockers *LockersMap) {
 	commands := strings.Split(strings.TrimRight(string(bufer[:sizeByte]), "#\n"), "#\n")
 	fmt.Println("trimed  command", commands)
 	var lockerIMIE int
-	for i := 0; i < len(commands)-2; i++ {
+	for i := 0; i < len(commands); i++ {
 		if i == 0 {
 			arr := strings.Split(string(commands[i]), ",")
 			lockerIMIE, err := strconv.Atoi(arr[2])

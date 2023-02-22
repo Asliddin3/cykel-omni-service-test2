@@ -26,6 +26,7 @@ func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan s
 		admin, err := adminClient.AdminService().LockerStreaming(ctx)
 		if err != nil {
 			fmt.Println("error connection to admin service ", err)
+			cancel()
 			return
 		}
 		go handleRequest(conn, admin, cancel)
@@ -48,10 +49,8 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 	if err != nil {
 		fmt.Println("error while sending close send ", err)
 		return
-	} else {
-		fmt.Println("stream send closed successfully")
-		return
 	}
+	fmt.Println("stream send closed successfully")
 
 }
 
@@ -78,18 +77,19 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 			serverError <- fmt.Errorf("error while recovering message from stream %v", err)
 			return
 		}
-		fmt.Println("gotten message from stream ", message.AdminMessage)
-		if message.AdminMessage == "" {
+		fmt.Println("gotten message from stream ", message.GetAdminMessage())
+		if message.GetAdminMessage() == "" {
 			continue
 		}
 		lockerMutex.Lock()
-		fmt.Println("gotten message from streaming ", string(AddByte([]byte(message.AdminMessage))))
-		_, err = conn.Write(AddByte([]byte(message.AdminMessage)))
+		fmt.Println("before writing message to locker conn ", string(AddByte([]byte(message.AdminMessage))))
+		_, err = conn.Write(AddByte([]byte(message.GetAdminMessage())))
 		defer lockerMutex.Unlock()
 		if err != nil {
 			clientError <- fmt.Errorf("error while writing to locker connection %v", err)
 			return
 		}
+		fmt.Println("command written to locker conn successfully", message.AdminMessage)
 	}
 }
 
@@ -100,6 +100,7 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 		lockerMutex.Lock()
 		byteSize, err := conn.Read(buf)
 		lockerMutex.Unlock()
+		time.Sleep(time.Second * 1)
 		if err != nil {
 			clientError <- fmt.Errorf("error while reading from locker connection %v", err)
 			return

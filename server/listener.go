@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"strconv"
 	"strings"
 	"time"
 
@@ -104,7 +105,11 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 		// byteSize, err := conn.Read(buf)
 		// lockerMutex.Unlock()
 		fmt.Println("readline result bufer ", buf)
-
+		lockerIMEI, err = strconv.Atoi(strings.Split(buf, ",")[2])
+		if err != nil {
+			clientError <- fmt.Errorf("error converting locker imei to int %v", err)
+			return
+		}
 		if err != nil {
 			clientError <- fmt.Errorf("error while reading from locker connection %v", err)
 			return

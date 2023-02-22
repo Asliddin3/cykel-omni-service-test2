@@ -117,8 +117,8 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 			}
 		}
 		res := string(buf[:byteSize])
-		res = strings.Replace(res, "#", "!", 1)
-		res = strings.Replace(res, "\n", "!", 1)
+		res = strings.ReplaceAll(res, "#", "!")
+		res = strings.ReplaceAll(res, "\n", "!")
 		res = strings.TrimRight(res, "!!")
 		fmt.Println("after removing ", res)
 		err = sendStream.Send(&pbAdmin.LockerRequest{

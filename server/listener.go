@@ -1,11 +1,11 @@
 package server
 
 import (
+	"bufio"
 	"context"
 	"fmt"
 	"io"
 	"net"
-	"strconv"
 	"strings"
 	"time"
 
@@ -82,6 +82,7 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 		}
 		// lockerMutex.Lock()
 		fmt.Println("before writing message to locker conn ", string(AddByte([]byte(message.AdminMessage))))
+		// wr := bufio.NewWriter(conn)
 		_, err = conn.Write(AddByte([]byte(message.GetAdminMessage())))
 		// defer lockerMutex.Unlock()
 		if err != nil {
@@ -94,33 +95,41 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 
 func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
 	var lockerIMEI int
+	rdr := bufio.NewReader(conn)
 	for {
-		buf := make([]byte, 1024)
+		// buf := make([]byte, 1024)
 		time.Sleep(time.Second * 1)
 		// lockerMutex.Lock()
-		byteSize, err := conn.Read(buf)
+		buf, err := rdr.ReadString('\n')
+		// byteSize, err := conn.Read(buf)
 		// lockerMutex.Unlock()
+		fmt.Println("readline result bufer ", buf)
+
 		if err != nil {
 			clientError <- fmt.Errorf("error while reading from locker connection %v", err)
 			return
 		}
-		fmt.Println("gotten command ", string(buf), "with size", byteSize)
-		if byteSize == 0 {
-			continue
-		}
-		if lockerIMEI == 0 {
-			imeiStr := strings.Split(string(buf[:byteSize]), ",")[2]
-			lockerIMEI, err = strconv.Atoi(imeiStr)
-			if err != nil {
-				clientError <- fmt.Errorf("error converting locker imei to int %v", err)
-				return
-			}
-		}
-		res := string(buf[:byteSize])
-		res = strings.ReplaceAll(res, "#", "!")
-		res = strings.ReplaceAll(res, "\n", "!")
-		res = strings.TrimRight(res, "!!")
-		fmt.Println("after removing ", res)
+		res := strings.Replace(buf, "#", "", 1)
+		// fmt.Println("gotten command ", string(buf), "with size", byteSize)
+		// if byteSize == 0 {
+		// 	continue
+		// }
+		// if lockerIMEI == 0 {
+		// 	imeiStr := strings.Split(string(buf[:byteSize]), ",")[2]
+		// 	lockerIMEI, err = strconv.Atoi(imeiStr)
+		// 	fmt.Println("getting locker imei before stream send", lockerIMEI, err)
+		// 	if err != nil {
+		// 		clientError <- fmt.Errorf("error converting locker imei to int %v", err)
+		// 		return
+		// 	}
+
+		// }
+		// res := string(buf[:byteSize])
+		// res = strings.ReplaceAll(res, "#", "!")
+		// res = strings.ReplaceAll(res, "\n", "!")
+		// res = strings.ReplaceAll(res, `\`, "")
+		// res = strings.TrimRight(res, "!!")
+		// fmt.Println("after removing ", res)
 		err = sendStream.Send(&pbAdmin.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),
 			LockerMessage: res,

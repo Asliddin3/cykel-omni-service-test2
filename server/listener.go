@@ -118,7 +118,7 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 			clientError <- fmt.Errorf("error while reading from locker connection %v", err)
 			return
 		}
-		res := strings.Replace(buf, "#", "", 1)
+		res := strings.Replace(buf, "#\n", "", 1)
 		// fmt.Println("gotten command ", string(buf), "with size", byteSize)
 		// if byteSize == 0 {
 		// 	continue

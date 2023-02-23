@@ -98,6 +98,10 @@ func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStre
 	for {
 		buf, err := rdr.ReadString('\n')
 		fmt.Println("readline result bufer ", buf)
+		if err != nil {
+			clientError <- fmt.Errorf("error reading from net.Conn %v", err)
+			return
+		}
 		if buf == "" {
 			time.Sleep(time.Second * 1)
 			continue

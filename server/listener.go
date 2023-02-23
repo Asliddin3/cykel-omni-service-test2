@@ -27,6 +27,7 @@ func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan s
 		if err != nil {
 			fmt.Println("error connection to admin service ", err)
 			cancel()
+			conn.Close()
 			return
 		}
 		go handleRequest(conn, admin, cancel)

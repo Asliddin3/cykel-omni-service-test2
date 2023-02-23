@@ -68,6 +68,7 @@ func catchStreamError(clientError chan error, serverError chan error, stream pbA
 }
 
 func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
+	defer conn.Close()
 	for {
 		message, err := recvStream.Recv()
 		if err == io.EOF {
@@ -81,11 +82,7 @@ func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStre
 		if message.GetAdminMessage() == "" {
 			continue
 		}
-		// lockerMutex.Lock()
-		fmt.Println("before writing message to locker conn ", string(AddByte([]byte(message.AdminMessage))))
-		// wr := bufio.NewWriter(conn)
 		_, err = conn.Write(AddByte([]byte(message.GetAdminMessage())))
-		// defer lockerMutex.Unlock()
 		if err != nil {
 			clientError <- fmt.Errorf("error while writing to locker connection %v", err)
 			return
@@ -96,14 +93,10 @@ func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStre
 
 func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
 	var lockerIMEI int
+	defer conn.Close()
 	rdr := bufio.NewReader(conn)
 	for {
-		// buf := make([]byte, 1024)
-		time.Sleep(time.Second * 1)
-		// lockerMutex.Lock()
 		buf, err := rdr.ReadString('\n')
-		// byteSize, err := conn.Read(buf)
-		// lockerMutex.Unlock()
 		fmt.Println("readline result bufer ", buf)
 		if buf == "" {
 			time.Sleep(time.Second * 1)
@@ -119,26 +112,6 @@ func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStre
 			return
 		}
 		res := strings.Replace(buf, "#\n", "", 1)
-		// fmt.Println("gotten command ", string(buf), "with size", byteSize)
-		// if byteSize == 0 {
-		// 	continue
-		// }
-		// if lockerIMEI == 0 {
-		// 	imeiStr := strings.Split(string(buf[:byteSize]), ",")[2]
-		// 	lockerIMEI, err = strconv.Atoi(imeiStr)
-		// 	fmt.Println("getting locker imei before stream send", lockerIMEI, err)
-		// 	if err != nil {
-		// 		clientError <- fmt.Errorf("error converting locker imei to int %v", err)
-		// 		return
-		// 	}
-
-		// }
-		// res := string(buf[:byteSize])
-		// res = strings.ReplaceAll(res, "#", "!")
-		// res = strings.ReplaceAll(res, "\n", "!")
-		// res = strings.ReplaceAll(res, `\`, "")
-		// res = strings.TrimRight(res, "!!")
-		// fmt.Println("after removing ", res)
 		err = sendStream.Send(&pbAdmin.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),
 			LockerMessage: res,

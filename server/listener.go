@@ -55,24 +55,17 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 
 }
 
-// func catchStreamError(clientError chan error, serverError chan error, stream pbAdmin.AdminService_LockerStreamingClient, cancel context.CancelFunc, catcherCh chan error) {
-// 	for {
-// 		select {
-// 		case err := <-clientError:
-// 			catcherCh <- fmt.Errorf("catch client error %v", err)
-// 			cancel()
-// 		case err := <-serverError:
-// 			catcherCh <- fmt.Errorf("catch server error %v", err)
-// 			cancel()
-// 		}
-// 	}
-// }
-
 func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
 	defer func() {
 		conn.Close()
 	}()
 	for {
+		err := recvStream.Context().Err()
+		if err != nil {
+			fmt.Println("getting error from context ", err)
+			serverError <- fmt.Errorf("server error %v", err)
+			return
+		}
 		message, err := recvStream.Recv()
 		if err == io.EOF {
 			fmt.Println("no more data in stream recv")
@@ -121,9 +114,13 @@ func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net
 				return
 			}
 		}
-		// sendStream.RecvMsg()
-		buf = strings.Replace(buf, "\r", "", 1)
 		buf = strings.Replace(buf, "#\n", "", 1)
+		err = sendStream.Context().Err()
+		if err != nil {
+			fmt.Println("getting error from context ", err)
+			serverError <- fmt.Errorf("server error %v", err)
+			return
+		}
 		err = sendStream.Send(&pbAdmin.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),
 			LockerMessage: buf,

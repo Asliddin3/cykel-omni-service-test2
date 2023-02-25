@@ -34,7 +34,7 @@ func Load() Config {
 	c.AdminServicePort = cast.ToString(getOrReturnDefault("ADMIN_PORT", "8088"))
 	c.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
 	c.LockPort = cast.ToString(getOrReturnDefault("LOCK_PORT", "9679"))
-	c.LockHost = cast.ToString(getOrReturnDefault("LOCK_HOST", "localhost"))
+	c.LockHost = cast.ToString(getOrReturnDefault("LOCK_HOST", "143.42.61.34"))
 	c.RPCPort = cast.ToString(getOrReturnDefault("RPC_PORT", ":8820"))
 	return c
 }

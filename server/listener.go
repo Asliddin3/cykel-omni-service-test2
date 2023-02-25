@@ -26,8 +26,8 @@ func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan s
 		admin, err := adminClient.AdminService().LockerStreaming(ctx)
 		if err != nil {
 			fmt.Println("error connection to admin service ", err)
-			cancel()
 			conn.Close()
+			cancel()
 			return
 		}
 		go handleRequest(conn, admin, cancel)
@@ -39,12 +39,12 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 	clientError := make(chan error)
 	serverError := make(chan error)
 	// var lockerMutex sync.Mutex
-	ctx := adminStream.Context()
-	go recvMessage(ctx, adminStream, conn, clientError, serverError)
-	go sendMessage(ctx, adminStream, conn, clientError, serverError)
+	go recvMessage(adminStream, conn, clientError, serverError)
+	go sendMessage(adminStream, conn, clientError, serverError)
 	catcherCh := make(chan error)
-	go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
+	// go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
 	err := <-catcherCh
+	cancel()
 	fmt.Println("gotten from catcher channel ", err)
 	err = adminStream.CloseSend()
 	if err != nil {
@@ -55,34 +55,38 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 
 }
 
-func catchStreamError(clientError chan error, serverError chan error, stream pbAdmin.AdminService_LockerStreamingClient, cancel context.CancelFunc, catcherCh chan error) {
-	for {
-		select {
-		case err := <-clientError:
-			catcherCh <- fmt.Errorf("catch client error %v", err)
-			cancel()
-		case err := <-serverError:
-			catcherCh <- fmt.Errorf("catch server error %v", err)
-			cancel()
-		}
-	}
-}
+// func catchStreamError(clientError chan error, serverError chan error, stream pbAdmin.AdminService_LockerStreamingClient, cancel context.CancelFunc, catcherCh chan error) {
+// 	for {
+// 		select {
+// 		case err := <-clientError:
+// 			catcherCh <- fmt.Errorf("catch client error %v", err)
+// 			cancel()
+// 		case err := <-serverError:
+// 			catcherCh <- fmt.Errorf("catch server error %v", err)
+// 			cancel()
+// 		}
+// 	}
+// }
 
-func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
-	defer conn.Close()
+func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
+	defer func() {
+		conn.Close()
+	}()
 	for {
 		message, err := recvStream.Recv()
 		if err == io.EOF {
 			fmt.Println("no more data in stream recv")
-			continue
+			serverError <- fmt.Errorf("server closed sending message")
+			return
 		} else if err != nil {
 			serverError <- fmt.Errorf("error while recovering message from stream %v", err)
-			return
-		}
-		fmt.Println("gotten message from stream ", message.GetAdminMessage())
-		if message.GetAdminMessage() == "" {
 			continue
 		}
+		fmt.Println("stream ----->", message.GetAdminMessage())
+		// if message.GetAdminMessage() == "" {
+		// 	continue
+		// }
+		fmt.Println("message before writing locker conn ", message.GetAdminMessage())
 		_, err = conn.Write(AddByte([]byte(message.GetAdminMessage())))
 		if err != nil {
 			clientError <- fmt.Errorf("error while writing to locker connection %v", err)
@@ -92,40 +96,43 @@ func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStre
 	}
 }
 
-func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
+func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, clientError chan error, serverError chan error) {
 	var lockerIMEI int
-	defer conn.Close()
+	defer sendStream.CloseSend()
 	rdr := bufio.NewReader(conn)
 	for {
 		buf, err := rdr.ReadString('\n')
 		fmt.Println("readline result bufer ", buf)
-		if err != nil {
-			clientError <- fmt.Errorf("error reading from net.Conn %v", err)
+		if err == io.EOF {
+			fmt.Println("no more data")
 			return
+		} else if err != nil {
+			fmt.Println("error while reading from locker conn ", err)
 		}
 		if buf == "" {
+			fmt.Println("gotten empty buffer from locker")
 			time.Sleep(time.Second * 1)
 			continue
 		}
-		lockerIMEI, err = strconv.Atoi(strings.Split(buf, ",")[2])
-		if err != nil {
-			clientError <- fmt.Errorf("error converting locker imei to int %v", err)
-			return
+		if lockerIMEI == 0 {
+			lockerIMEI, err = strconv.Atoi(strings.Split(buf, ",")[2])
+			if err != nil {
+				clientError <- fmt.Errorf("error converting locker imei to int %v", err)
+				return
+			}
 		}
-		if err != nil {
-			clientError <- fmt.Errorf("error while reading from locker connection %v", err)
-			return
-		}
-		res := strings.Replace(buf, "#\n", "", 1)
+		// sendStream.RecvMsg()
+		buf = strings.Replace(buf, "\r", "", 1)
+		buf = strings.Replace(buf, "#\n", "", 1)
 		err = sendStream.Send(&pbAdmin.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),
-			LockerMessage: res,
+			LockerMessage: buf,
 		})
 		if err != nil {
 			serverError <- fmt.Errorf("error while sending locker request %v", err)
 			return
 		}
-		fmt.Println("sended message to stream ", res)
+		fmt.Println("sended message to stream ", buf)
 	}
 }
 

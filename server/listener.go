@@ -41,12 +41,14 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 	catchError := make(chan error)
 	// serverError := make(chan error)
 	// var lockerMutex sync.Mutex
-	go recvMessage(adminStream, conn, catchError)
-	go sendMessage(adminStream, conn, catchError)
+	ctx, cancelSubFunc := context.WithCancel(context.Background())
+	go recvMessage(ctx, adminStream, conn, catchError)
+	go sendMessage(ctx, adminStream, conn, catchError)
 	catcherCh := make(chan error)
 	// go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
 	err := <-catcherCh
 	cancel()
+	cancelSubFunc()
 	fmt.Println("gotten from catcher channel ", err)
 	err = adminStream.CloseSend()
 	fmt.Println("gotten from catcher channel ", err)
@@ -58,7 +60,7 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 
 }
 
-func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, catchError chan error) {
+func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, catchError chan error) {
 	defer func() {
 		conn.Close()
 	}()
@@ -92,7 +94,7 @@ func recvMessage(recvStream pbAdmin.AdminService_LockerStreamingClient, conn net
 	}
 }
 
-func sendMessage(sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, catchError chan error) {
+func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, catchError chan error) {
 	var lockerIMEI int
 	defer sendStream.CloseSend()
 	rdr := bufio.NewReader(conn)

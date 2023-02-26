@@ -26,6 +26,8 @@ func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan s
 		admin, err := adminClient.AdminService().LockerStreaming(ctx)
 		if err != nil {
 			fmt.Println("error connection to admin service ", err)
+			buf := make([]byte, 1024)
+			conn.Read(buf)
 			conn.Close()
 			cancel()
 			return
@@ -47,6 +49,7 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 	cancel()
 	fmt.Println("gotten from catcher channel ", err)
 	err = adminStream.CloseSend()
+	fmt.Println("gotten from catcher channel ", err)
 	if err != nil {
 		fmt.Println("error while sending close send ", err)
 		return

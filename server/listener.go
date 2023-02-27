@@ -83,7 +83,7 @@ func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStre
 		} else if err != nil {
 			fmt.Println("catched error while recv from stream conn ", err)
 			catchError <- fmt.Errorf("error while recovering message from stream %v", err)
-			continue
+			return
 		}
 		fmt.Println("stream ----->", message.GetAdminMessage())
 		// if message.GetAdminMessage() == "" {

@@ -27,6 +27,257 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type FirmwareInfoResponse struct {
+	DeviceInfo           string   `protobuf:"bytes,1,opt,name=DeviceInfo,proto3" json:"DeviceInfo"`
+	DeviceDate           string   `protobuf:"bytes,2,opt,name=DeviceDate,proto3" json:"DeviceDate"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *FirmwareInfoResponse) Reset()         { *m = FirmwareInfoResponse{} }
+func (m *FirmwareInfoResponse) String() string { return proto.CompactTextString(m) }
+func (*FirmwareInfoResponse) ProtoMessage()    {}
+func (*FirmwareInfoResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8595c8dce2486799, []int{0}
+}
+func (m *FirmwareInfoResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *FirmwareInfoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_FirmwareInfoResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *FirmwareInfoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FirmwareInfoResponse.Merge(m, src)
+}
+func (m *FirmwareInfoResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *FirmwareInfoResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_FirmwareInfoResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FirmwareInfoResponse proto.InternalMessageInfo
+
+func (m *FirmwareInfoResponse) GetDeviceInfo() string {
+	if m != nil {
+		return m.DeviceInfo
+	}
+	return ""
+}
+
+func (m *FirmwareInfoResponse) GetDeviceDate() string {
+	if m != nil {
+		return m.DeviceDate
+	}
+	return ""
+}
+
+type SimCardResponse struct {
+	SIMCARD              int64    `protobuf:"varint,1,opt,name=SIMCARD,proto3" json:"SIMCARD"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SimCardResponse) Reset()         { *m = SimCardResponse{} }
+func (m *SimCardResponse) String() string { return proto.CompactTextString(m) }
+func (*SimCardResponse) ProtoMessage()    {}
+func (*SimCardResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8595c8dce2486799, []int{1}
+}
+func (m *SimCardResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SimCardResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SimCardResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SimCardResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SimCardResponse.Merge(m, src)
+}
+func (m *SimCardResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *SimCardResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SimCardResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SimCardResponse proto.InternalMessageInfo
+
+func (m *SimCardResponse) GetSIMCARD() int64 {
+	if m != nil {
+		return m.SIMCARD
+	}
+	return 0
+}
+
+type LockerImei struct {
+	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LockerImei) Reset()         { *m = LockerImei{} }
+func (m *LockerImei) String() string { return proto.CompactTextString(m) }
+func (*LockerImei) ProtoMessage()    {}
+func (*LockerImei) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8595c8dce2486799, []int{2}
+}
+func (m *LockerImei) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LockerImei) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LockerImei.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LockerImei) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LockerImei.Merge(m, src)
+}
+func (m *LockerImei) XXX_Size() int {
+	return m.Size()
+}
+func (m *LockerImei) XXX_DiscardUnknown() {
+	xxx_messageInfo_LockerImei.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LockerImei proto.InternalMessageInfo
+
+func (m *LockerImei) GetIMEI() int64 {
+	if m != nil {
+		return m.IMEI
+	}
+	return 0
+}
+
+type LocationIntervalResponse struct {
+	SetInterval          int64    `protobuf:"varint,1,opt,name=SetInterval,proto3" json:"SetInterval"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LocationIntervalResponse) Reset()         { *m = LocationIntervalResponse{} }
+func (m *LocationIntervalResponse) String() string { return proto.CompactTextString(m) }
+func (*LocationIntervalResponse) ProtoMessage()    {}
+func (*LocationIntervalResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8595c8dce2486799, []int{3}
+}
+func (m *LocationIntervalResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LocationIntervalResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LocationIntervalResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LocationIntervalResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LocationIntervalResponse.Merge(m, src)
+}
+func (m *LocationIntervalResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *LocationIntervalResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LocationIntervalResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LocationIntervalResponse proto.InternalMessageInfo
+
+func (m *LocationIntervalResponse) GetSetInterval() int64 {
+	if m != nil {
+		return m.SetInterval
+	}
+	return 0
+}
+
+type LocationIntervalRequest struct {
+	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+	IntervalInSecond     int64    `protobuf:"varint,2,opt,name=IntervalInSecond,proto3" json:"IntervalInSecond"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LocationIntervalRequest) Reset()         { *m = LocationIntervalRequest{} }
+func (m *LocationIntervalRequest) String() string { return proto.CompactTextString(m) }
+func (*LocationIntervalRequest) ProtoMessage()    {}
+func (*LocationIntervalRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8595c8dce2486799, []int{4}
+}
+func (m *LocationIntervalRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LocationIntervalRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LocationIntervalRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LocationIntervalRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LocationIntervalRequest.Merge(m, src)
+}
+func (m *LocationIntervalRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *LocationIntervalRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LocationIntervalRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LocationIntervalRequest proto.InternalMessageInfo
+
+func (m *LocationIntervalRequest) GetIMEI() int64 {
+	if m != nil {
+		return m.IMEI
+	}
+	return 0
+}
+
+func (m *LocationIntervalRequest) GetIntervalInSecond() int64 {
+	if m != nil {
+		return m.IntervalInSecond
+	}
+	return 0
+}
+
 type LockerRequest struct {
 	LockerIMEI           int64    `protobuf:"varint,1,opt,name=LockerIMEI,proto3" json:"LockerIMEI"`
 	LockerMessage        string   `protobuf:"bytes,2,opt,name=LockerMessage,proto3" json:"LockerMessage"`
@@ -39,7 +290,7 @@ func (m *LockerRequest) Reset()         { *m = LockerRequest{} }
 func (m *LockerRequest) String() string { return proto.CompactTextString(m) }
 func (*LockerRequest) ProtoMessage()    {}
 func (*LockerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8595c8dce2486799, []int{0}
+	return fileDescriptor_8595c8dce2486799, []int{5}
 }
 func (m *LockerRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -93,7 +344,7 @@ func (m *AdminResponse) Reset()         { *m = AdminResponse{} }
 func (m *AdminResponse) String() string { return proto.CompactTextString(m) }
 func (*AdminResponse) ProtoMessage()    {}
 func (*AdminResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8595c8dce2486799, []int{1}
+	return fileDescriptor_8595c8dce2486799, []int{6}
 }
 func (m *AdminResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -140,7 +391,7 @@ func (m *LocationRequest) Reset()         { *m = LocationRequest{} }
 func (m *LocationRequest) String() string { return proto.CompactTextString(m) }
 func (*LocationRequest) ProtoMessage()    {}
 func (*LocationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8595c8dce2486799, []int{2}
+	return fileDescriptor_8595c8dce2486799, []int{7}
 }
 func (m *LocationRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -187,7 +438,7 @@ type LocationResponse struct {
 	CountSate            int32    `protobuf:"varint,7,opt,name=CountSate,proto3" json:"CountSate"`
 	PositionAccuracy     float32  `protobuf:"fixed32,9,opt,name=PositionAccuracy,proto3" json:"PositionAccuracy"`
 	UTCdate              string   `protobuf:"bytes,10,opt,name=UTCdate,proto3" json:"UTCdate"`
-	Altitude             int32    `protobuf:"varint,11,opt,name=Altitude,proto3" json:"Altitude"`
+	Altitude             float32  `protobuf:"fixed32,11,opt,name=Altitude,proto3" json:"Altitude"`
 	HeightUnit           string   `protobuf:"bytes,12,opt,name=HeightUnit,proto3" json:"HeightUnit"`
 	ModeIndication       string   `protobuf:"bytes,13,opt,name=ModeIndication,proto3" json:"ModeIndication"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -199,7 +450,7 @@ func (m *LocationResponse) Reset()         { *m = LocationResponse{} }
 func (m *LocationResponse) String() string { return proto.CompactTextString(m) }
 func (*LocationResponse) ProtoMessage()    {}
 func (*LocationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8595c8dce2486799, []int{3}
+	return fileDescriptor_8595c8dce2486799, []int{8}
 }
 func (m *LocationResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -298,7 +549,7 @@ func (m *LocationResponse) GetUTCdate() string {
 	return ""
 }
 
-func (m *LocationResponse) GetAltitude() int32 {
+func (m *LocationResponse) GetAltitude() float32 {
 	if m != nil {
 		return m.Altitude
 	}
@@ -329,7 +580,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8595c8dce2486799, []int{4}
+	return fileDescriptor_8595c8dce2486799, []int{9}
 }
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -371,7 +622,7 @@ func (m *UnlockResponse) Reset()         { *m = UnlockResponse{} }
 func (m *UnlockResponse) String() string { return proto.CompactTextString(m) }
 func (*UnlockResponse) ProtoMessage()    {}
 func (*UnlockResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8595c8dce2486799, []int{5}
+	return fileDescriptor_8595c8dce2486799, []int{10}
 }
 func (m *UnlockResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -434,7 +685,7 @@ func (m *UnlockRequest) Reset()         { *m = UnlockRequest{} }
 func (m *UnlockRequest) String() string { return proto.CompactTextString(m) }
 func (*UnlockRequest) ProtoMessage()    {}
 func (*UnlockRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8595c8dce2486799, []int{6}
+	return fileDescriptor_8595c8dce2486799, []int{11}
 }
 func (m *UnlockRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -485,6 +736,11 @@ func (m *UnlockRequest) GetResetTime() bool {
 }
 
 func init() {
+	proto.RegisterType((*FirmwareInfoResponse)(nil), "admin.FirmwareInfoResponse")
+	proto.RegisterType((*SimCardResponse)(nil), "admin.SimCardResponse")
+	proto.RegisterType((*LockerImei)(nil), "admin.LockerImei")
+	proto.RegisterType((*LocationIntervalResponse)(nil), "admin.LocationIntervalResponse")
+	proto.RegisterType((*LocationIntervalRequest)(nil), "admin.LocationIntervalRequest")
 	proto.RegisterType((*LockerRequest)(nil), "admin.LockerRequest")
 	proto.RegisterType((*AdminResponse)(nil), "admin.AdminResponse")
 	proto.RegisterType((*LocationRequest)(nil), "admin.LocationRequest")
@@ -497,40 +753,53 @@ func init() {
 func init() { proto.RegisterFile("admin/admin.proto", fileDescriptor_8595c8dce2486799) }
 
 var fileDescriptor_8595c8dce2486799 = []byte{
-	// 525 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x94, 0xdd, 0x6e, 0xd3, 0x30,
-	0x14, 0xc7, 0xf1, 0xba, 0x7e, 0x1d, 0xd6, 0xd1, 0x59, 0x30, 0xac, 0x6a, 0x8a, 0xaa, 0x08, 0x50,
-	0xc5, 0xc5, 0x40, 0xec, 0x92, 0xab, 0xb2, 0x55, 0x10, 0xa9, 0x45, 0x28, 0x6d, 0x91, 0xb8, 0x0c,
-	0xc9, 0x51, 0x67, 0xb5, 0x8d, 0x4b, 0xec, 0x20, 0xed, 0x4d, 0x10, 0x4f, 0xc4, 0x25, 0x17, 0x3c,
-	0x00, 0x2a, 0x2f, 0x82, 0xec, 0xc4, 0xf9, 0xd8, 0xb4, 0x9b, 0xaa, 0xff, 0x9f, 0xfd, 0x3f, 0xf6,
-	0x39, 0x3e, 0x27, 0x70, 0x12, 0x44, 0x5b, 0x1e, 0xbf, 0x32, 0xbf, 0xe7, 0xbb, 0x44, 0x28, 0x41,
-	0x9b, 0x46, 0xb8, 0x4b, 0xe8, 0x4d, 0x45, 0xb8, 0xc6, 0xc4, 0xc7, 0x6f, 0x29, 0x4a, 0x45, 0x1d,
-	0x80, 0x0c, 0x78, 0xb3, 0x89, 0xc7, 0xc8, 0x90, 0x8c, 0x1a, 0x7e, 0x85, 0xd0, 0x67, 0xd6, 0x30,
-	0x43, 0x29, 0x83, 0x15, 0xb2, 0x83, 0x21, 0x19, 0x75, 0xfd, 0x3a, 0x74, 0x2f, 0xa0, 0x37, 0xd6,
-	0xf1, 0x7d, 0x94, 0x3b, 0x11, 0x4b, 0xa4, 0x2e, 0x1c, 0x19, 0x50, 0x77, 0xd5, 0x98, 0xfb, 0x1c,
-	0x1e, 0x4d, 0x45, 0x18, 0x28, 0x2e, 0x62, 0x7b, 0x1b, 0x0a, 0x87, 0x95, 0x7b, 0x98, 0xff, 0xee,
-	0xcf, 0x06, 0xf4, 0xcb, 0x7d, 0x79, 0x7c, 0x07, 0xc0, 0x93, 0x8b, 0x24, 0x08, 0xd7, 0x3c, 0x5e,
-	0x99, 0xed, 0x1d, 0xbf, 0x42, 0x28, 0x83, 0xf6, 0x72, 0x71, 0xa9, 0xf8, 0xd6, 0x1e, 0x6d, 0xa5,
-	0x5e, 0xf1, 0xe4, 0xe7, 0x60, 0xc3, 0x23, 0xd6, 0x30, 0x36, 0x2b, 0xe9, 0x00, 0x3a, 0xd3, 0x40,
-	0x71, 0x95, 0x46, 0xc8, 0x0e, 0x87, 0x64, 0x74, 0xe0, 0x17, 0x3a, 0x73, 0x7d, 0x14, 0x89, 0xba,
-	0x66, 0x4d, 0xeb, 0x32, 0x92, 0x9e, 0x41, 0x77, 0x2a, 0xe2, 0x55, 0x66, 0x6b, 0x19, 0x5b, 0x09,
-	0xe8, 0x29, 0xb4, 0x3c, 0x39, 0x09, 0xa4, 0x62, 0x1d, 0x63, 0xcb, 0x95, 0x76, 0x5d, 0x8a, 0x34,
-	0x56, 0xf3, 0x40, 0x21, 0x6b, 0x0f, 0xc9, 0xa8, 0xe9, 0x97, 0x80, 0xbe, 0x84, 0xfe, 0x27, 0x21,
-	0xb9, 0xce, 0x78, 0x1c, 0x86, 0x69, 0x12, 0x84, 0x37, 0xac, 0x6b, 0x42, 0xdf, 0xe1, 0x79, 0xa6,
-	0x91, 0x8e, 0x03, 0x45, 0xa6, 0x5a, 0xea, 0x7c, 0xc6, 0x9b, 0x3c, 0x9f, 0x87, 0xe6, 0x88, 0x42,
-	0xeb, 0xfa, 0x7d, 0x40, 0xbe, 0xba, 0x56, 0xcb, 0x98, 0x2b, 0x76, 0x64, 0x8c, 0x15, 0x42, 0x5f,
-	0xc0, 0xf1, 0x4c, 0x44, 0xe8, 0xc5, 0x11, 0xcf, 0x2a, 0xcf, 0x7a, 0x66, 0xcf, 0x2d, 0xea, 0xb6,
-	0xa1, 0x39, 0xd9, 0xee, 0xd4, 0x8d, 0xbb, 0x83, 0xe3, 0x65, 0xbc, 0x11, 0xe1, 0xba, 0xda, 0x02,
-	0x05, 0x49, 0x37, 0x2a, 0x7f, 0xa4, 0x1a, 0xd3, 0xe5, 0x59, 0x4a, 0x4c, 0xbc, 0x2b, 0xf3, 0x4a,
-	0x0d, 0x3f, 0x57, 0xa5, 0x17, 0xa3, 0x85, 0x7e, 0xc3, 0x86, 0x59, 0xad, 0x31, 0xf7, 0x0b, 0xf4,
-	0x6c, 0xac, 0x7b, 0x9b, 0xe7, 0xde, 0x03, 0xce, 0xa0, 0xeb, 0xa3, 0x44, 0x55, 0x44, 0xef, 0xf8,
-	0x25, 0x78, 0xf3, 0x87, 0xe4, 0xed, 0x3b, 0xc7, 0xe4, 0x3b, 0x0f, 0x91, 0x8e, 0x4d, 0xab, 0xae,
-	0x31, 0x99, 0xab, 0x04, 0x83, 0xad, 0xee, 0xb0, 0xc7, 0xe7, 0xd9, 0x78, 0xd5, 0xc6, 0x69, 0x60,
-	0x69, 0x6d, 0x1a, 0x46, 0xe4, 0x35, 0xa1, 0x6f, 0x6d, 0x4a, 0x99, 0xa1, 0xf0, 0xd7, 0x72, 0x18,
-	0x3c, 0xb9, 0x45, 0xf3, 0x5a, 0x5e, 0xc1, 0xc9, 0x7b, 0x54, 0x99, 0xd3, 0xce, 0x02, 0x3d, 0x2d,
-	0x6f, 0x50, 0x1d, 0xa2, 0xc1, 0xd3, 0x3b, 0x3c, 0x8b, 0xf2, 0xae, 0xff, 0x6b, 0xef, 0x90, 0xdf,
-	0x7b, 0x87, 0xfc, 0xdd, 0x3b, 0xe4, 0xc7, 0x3f, 0xe7, 0xc1, 0xd7, 0x96, 0xf9, 0x38, 0x5c, 0xfc,
-	0x0f, 0x00, 0x00, 0xff, 0xff, 0xac, 0x89, 0x25, 0xef, 0x31, 0x04, 0x00, 0x00,
+	// 723 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x95, 0xcd, 0x4e, 0x1b, 0x3b,
+	0x14, 0xc7, 0xef, 0x10, 0x02, 0xc9, 0x81, 0xf0, 0x61, 0x71, 0x61, 0x14, 0x50, 0x6e, 0x34, 0xba,
+	0xf7, 0x2a, 0x6a, 0x25, 0x4a, 0xcb, 0xa2, 0x8b, 0x76, 0x93, 0x26, 0x94, 0x8e, 0x94, 0x54, 0xd5,
+	0x0c, 0x41, 0x62, 0x53, 0x69, 0x3a, 0xe3, 0x06, 0x2b, 0x89, 0x9d, 0x7a, 0x1c, 0x10, 0x0f, 0x52,
+	0xa9, 0xea, 0x13, 0x75, 0xd9, 0x47, 0xa8, 0xe8, 0x8b, 0x54, 0xf6, 0xd8, 0xf3, 0x91, 0x84, 0xaa,
+	0x1b, 0xc4, 0xf9, 0xd9, 0xff, 0x33, 0xfe, 0xdb, 0xe7, 0x9c, 0xc0, 0x6e, 0x10, 0x4d, 0x08, 0x7d,
+	0xa2, 0xfe, 0x1e, 0x4f, 0x39, 0x13, 0x0c, 0x95, 0x55, 0xe0, 0x5c, 0xc2, 0xde, 0x6b, 0xc2, 0x27,
+	0xb7, 0x01, 0xc7, 0x2e, 0xfd, 0xc8, 0x3c, 0x1c, 0x4f, 0x19, 0x8d, 0x31, 0x6a, 0x00, 0x74, 0xf1,
+	0x0d, 0x09, 0x15, 0xb5, 0xad, 0xa6, 0xd5, 0xaa, 0x7a, 0x39, 0x92, 0xad, 0x77, 0x03, 0x81, 0xed,
+	0x95, 0xfc, 0xba, 0x24, 0xce, 0x63, 0xd8, 0xf6, 0xc9, 0xa4, 0x13, 0xf0, 0x28, 0x4d, 0x69, 0xc3,
+	0xba, 0xef, 0xf6, 0x3b, 0x6d, 0xaf, 0xab, 0xf2, 0x95, 0x3c, 0x13, 0x3a, 0x4d, 0x80, 0x1e, 0x0b,
+	0x47, 0x98, 0xbb, 0x13, 0x4c, 0x10, 0x82, 0x55, 0xb7, 0x7f, 0xe6, 0xea, 0x4d, 0xea, 0x7f, 0xe7,
+	0x25, 0xd8, 0x3d, 0x16, 0x06, 0x82, 0x30, 0xea, 0x52, 0x81, 0xf9, 0x4d, 0x30, 0x4e, 0xf3, 0x36,
+	0x61, 0xc3, 0xc7, 0xc2, 0x60, 0x2d, 0xcb, 0x23, 0xe7, 0x0a, 0x0e, 0x16, 0xd5, 0x9f, 0x66, 0x38,
+	0x16, 0xcb, 0x3e, 0x86, 0x1e, 0xc1, 0x8e, 0xd9, 0xe6, 0x52, 0x1f, 0x87, 0x8c, 0x46, 0xca, 0x61,
+	0xc9, 0x5b, 0xe0, 0xce, 0x00, 0x6a, 0xc9, 0xd1, 0x4d, 0xc2, 0x46, 0xea, 0x25, 0x4b, 0x9b, 0x23,
+	0xe8, 0x5f, 0x23, 0xe8, 0xe3, 0x38, 0x0e, 0x86, 0xe6, 0xee, 0x8a, 0xd0, 0x39, 0x85, 0x5a, 0x5b,
+	0xbe, 0x4f, 0x6a, 0xd2, 0x81, 0x4d, 0x05, 0x8a, 0xaa, 0x02, 0x73, 0xfe, 0x83, 0x6d, 0x63, 0xf3,
+	0x37, 0xf6, 0x9c, 0xaf, 0x25, 0xd8, 0xc9, 0xf6, 0x65, 0xef, 0xed, 0xc6, 0x17, 0x3c, 0x08, 0x47,
+	0x84, 0x0e, 0xd5, 0xf6, 0x8a, 0x97, 0x23, 0xf2, 0xf1, 0x06, 0x17, 0x1d, 0x41, 0x26, 0xe6, 0xd3,
+	0x26, 0x94, 0x2b, 0x6e, 0x7c, 0x19, 0x8c, 0x49, 0x64, 0x97, 0x94, 0xcc, 0x84, 0xa8, 0x0e, 0x95,
+	0x5e, 0x20, 0x88, 0x98, 0x45, 0xd8, 0x5e, 0x6d, 0x5a, 0xad, 0x15, 0x2f, 0x8d, 0x13, 0xd5, 0x5b,
+	0xc6, 0xc5, 0xb5, 0x5d, 0x36, 0x2a, 0x15, 0xa2, 0x23, 0xa8, 0xf6, 0x18, 0x1d, 0x26, 0xb2, 0x35,
+	0x25, 0xcb, 0x00, 0xda, 0x87, 0x35, 0x37, 0x3e, 0x0b, 0x62, 0x61, 0x57, 0x94, 0x4c, 0x47, 0x52,
+	0xd5, 0x61, 0x33, 0x2a, 0x7c, 0x59, 0x8e, 0xeb, 0x4d, 0xab, 0x55, 0xf6, 0x32, 0x20, 0x5f, 0xf4,
+	0x1d, 0x8b, 0x89, 0x74, 0xdc, 0x0e, 0xc3, 0x19, 0x0f, 0xc2, 0x3b, 0xbb, 0xaa, 0x52, 0x2f, 0x70,
+	0xed, 0x34, 0x92, 0x79, 0x20, 0x75, 0x2a, 0x43, 0xe9, 0xa7, 0x3d, 0xd6, 0x7e, 0x36, 0x12, 0x3f,
+	0x26, 0x96, 0xf7, 0xf7, 0x06, 0x93, 0xe1, 0xb5, 0x18, 0x50, 0x22, 0xec, 0xcd, 0xa4, 0x1f, 0x32,
+	0x82, 0xfe, 0x87, 0xad, 0x3e, 0x8b, 0xb0, 0x4b, 0x23, 0x92, 0xdc, 0xbc, 0x5d, 0x53, 0x7b, 0xe6,
+	0xa8, 0xb3, 0x0e, 0xe5, 0xb3, 0xc9, 0x54, 0xdc, 0x39, 0x53, 0xd8, 0x1a, 0xd0, 0x31, 0x0b, 0x47,
+	0xf9, 0x12, 0x48, 0xc9, 0x6c, 0x2c, 0xf4, 0x23, 0x15, 0x98, 0xbc, 0x9e, 0x41, 0x8c, 0xb9, 0xdb,
+	0xd5, 0x05, 0xab, 0xa3, 0x4c, 0x8b, 0xa3, 0x0b, 0xf9, 0x86, 0x25, 0xb5, 0x5a, 0x60, 0xce, 0x15,
+	0xd4, 0x4c, 0xae, 0x87, 0x7b, 0xe3, 0xa1, 0x0f, 0x1c, 0x41, 0xd5, 0xc3, 0x31, 0x16, 0x69, 0xf6,
+	0x8a, 0x97, 0x81, 0x67, 0x9f, 0x57, 0x75, 0xf9, 0xfa, 0x98, 0xcb, 0x11, 0x81, 0xda, 0xaa, 0x54,
+	0x47, 0x98, 0xfb, 0x82, 0xe3, 0x60, 0x22, 0x2b, 0x6c, 0xef, 0x38, 0x19, 0x4f, 0x85, 0x76, 0xaa,
+	0x1b, 0x5a, 0xe8, 0x86, 0x96, 0x75, 0x62, 0xa1, 0x17, 0xc6, 0x52, 0x22, 0x48, 0xf5, 0x05, 0x0f,
+	0xf5, 0xbf, 0xe7, 0xa8, 0xbe, 0xcb, 0x2e, 0xec, 0x9e, 0x63, 0x91, 0x28, 0x4d, 0x2f, 0xa0, 0xfd,
+	0xec, 0x04, 0xf9, 0x26, 0xaa, 0x1f, 0x2c, 0x70, 0x9d, 0xa5, 0x0d, 0xdb, 0xe7, 0x58, 0xe4, 0xe7,
+	0x27, 0xda, 0x2d, 0xb8, 0x90, 0xf3, 0xac, 0x7e, 0xa8, 0xd1, 0xd2, 0x39, 0xfb, 0x1e, 0x0e, 0x7d,
+	0x75, 0x10, 0x95, 0xd9, 0xb4, 0x9b, 0x19, 0x33, 0xa8, 0x31, 0xf7, 0xe9, 0xb9, 0xf1, 0x55, 0xff,
+	0xe7, 0xc1, 0x75, 0x9d, 0xff, 0x39, 0xc0, 0x39, 0x16, 0x7a, 0x14, 0x2f, 0x3b, 0x9d, 0x31, 0x3d,
+	0x3f, 0xad, 0x9f, 0xc2, 0x96, 0x7f, 0x3d, 0x13, 0x5d, 0x76, 0x4b, 0xf5, 0x05, 0x2f, 0x11, 0x6f,
+	0x6a, 0xa4, 0x4a, 0x16, 0x9d, 0x40, 0xcd, 0xc3, 0xb1, 0x08, 0xb8, 0xf8, 0x43, 0xc5, 0xab, 0x9d,
+	0x6f, 0xf7, 0x0d, 0xeb, 0xfb, 0x7d, 0xc3, 0xfa, 0x71, 0xdf, 0xb0, 0xbe, 0xfc, 0x6c, 0xfc, 0xf5,
+	0x61, 0x4d, 0xfd, 0x3a, 0x9d, 0xfe, 0x0a, 0x00, 0x00, 0xff, 0xff, 0xc7, 0x92, 0x24, 0xf9, 0xb2,
+	0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -548,6 +817,11 @@ type AdminServiceClient interface {
 	LockerStreaming(ctx context.Context, opts ...grpc.CallOption) (AdminService_LockerStreamingClient, error)
 	UnlockLocker(ctx context.Context, in *UnlockRequest, opts ...grpc.CallOption) (*UnlockResponse, error)
 	GetLockerLocation(ctx context.Context, in *LocationRequest, opts ...grpc.CallOption) (*LocationResponse, error)
+	GetFirmwareInfo(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*FirmwareInfoResponse, error)
+	SetLocationTrackingInterval(ctx context.Context, in *LocationIntervalRequest, opts ...grpc.CallOption) (*LocationIntervalResponse, error)
+	GetSimCard(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*SimCardResponse, error)
+	ShutDownLocker(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*Empty, error)
+	RestartLocker(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type adminServiceClient struct {
@@ -607,11 +881,61 @@ func (c *adminServiceClient) GetLockerLocation(ctx context.Context, in *Location
 	return out, nil
 }
 
+func (c *adminServiceClient) GetFirmwareInfo(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*FirmwareInfoResponse, error) {
+	out := new(FirmwareInfoResponse)
+	err := c.cc.Invoke(ctx, "/admin.AdminService/GetFirmwareInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) SetLocationTrackingInterval(ctx context.Context, in *LocationIntervalRequest, opts ...grpc.CallOption) (*LocationIntervalResponse, error) {
+	out := new(LocationIntervalResponse)
+	err := c.cc.Invoke(ctx, "/admin.AdminService/SetLocationTrackingInterval", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) GetSimCard(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*SimCardResponse, error) {
+	out := new(SimCardResponse)
+	err := c.cc.Invoke(ctx, "/admin.AdminService/GetSimCard", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) ShutDownLocker(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/admin.AdminService/ShutDownLocker", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) RestartLocker(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/admin.AdminService/RestartLocker", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AdminServiceServer is the server API for AdminService service.
 type AdminServiceServer interface {
 	LockerStreaming(AdminService_LockerStreamingServer) error
 	UnlockLocker(context.Context, *UnlockRequest) (*UnlockResponse, error)
 	GetLockerLocation(context.Context, *LocationRequest) (*LocationResponse, error)
+	GetFirmwareInfo(context.Context, *LockerImei) (*FirmwareInfoResponse, error)
+	SetLocationTrackingInterval(context.Context, *LocationIntervalRequest) (*LocationIntervalResponse, error)
+	GetSimCard(context.Context, *LockerImei) (*SimCardResponse, error)
+	ShutDownLocker(context.Context, *LockerImei) (*Empty, error)
+	RestartLocker(context.Context, *LockerImei) (*Empty, error)
 }
 
 // UnimplementedAdminServiceServer can be embedded to have forward compatible implementations.
@@ -626,6 +950,21 @@ func (*UnimplementedAdminServiceServer) UnlockLocker(ctx context.Context, req *U
 }
 func (*UnimplementedAdminServiceServer) GetLockerLocation(ctx context.Context, req *LocationRequest) (*LocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLockerLocation not implemented")
+}
+func (*UnimplementedAdminServiceServer) GetFirmwareInfo(ctx context.Context, req *LockerImei) (*FirmwareInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFirmwareInfo not implemented")
+}
+func (*UnimplementedAdminServiceServer) SetLocationTrackingInterval(ctx context.Context, req *LocationIntervalRequest) (*LocationIntervalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetLocationTrackingInterval not implemented")
+}
+func (*UnimplementedAdminServiceServer) GetSimCard(ctx context.Context, req *LockerImei) (*SimCardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSimCard not implemented")
+}
+func (*UnimplementedAdminServiceServer) ShutDownLocker(ctx context.Context, req *LockerImei) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ShutDownLocker not implemented")
+}
+func (*UnimplementedAdminServiceServer) RestartLocker(ctx context.Context, req *LockerImei) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RestartLocker not implemented")
 }
 
 func RegisterAdminServiceServer(s *grpc.Server, srv AdminServiceServer) {
@@ -694,6 +1033,96 @@ func _AdminService_GetLockerLocation_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AdminService_GetFirmwareInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerImei)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).GetFirmwareInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/admin.AdminService/GetFirmwareInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).GetFirmwareInfo(ctx, req.(*LockerImei))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_SetLocationTrackingInterval_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LocationIntervalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).SetLocationTrackingInterval(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/admin.AdminService/SetLocationTrackingInterval",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).SetLocationTrackingInterval(ctx, req.(*LocationIntervalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_GetSimCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerImei)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).GetSimCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/admin.AdminService/GetSimCard",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).GetSimCard(ctx, req.(*LockerImei))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_ShutDownLocker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerImei)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).ShutDownLocker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/admin.AdminService/ShutDownLocker",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).ShutDownLocker(ctx, req.(*LockerImei))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_RestartLocker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerImei)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).RestartLocker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/admin.AdminService/RestartLocker",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).RestartLocker(ctx, req.(*LockerImei))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _AdminService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "admin.AdminService",
 	HandlerType: (*AdminServiceServer)(nil),
@@ -706,6 +1135,26 @@ var _AdminService_serviceDesc = grpc.ServiceDesc{
 			MethodName: "GetLockerLocation",
 			Handler:    _AdminService_GetLockerLocation_Handler,
 		},
+		{
+			MethodName: "GetFirmwareInfo",
+			Handler:    _AdminService_GetFirmwareInfo_Handler,
+		},
+		{
+			MethodName: "SetLocationTrackingInterval",
+			Handler:    _AdminService_SetLocationTrackingInterval_Handler,
+		},
+		{
+			MethodName: "GetSimCard",
+			Handler:    _AdminService_GetSimCard_Handler,
+		},
+		{
+			MethodName: "ShutDownLocker",
+			Handler:    _AdminService_ShutDownLocker_Handler,
+		},
+		{
+			MethodName: "RestartLocker",
+			Handler:    _AdminService_RestartLocker_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
@@ -716,6 +1165,180 @@ var _AdminService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Metadata: "admin/admin.proto",
+}
+
+func (m *FirmwareInfoResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *FirmwareInfoResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *FirmwareInfoResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.DeviceDate) > 0 {
+		i -= len(m.DeviceDate)
+		copy(dAtA[i:], m.DeviceDate)
+		i = encodeVarintAdmin(dAtA, i, uint64(len(m.DeviceDate)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.DeviceInfo) > 0 {
+		i -= len(m.DeviceInfo)
+		copy(dAtA[i:], m.DeviceInfo)
+		i = encodeVarintAdmin(dAtA, i, uint64(len(m.DeviceInfo)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SimCardResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SimCardResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SimCardResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.SIMCARD != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.SIMCARD))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LockerImei) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LockerImei) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LockerImei) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.IMEI != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.IMEI))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LocationIntervalResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LocationIntervalResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LocationIntervalResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.SetInterval != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.SetInterval))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LocationIntervalRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LocationIntervalRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LocationIntervalRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.IntervalInSecond != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.IntervalInSecond))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.IMEI != 0 {
+		i = encodeVarintAdmin(dAtA, i, uint64(m.IMEI))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *LockerRequest) Marshal() (dAtA []byte, err error) {
@@ -862,9 +1485,10 @@ func (m *LocationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x62
 	}
 	if m.Altitude != 0 {
-		i = encodeVarintAdmin(dAtA, i, uint64(m.Altitude))
+		i -= 4
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Altitude))))
 		i--
-		dAtA[i] = 0x58
+		dAtA[i] = 0x5d
 	}
 	if len(m.UTCdate) > 0 {
 		i -= len(m.UTCdate)
@@ -1078,6 +1702,89 @@ func encodeVarintAdmin(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *FirmwareInfoResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.DeviceInfo)
+	if l > 0 {
+		n += 1 + l + sovAdmin(uint64(l))
+	}
+	l = len(m.DeviceDate)
+	if l > 0 {
+		n += 1 + l + sovAdmin(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *SimCardResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.SIMCARD != 0 {
+		n += 1 + sovAdmin(uint64(m.SIMCARD))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *LockerImei) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.IMEI != 0 {
+		n += 1 + sovAdmin(uint64(m.IMEI))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *LocationIntervalResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.SetInterval != 0 {
+		n += 1 + sovAdmin(uint64(m.SetInterval))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *LocationIntervalRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.IMEI != 0 {
+		n += 1 + sovAdmin(uint64(m.IMEI))
+	}
+	if m.IntervalInSecond != 0 {
+		n += 1 + sovAdmin(uint64(m.IntervalInSecond))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
 func (m *LockerRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1167,7 +1874,7 @@ func (m *LocationResponse) Size() (n int) {
 		n += 1 + l + sovAdmin(uint64(l))
 	}
 	if m.Altitude != 0 {
-		n += 1 + sovAdmin(uint64(m.Altitude))
+		n += 5
 	}
 	l = len(m.HeightUnit)
 	if l > 0 {
@@ -1242,6 +1949,420 @@ func sovAdmin(x uint64) (n int) {
 }
 func sozAdmin(x uint64) (n int) {
 	return sovAdmin(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *FirmwareInfoResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAdmin
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: FirmwareInfoResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: FirmwareInfoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DeviceInfo", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAdmin
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DeviceInfo = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DeviceDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAdmin
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DeviceDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAdmin(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SimCardResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAdmin
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SimCardResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SimCardResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SIMCARD", wireType)
+			}
+			m.SIMCARD = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAdmin
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SIMCARD |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAdmin(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LockerImei) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAdmin
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LockerImei: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LockerImei: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
+			}
+			m.IMEI = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAdmin
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.IMEI |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAdmin(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LocationIntervalResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAdmin
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LocationIntervalResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LocationIntervalResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SetInterval", wireType)
+			}
+			m.SetInterval = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAdmin
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SetInterval |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAdmin(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LocationIntervalRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAdmin
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LocationIntervalRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LocationIntervalRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
+			}
+			m.IMEI = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAdmin
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.IMEI |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IntervalInSecond", wireType)
+			}
+			m.IntervalInSecond = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAdmin
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.IntervalInSecond |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAdmin(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthAdmin
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *LockerRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -1724,24 +2845,16 @@ func (m *LocationResponse) Unmarshal(dAtA []byte) error {
 			m.UTCdate = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 11:
-			if wireType != 0 {
+			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Altitude", wireType)
 			}
-			m.Altitude = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAdmin
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Altitude |= int32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
 			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Altitude = float32(math.Float32frombits(v))
 		case 12:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field HeightUnit", wireType)

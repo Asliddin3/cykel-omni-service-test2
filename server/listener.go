@@ -47,11 +47,15 @@ func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreami
 	catcherCh := make(chan error)
 	// go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
 	err := <-catcherCh
+	fmt.Println(err)
 	cancel()
 	cancelSubFunc()
 	fmt.Println("gotten from catcher channel ", err)
 	err = adminStream.CloseSend()
 	fmt.Println("gotten from catcher channel ", err)
+	err = <-catchError
+	fmt.Println(err)
+
 	if err != nil {
 		fmt.Println("error while sending close send ", err)
 		return
@@ -77,6 +81,7 @@ func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStre
 			catchError <- fmt.Errorf("server closed sending message")
 			return
 		} else if err != nil {
+			fmt.Println("catched error while recv from stream conn ", err)
 			catchError <- fmt.Errorf("error while recovering message from stream %v", err)
 			continue
 		}
@@ -87,6 +92,7 @@ func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStre
 		fmt.Println("message before writing locker conn ", message.GetAdminMessage())
 		_, err = conn.Write(AddByte([]byte(message.GetAdminMessage())))
 		if err != nil {
+			fmt.Println("chatched error while writing to locker conn ", err)
 			catchError <- fmt.Errorf("error while writing to locker connection %v", err)
 			return
 		}

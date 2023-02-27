@@ -113,6 +113,8 @@ func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStre
 			return
 		} else if err != nil {
 			fmt.Println("error while reading from locker conn ", err)
+			catchError <- fmt.Errorf("gotten error from locker conn %v", err)
+			return
 		}
 		if buf == "" {
 			fmt.Println("gotten empty buffer from locker")

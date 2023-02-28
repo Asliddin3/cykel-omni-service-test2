@@ -8,11 +8,22 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	pbAdmin "github.com/Asliddin3/cykel-omni/genproto/admin"
 	grpcClient "github.com/Asliddin3/cykel-omni/service/grpc_client"
 )
+
+type LockerStream struct {
+	connection map[int64]net.Conn
+	Mx         sync.RWMutex
+}
+
+type LockerStreams struct {
+	Streams [10]*LockerStream
+	Mx      sync.RWMutex
+}
 
 //ListenTCP this func run loop for connection from client
 func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan struct{}) {
@@ -32,27 +43,21 @@ func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan s
 			cancel()
 			return
 		}
-		go handleRequest(conn, admin, cancel)
+		go handleRequest(ctx, conn, admin, cancel)
 	}
 	ch <- struct{}{}
 }
 
-func handleRequest(conn net.Conn, adminStream pbAdmin.AdminService_LockerStreamingClient, cancel context.CancelFunc) {
+func handleRequest(ctx context.Context, conn net.Conn, adminStream pbAdmin.AdminService_LockerStreamingClient, cancel context.CancelFunc) {
 	catchError := make(chan error)
 	// serverError := make(chan error)
 	// var lockerMutex sync.Mutex
-	ctx, cancelSubFunc := context.WithCancel(context.Background())
+	// ctx, cancelSubFunc := context.WithCancel(context.Background())
 	go recvMessage(ctx, adminStream, conn, catchError)
 	go sendMessage(ctx, adminStream, conn, catchError)
-	catcherCh := make(chan error)
 	// go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
-	err := <-catcherCh
-	fmt.Println(err)
+	err := <-catchError
 	cancel()
-	cancelSubFunc()
-	fmt.Println("gotten from catcher channel ", err)
-	err = adminStream.CloseSend()
-	fmt.Println("gotten from catcher channel ", err)
 	err = <-catchError
 	fmt.Println(err)
 
@@ -105,6 +110,12 @@ func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStre
 	defer sendStream.CloseSend()
 	rdr := bufio.NewReader(conn)
 	for {
+		err := sendStream.Context().Err()
+		if err != nil {
+			fmt.Println("getting error from context ", err)
+			catchError <- fmt.Errorf("server error %v", err)
+			return
+		}
 		buf, err := rdr.ReadString('\n')
 		fmt.Println("readline result buffer ", buf)
 		if err == io.EOF {

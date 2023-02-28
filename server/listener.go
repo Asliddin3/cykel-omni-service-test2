@@ -58,6 +58,7 @@ func handleRequest(ctx context.Context, conn net.Conn, adminStream pbAdmin.Admin
 	// go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
 	err := <-catchError
 	cancel()
+	conn.Close()
 	err = <-catchError
 	fmt.Println(err)
 

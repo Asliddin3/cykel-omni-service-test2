@@ -1,8 +1,10 @@
 package config
 
 import (
+	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/spf13/cast"
 )
 
@@ -40,9 +42,14 @@ func Load() Config {
 }
 
 func getOrReturnDefault(key string, defaulValue interface{}) interface{} {
-	_, exists := os.LookupEnv(key)
-	if exists {
-		return os.Getenv(key)
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+		return defaulValue
+	}
+	val := os.Getenv(key)
+	if val != "" {
+		return val
 	}
 	return defaulValue
 }

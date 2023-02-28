@@ -106,7 +106,7 @@ func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStre
 	rdr := bufio.NewReader(conn)
 	for {
 		buf, err := rdr.ReadString('\n')
-		fmt.Println("readline result bufer ", buf)
+		fmt.Println("readline result buffer ", buf)
 		if err == io.EOF {
 			fmt.Println("no more data")
 			catchError <- fmt.Errorf("unexpected closed connection from locker")

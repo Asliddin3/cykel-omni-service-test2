@@ -31,5 +31,4 @@ func main() {
 	go server.ListenTCP(l, adminClient, tcpChannel)
 	<-tcpChannel
 	defer l.Close()
-
 }

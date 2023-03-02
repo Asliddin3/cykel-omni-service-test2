@@ -57,6 +57,7 @@ func handleRequest(ctx context.Context, conn net.Conn, adminStream pbAdmin.Admin
 	go sendMessage(ctx, adminStream, conn, catchError)
 	// go catchStreamError(clientError, serverError, adminStream, cancel, catcherCh)
 	err := <-catchError
+	fmt.Println(err)
 	cancel()
 	conn.Close()
 	err = <-catchError
@@ -140,12 +141,6 @@ func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStre
 			}
 		}
 		buf = strings.Replace(buf, "#\n", "", 1)
-		err = sendStream.Context().Err()
-		if err != nil {
-			fmt.Println("getting error from context ", err)
-			catchError <- fmt.Errorf("server error %v", err)
-			return
-		}
 		err = sendStream.Send(&pbAdmin.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),
 			LockerMessage: buf,

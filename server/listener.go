@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	pbAdmin "github.com/Asliddin3/cykel-omni/genproto/admin"
+	pbLocker "github.com/Asliddin3/cykel-omni/genproto/locker"
 	grpcClient "github.com/Asliddin3/cykel-omni/service/grpc_client"
 )
 
@@ -34,7 +34,7 @@ func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan s
 			break
 		}
 		ctx, cancel := context.WithCancel(context.Background())
-		admin, err := adminClient.AdminService().LockerStreaming(ctx)
+		admin, err := adminClient.LockerService().LockerStreaming(ctx)
 		if err != nil {
 			fmt.Println("error connection to admin service ", err)
 			buf := make([]byte, 1024)
@@ -48,7 +48,7 @@ func ListenTCP(l net.Listener, adminClient *grpcClient.ServiceManager, ch chan s
 	ch <- struct{}{}
 }
 
-func handleRequest(ctx context.Context, conn net.Conn, adminStream pbAdmin.AdminService_LockerStreamingClient, cancel context.CancelFunc) {
+func handleRequest(ctx context.Context, conn net.Conn, adminStream pbLocker.LockerService_LockerStreamingClient, cancel context.CancelFunc) {
 	catchError := make(chan error)
 	// serverError := make(chan error)
 	// var lockerMutex sync.Mutex
@@ -71,7 +71,7 @@ func handleRequest(ctx context.Context, conn net.Conn, adminStream pbAdmin.Admin
 
 }
 
-func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, catchError chan error) {
+func recvMessage(ctx context.Context, recvStream pbLocker.LockerService_LockerStreamingClient, conn net.Conn, catchError chan error) {
 	defer func() {
 		conn.Close()
 	}()
@@ -107,7 +107,7 @@ func recvMessage(ctx context.Context, recvStream pbAdmin.AdminService_LockerStre
 	}
 }
 
-func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStreamingClient, conn net.Conn, catchError chan error) {
+func sendMessage(ctx context.Context, sendStream pbLocker.LockerService_LockerStreamingClient, conn net.Conn, catchError chan error) {
 	var lockerIMEI int
 	defer sendStream.CloseSend()
 	rdr := bufio.NewReader(conn)
@@ -141,7 +141,7 @@ func sendMessage(ctx context.Context, sendStream pbAdmin.AdminService_LockerStre
 			}
 		}
 		buf = strings.Replace(buf, "#\n", "", 1)
-		err = sendStream.Send(&pbAdmin.LockerRequest{
+		err = sendStream.Send(&pbLocker.LockerRequest{
 			LockerIMEI:    int64(lockerIMEI),
 			LockerMessage: buf,
 		})

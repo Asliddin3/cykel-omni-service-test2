@@ -92,18 +92,18 @@ func recvMessage(ctx context.Context, recvStream pbLocker.LockerService_LockerSt
 			catchError <- fmt.Errorf("error while recovering message from stream %v", err)
 			return
 		}
-		fmt.Println("stream ----->", message.GetAdminMessage())
+		fmt.Println("stream ----->", message.GetStreamMessage())
 		// if message.GetAdminMessage() == "" {
 		// 	continue
 		// }
-		fmt.Println("message before writing locker conn ", message.GetAdminMessage())
-		_, err = conn.Write(AddByte([]byte(message.GetAdminMessage())))
+		fmt.Println("message before writing locker conn ", message.GetStreamMessage())
+		_, err = conn.Write(AddByte([]byte(message.GetStreamMessage())))
 		if err != nil {
 			fmt.Println("chatched error while writing to locker conn ", err)
 			catchError <- fmt.Errorf("error while writing to locker connection %v", err)
 			return
 		}
-		fmt.Println("command written to locker conn successfully", message.AdminMessage)
+		fmt.Println("command written to locker conn successfully", message.StreamMessage)
 	}
 }
 

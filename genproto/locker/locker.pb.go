@@ -27,28 +27,25 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type StationResponse struct {
-	ID                   int64    `protobuf:"varint,1,opt,name=ID,proto3" json:"ID"`
-	Longitude            float32  `protobuf:"fixed32,2,opt,name=Longitude,proto3" json:"Longitude"`
-	Latitude             float32  `protobuf:"fixed32,3,opt,name=Latitude,proto3" json:"Latitude"`
-	Name                 string   `protobuf:"bytes,4,opt,name=Name,proto3" json:"Name"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type LockerFullInfoList struct {
+	LockersInfo          []*LockerFullInfoResponse `protobuf:"bytes,1,rep,name=LockersInfo,proto3" json:"LockersInfo"`
+	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
+	XXX_unrecognized     []byte                    `json:"-"`
+	XXX_sizecache        int32                     `json:"-"`
 }
 
-func (m *StationResponse) Reset()         { *m = StationResponse{} }
-func (m *StationResponse) String() string { return proto.CompactTextString(m) }
-func (*StationResponse) ProtoMessage()    {}
-func (*StationResponse) Descriptor() ([]byte, []int) {
+func (m *LockerFullInfoList) Reset()         { *m = LockerFullInfoList{} }
+func (m *LockerFullInfoList) String() string { return proto.CompactTextString(m) }
+func (*LockerFullInfoList) ProtoMessage()    {}
+func (*LockerFullInfoList) Descriptor() ([]byte, []int) {
 	return fileDescriptor_33c8ee7c4da0abb1, []int{0}
 }
-func (m *StationResponse) XXX_Unmarshal(b []byte) error {
+func (m *LockerFullInfoList) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *StationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *LockerFullInfoList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_StationResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_LockerFullInfoList.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -58,67 +55,44 @@ func (m *StationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, err
 		return b[:n], nil
 	}
 }
-func (m *StationResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_StationResponse.Merge(m, src)
+func (m *LockerFullInfoList) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LockerFullInfoList.Merge(m, src)
 }
-func (m *StationResponse) XXX_Size() int {
+func (m *LockerFullInfoList) XXX_Size() int {
 	return m.Size()
 }
-func (m *StationResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_StationResponse.DiscardUnknown(m)
+func (m *LockerFullInfoList) XXX_DiscardUnknown() {
+	xxx_messageInfo_LockerFullInfoList.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_StationResponse proto.InternalMessageInfo
+var xxx_messageInfo_LockerFullInfoList proto.InternalMessageInfo
 
-func (m *StationResponse) GetID() int64 {
+func (m *LockerFullInfoList) GetLockersInfo() []*LockerFullInfoResponse {
 	if m != nil {
-		return m.ID
+		return m.LockersInfo
 	}
-	return 0
+	return nil
 }
 
-func (m *StationResponse) GetLongitude() float32 {
-	if m != nil {
-		return m.Longitude
-	}
-	return 0
+type LockerList struct {
+	Lockers              []*LockerCreateResponse `protobuf:"bytes,1,rep,name=Lockers,proto3" json:"Lockers"`
+	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
+	XXX_unrecognized     []byte                  `json:"-"`
+	XXX_sizecache        int32                   `json:"-"`
 }
 
-func (m *StationResponse) GetLatitude() float32 {
-	if m != nil {
-		return m.Latitude
-	}
-	return 0
-}
-
-func (m *StationResponse) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-type StationRequest struct {
-	Longitude            float32  `protobuf:"fixed32,1,opt,name=Longitude,proto3" json:"Longitude"`
-	Latitude             float32  `protobuf:"fixed32,2,opt,name=Latitude,proto3" json:"Latitude"`
-	Name                 string   `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *StationRequest) Reset()         { *m = StationRequest{} }
-func (m *StationRequest) String() string { return proto.CompactTextString(m) }
-func (*StationRequest) ProtoMessage()    {}
-func (*StationRequest) Descriptor() ([]byte, []int) {
+func (m *LockerList) Reset()         { *m = LockerList{} }
+func (m *LockerList) String() string { return proto.CompactTextString(m) }
+func (*LockerList) ProtoMessage()    {}
+func (*LockerList) Descriptor() ([]byte, []int) {
 	return fileDescriptor_33c8ee7c4da0abb1, []int{1}
 }
-func (m *StationRequest) XXX_Unmarshal(b []byte) error {
+func (m *LockerList) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *StationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *LockerList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_StationRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_LockerList.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -128,115 +102,196 @@ func (m *StationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, erro
 		return b[:n], nil
 	}
 }
-func (m *StationRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_StationRequest.Merge(m, src)
+func (m *LockerList) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LockerList.Merge(m, src)
 }
-func (m *StationRequest) XXX_Size() int {
+func (m *LockerList) XXX_Size() int {
 	return m.Size()
 }
-func (m *StationRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_StationRequest.DiscardUnknown(m)
+func (m *LockerList) XXX_DiscardUnknown() {
+	xxx_messageInfo_LockerList.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_StationRequest proto.InternalMessageInfo
+var xxx_messageInfo_LockerList proto.InternalMessageInfo
 
-func (m *StationRequest) GetLongitude() float32 {
+func (m *LockerList) GetLockers() []*LockerCreateResponse {
+	if m != nil {
+		return m.Lockers
+	}
+	return nil
+}
+
+type LockerFullInfoResponse struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=Id,proto3" json:"Id"`
+	IMEI                 int64    `protobuf:"varint,2,opt,name=IMEI,proto3" json:"IMEI"`
+	SimCard              int64    `protobuf:"varint,3,opt,name=SimCard,proto3" json:"SimCard"`
+	Voltage              float32  `protobuf:"fixed32,4,opt,name=Voltage,proto3" json:"Voltage"`
+	Signal               int32    `protobuf:"varint,5,opt,name=Signal,proto3" json:"Signal"`
+	Sate                 int32    `protobuf:"varint,6,opt,name=Sate,proto3" json:"Sate"`
+	AlarmStatus          string   `protobuf:"bytes,7,opt,name=AlarmStatus,proto3" json:"AlarmStatus"`
+	LocationInterval     int64    `protobuf:"varint,8,opt,name=LocationInterval,proto3" json:"LocationInterval"`
+	Longitude            float32  `protobuf:"fixed32,9,opt,name=Longitude,proto3" json:"Longitude"`
+	Latitude             float32  `protobuf:"fixed32,10,opt,name=Latitude,proto3" json:"Latitude"`
+	IsLocked             bool     `protobuf:"varint,11,opt,name=IsLocked,proto3" json:"IsLocked"`
+	IsConnected          bool     `protobuf:"varint,12,opt,name=IsConnected,proto3" json:"IsConnected"`
+	CreatedAt            string   `protobuf:"bytes,13,opt,name=CreatedAt,proto3" json:"CreatedAt"`
+	UpdatedAt            string   `protobuf:"bytes,14,opt,name=UpdatedAt,proto3" json:"UpdatedAt"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LockerFullInfoResponse) Reset()         { *m = LockerFullInfoResponse{} }
+func (m *LockerFullInfoResponse) String() string { return proto.CompactTextString(m) }
+func (*LockerFullInfoResponse) ProtoMessage()    {}
+func (*LockerFullInfoResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_33c8ee7c4da0abb1, []int{2}
+}
+func (m *LockerFullInfoResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LockerFullInfoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LockerFullInfoResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LockerFullInfoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LockerFullInfoResponse.Merge(m, src)
+}
+func (m *LockerFullInfoResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *LockerFullInfoResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LockerFullInfoResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LockerFullInfoResponse proto.InternalMessageInfo
+
+func (m *LockerFullInfoResponse) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *LockerFullInfoResponse) GetIMEI() int64 {
+	if m != nil {
+		return m.IMEI
+	}
+	return 0
+}
+
+func (m *LockerFullInfoResponse) GetSimCard() int64 {
+	if m != nil {
+		return m.SimCard
+	}
+	return 0
+}
+
+func (m *LockerFullInfoResponse) GetVoltage() float32 {
+	if m != nil {
+		return m.Voltage
+	}
+	return 0
+}
+
+func (m *LockerFullInfoResponse) GetSignal() int32 {
+	if m != nil {
+		return m.Signal
+	}
+	return 0
+}
+
+func (m *LockerFullInfoResponse) GetSate() int32 {
+	if m != nil {
+		return m.Sate
+	}
+	return 0
+}
+
+func (m *LockerFullInfoResponse) GetAlarmStatus() string {
+	if m != nil {
+		return m.AlarmStatus
+	}
+	return ""
+}
+
+func (m *LockerFullInfoResponse) GetLocationInterval() int64 {
+	if m != nil {
+		return m.LocationInterval
+	}
+	return 0
+}
+
+func (m *LockerFullInfoResponse) GetLongitude() float32 {
 	if m != nil {
 		return m.Longitude
 	}
 	return 0
 }
 
-func (m *StationRequest) GetLatitude() float32 {
+func (m *LockerFullInfoResponse) GetLatitude() float32 {
 	if m != nil {
 		return m.Latitude
 	}
 	return 0
 }
 
-func (m *StationRequest) GetName() string {
+func (m *LockerFullInfoResponse) GetIsLocked() bool {
 	if m != nil {
-		return m.Name
+		return m.IsLocked
+	}
+	return false
+}
+
+func (m *LockerFullInfoResponse) GetIsConnected() bool {
+	if m != nil {
+		return m.IsConnected
+	}
+	return false
+}
+
+func (m *LockerFullInfoResponse) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
 	}
 	return ""
 }
 
-type BikeCategoryRequest struct {
-	ImagePath            string   `protobuf:"bytes,1,opt,name=ImagePath,proto3" json:"ImagePath"`
-	BikeType             string   `protobuf:"bytes,2,opt,name=BikeType,proto3" json:"BikeType"`
+func (m *LockerFullInfoResponse) GetUpdatedAt() string {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return ""
+}
+
+type LockerCreateRequest struct {
+	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+	SimCard              int64    `protobuf:"varint,2,opt,name=SimCard,proto3" json:"SimCard"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *BikeCategoryRequest) Reset()         { *m = BikeCategoryRequest{} }
-func (m *BikeCategoryRequest) String() string { return proto.CompactTextString(m) }
-func (*BikeCategoryRequest) ProtoMessage()    {}
-func (*BikeCategoryRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{2}
-}
-func (m *BikeCategoryRequest) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *BikeCategoryRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_BikeCategoryRequest.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *BikeCategoryRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BikeCategoryRequest.Merge(m, src)
-}
-func (m *BikeCategoryRequest) XXX_Size() int {
-	return m.Size()
-}
-func (m *BikeCategoryRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_BikeCategoryRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_BikeCategoryRequest proto.InternalMessageInfo
-
-func (m *BikeCategoryRequest) GetImagePath() string {
-	if m != nil {
-		return m.ImagePath
-	}
-	return ""
-}
-
-func (m *BikeCategoryRequest) GetBikeType() string {
-	if m != nil {
-		return m.BikeType
-	}
-	return ""
-}
-
-type BikeCategoryResponse struct {
-	ID                   int64    `protobuf:"varint,1,opt,name=ID,proto3" json:"ID"`
-	ImagePath            string   `protobuf:"bytes,2,opt,name=ImagePath,proto3" json:"ImagePath"`
-	BikeType             string   `protobuf:"bytes,3,opt,name=BikeType,proto3" json:"BikeType"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *BikeCategoryResponse) Reset()         { *m = BikeCategoryResponse{} }
-func (m *BikeCategoryResponse) String() string { return proto.CompactTextString(m) }
-func (*BikeCategoryResponse) ProtoMessage()    {}
-func (*BikeCategoryResponse) Descriptor() ([]byte, []int) {
+func (m *LockerCreateRequest) Reset()         { *m = LockerCreateRequest{} }
+func (m *LockerCreateRequest) String() string { return proto.CompactTextString(m) }
+func (*LockerCreateRequest) ProtoMessage()    {}
+func (*LockerCreateRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_33c8ee7c4da0abb1, []int{3}
 }
-func (m *BikeCategoryResponse) XXX_Unmarshal(b []byte) error {
+func (m *LockerCreateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *BikeCategoryResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *LockerCreateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_BikeCategoryResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_LockerCreateRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -246,59 +301,53 @@ func (m *BikeCategoryResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte
 		return b[:n], nil
 	}
 }
-func (m *BikeCategoryResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BikeCategoryResponse.Merge(m, src)
+func (m *LockerCreateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LockerCreateRequest.Merge(m, src)
 }
-func (m *BikeCategoryResponse) XXX_Size() int {
+func (m *LockerCreateRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *BikeCategoryResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_BikeCategoryResponse.DiscardUnknown(m)
+func (m *LockerCreateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LockerCreateRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_BikeCategoryResponse proto.InternalMessageInfo
+var xxx_messageInfo_LockerCreateRequest proto.InternalMessageInfo
 
-func (m *BikeCategoryResponse) GetID() int64 {
+func (m *LockerCreateRequest) GetIMEI() int64 {
 	if m != nil {
-		return m.ID
+		return m.IMEI
 	}
 	return 0
 }
 
-func (m *BikeCategoryResponse) GetImagePath() string {
+func (m *LockerCreateRequest) GetSimCard() int64 {
 	if m != nil {
-		return m.ImagePath
+		return m.SimCard
 	}
-	return ""
+	return 0
 }
 
-func (m *BikeCategoryResponse) GetBikeType() string {
-	if m != nil {
-		return m.BikeType
-	}
-	return ""
-}
-
-type BikeRequest struct {
-	CategoryId           int64    `protobuf:"varint,1,opt,name=CategoryId,proto3" json:"CategoryId"`
-	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name"`
+type LockerCreateResponse struct {
+	ID                   int64    `protobuf:"varint,1,opt,name=ID,proto3" json:"ID"`
+	IMEI                 int64    `protobuf:"varint,2,opt,name=IMEI,proto3" json:"IMEI"`
+	SimCard              int64    `protobuf:"varint,3,opt,name=SimCard,proto3" json:"SimCard"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *BikeRequest) Reset()         { *m = BikeRequest{} }
-func (m *BikeRequest) String() string { return proto.CompactTextString(m) }
-func (*BikeRequest) ProtoMessage()    {}
-func (*BikeRequest) Descriptor() ([]byte, []int) {
+func (m *LockerCreateResponse) Reset()         { *m = LockerCreateResponse{} }
+func (m *LockerCreateResponse) String() string { return proto.CompactTextString(m) }
+func (*LockerCreateResponse) ProtoMessage()    {}
+func (*LockerCreateResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_33c8ee7c4da0abb1, []int{4}
 }
-func (m *BikeRequest) XXX_Unmarshal(b []byte) error {
+func (m *LockerCreateResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *BikeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *LockerCreateResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_BikeRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_LockerCreateResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -308,93 +357,37 @@ func (m *BikeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) 
 		return b[:n], nil
 	}
 }
-func (m *BikeRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BikeRequest.Merge(m, src)
+func (m *LockerCreateResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LockerCreateResponse.Merge(m, src)
 }
-func (m *BikeRequest) XXX_Size() int {
+func (m *LockerCreateResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *BikeRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_BikeRequest.DiscardUnknown(m)
+func (m *LockerCreateResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LockerCreateResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_BikeRequest proto.InternalMessageInfo
+var xxx_messageInfo_LockerCreateResponse proto.InternalMessageInfo
 
-func (m *BikeRequest) GetCategoryId() int64 {
-	if m != nil {
-		return m.CategoryId
-	}
-	return 0
-}
-
-func (m *BikeRequest) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-type BikeResponse struct {
-	ID                   int64    `protobuf:"varint,1,opt,name=ID,proto3" json:"ID"`
-	CategoryId           int64    `protobuf:"varint,2,opt,name=CategoryId,proto3" json:"CategoryId"`
-	Name                 string   `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *BikeResponse) Reset()         { *m = BikeResponse{} }
-func (m *BikeResponse) String() string { return proto.CompactTextString(m) }
-func (*BikeResponse) ProtoMessage()    {}
-func (*BikeResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{5}
-}
-func (m *BikeResponse) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *BikeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_BikeResponse.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *BikeResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BikeResponse.Merge(m, src)
-}
-func (m *BikeResponse) XXX_Size() int {
-	return m.Size()
-}
-func (m *BikeResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_BikeResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_BikeResponse proto.InternalMessageInfo
-
-func (m *BikeResponse) GetID() int64 {
+func (m *LockerCreateResponse) GetID() int64 {
 	if m != nil {
 		return m.ID
 	}
 	return 0
 }
 
-func (m *BikeResponse) GetCategoryId() int64 {
+func (m *LockerCreateResponse) GetIMEI() int64 {
 	if m != nil {
-		return m.CategoryId
+		return m.IMEI
 	}
 	return 0
 }
 
-func (m *BikeResponse) GetName() string {
+func (m *LockerCreateResponse) GetSimCard() int64 {
 	if m != nil {
-		return m.Name
+		return m.SimCard
 	}
-	return ""
+	return 0
 }
 
 type LockerInfoResponse struct {
@@ -403,6 +396,8 @@ type LockerInfoResponse struct {
 	GPSsate              int32    `protobuf:"varint,3,opt,name=GPSsate,proto3" json:"GPSsate"`
 	IsLocked             bool     `protobuf:"varint,4,opt,name=IsLocked,proto3" json:"IsLocked"`
 	Retention            int64    `protobuf:"varint,5,opt,name=Retention,proto3" json:"Retention"`
+	CreatedAt            string   `protobuf:"bytes,6,opt,name=CreatedAt,proto3" json:"CreatedAt"`
+	UpdatedAt            string   `protobuf:"bytes,7,opt,name=UpdatedAt,proto3" json:"UpdatedAt"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -412,7 +407,7 @@ func (m *LockerInfoResponse) Reset()         { *m = LockerInfoResponse{} }
 func (m *LockerInfoResponse) String() string { return proto.CompactTextString(m) }
 func (*LockerInfoResponse) ProtoMessage()    {}
 func (*LockerInfoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{6}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{5}
 }
 func (m *LockerInfoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -476,6 +471,20 @@ func (m *LockerInfoResponse) GetRetention() int64 {
 	return 0
 }
 
+func (m *LockerInfoResponse) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *LockerInfoResponse) GetUpdatedAt() string {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return ""
+}
+
 type FirmwareInfoResponse struct {
 	DeviceInfo           string   `protobuf:"bytes,1,opt,name=DeviceInfo,proto3" json:"DeviceInfo"`
 	DeviceDate           string   `protobuf:"bytes,2,opt,name=DeviceDate,proto3" json:"DeviceDate"`
@@ -488,7 +497,7 @@ func (m *FirmwareInfoResponse) Reset()         { *m = FirmwareInfoResponse{} }
 func (m *FirmwareInfoResponse) String() string { return proto.CompactTextString(m) }
 func (*FirmwareInfoResponse) ProtoMessage()    {}
 func (*FirmwareInfoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{7}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{6}
 }
 func (m *FirmwareInfoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -542,7 +551,7 @@ func (m *SimCardResponse) Reset()         { *m = SimCardResponse{} }
 func (m *SimCardResponse) String() string { return proto.CompactTextString(m) }
 func (*SimCardResponse) ProtoMessage()    {}
 func (*SimCardResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{8}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{7}
 }
 func (m *SimCardResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -578,25 +587,25 @@ func (m *SimCardResponse) GetSIMCARD() int64 {
 	return 0
 }
 
-type LockerImei struct {
-	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+type LockerID struct {
+	LockerID             int64    `protobuf:"varint,1,opt,name=LockerID,proto3" json:"LockerID"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *LockerImei) Reset()         { *m = LockerImei{} }
-func (m *LockerImei) String() string { return proto.CompactTextString(m) }
-func (*LockerImei) ProtoMessage()    {}
-func (*LockerImei) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{9}
+func (m *LockerID) Reset()         { *m = LockerID{} }
+func (m *LockerID) String() string { return proto.CompactTextString(m) }
+func (*LockerID) ProtoMessage()    {}
+func (*LockerID) Descriptor() ([]byte, []int) {
+	return fileDescriptor_33c8ee7c4da0abb1, []int{8}
 }
-func (m *LockerImei) XXX_Unmarshal(b []byte) error {
+func (m *LockerID) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *LockerImei) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *LockerID) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_LockerImei.Marshal(b, m, deterministic)
+		return xxx_messageInfo_LockerID.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -606,27 +615,28 @@ func (m *LockerImei) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *LockerImei) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LockerImei.Merge(m, src)
+func (m *LockerID) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LockerID.Merge(m, src)
 }
-func (m *LockerImei) XXX_Size() int {
+func (m *LockerID) XXX_Size() int {
 	return m.Size()
 }
-func (m *LockerImei) XXX_DiscardUnknown() {
-	xxx_messageInfo_LockerImei.DiscardUnknown(m)
+func (m *LockerID) XXX_DiscardUnknown() {
+	xxx_messageInfo_LockerID.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_LockerImei proto.InternalMessageInfo
+var xxx_messageInfo_LockerID proto.InternalMessageInfo
 
-func (m *LockerImei) GetIMEI() int64 {
+func (m *LockerID) GetLockerID() int64 {
 	if m != nil {
-		return m.IMEI
+		return m.LockerID
 	}
 	return 0
 }
 
 type LocationIntervalResponse struct {
 	SetInterval          int64    `protobuf:"varint,1,opt,name=SetInterval,proto3" json:"SetInterval"`
+	UpdatedAt            string   `protobuf:"bytes,2,opt,name=UpdatedAt,proto3" json:"UpdatedAt"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -636,7 +646,7 @@ func (m *LocationIntervalResponse) Reset()         { *m = LocationIntervalRespon
 func (m *LocationIntervalResponse) String() string { return proto.CompactTextString(m) }
 func (*LocationIntervalResponse) ProtoMessage()    {}
 func (*LocationIntervalResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{10}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{9}
 }
 func (m *LocationIntervalResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -672,8 +682,15 @@ func (m *LocationIntervalResponse) GetSetInterval() int64 {
 	return 0
 }
 
+func (m *LocationIntervalResponse) GetUpdatedAt() string {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return ""
+}
+
 type LocationIntervalRequest struct {
-	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+	LockerID             int64    `protobuf:"varint,1,opt,name=LockerID,proto3" json:"LockerID"`
 	IntervalInSecond     int64    `protobuf:"varint,2,opt,name=IntervalInSecond,proto3" json:"IntervalInSecond"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -684,7 +701,7 @@ func (m *LocationIntervalRequest) Reset()         { *m = LocationIntervalRequest
 func (m *LocationIntervalRequest) String() string { return proto.CompactTextString(m) }
 func (*LocationIntervalRequest) ProtoMessage()    {}
 func (*LocationIntervalRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{11}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{10}
 }
 func (m *LocationIntervalRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -713,9 +730,9 @@ func (m *LocationIntervalRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_LocationIntervalRequest proto.InternalMessageInfo
 
-func (m *LocationIntervalRequest) GetIMEI() int64 {
+func (m *LocationIntervalRequest) GetLockerID() int64 {
 	if m != nil {
-		return m.IMEI
+		return m.LockerID
 	}
 	return 0
 }
@@ -739,7 +756,7 @@ func (m *LockerRequest) Reset()         { *m = LockerRequest{} }
 func (m *LockerRequest) String() string { return proto.CompactTextString(m) }
 func (*LockerRequest) ProtoMessage()    {}
 func (*LockerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{12}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{11}
 }
 func (m *LockerRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -782,25 +799,25 @@ func (m *LockerRequest) GetLockerMessage() string {
 	return ""
 }
 
-type AdminResponse struct {
-	AdminMessage         string   `protobuf:"bytes,2,opt,name=AdminMessage,proto3" json:"AdminMessage"`
+type LockerStreamResponse struct {
+	StreamMessage        string   `protobuf:"bytes,2,opt,name=StreamMessage,proto3" json:"StreamMessage"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *AdminResponse) Reset()         { *m = AdminResponse{} }
-func (m *AdminResponse) String() string { return proto.CompactTextString(m) }
-func (*AdminResponse) ProtoMessage()    {}
-func (*AdminResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{13}
+func (m *LockerStreamResponse) Reset()         { *m = LockerStreamResponse{} }
+func (m *LockerStreamResponse) String() string { return proto.CompactTextString(m) }
+func (*LockerStreamResponse) ProtoMessage()    {}
+func (*LockerStreamResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_33c8ee7c4da0abb1, []int{12}
 }
-func (m *AdminResponse) XXX_Unmarshal(b []byte) error {
+func (m *LockerStreamResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *AdminResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *LockerStreamResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_AdminResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_LockerStreamResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -810,27 +827,27 @@ func (m *AdminResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error
 		return b[:n], nil
 	}
 }
-func (m *AdminResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AdminResponse.Merge(m, src)
+func (m *LockerStreamResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LockerStreamResponse.Merge(m, src)
 }
-func (m *AdminResponse) XXX_Size() int {
+func (m *LockerStreamResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *AdminResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_AdminResponse.DiscardUnknown(m)
+func (m *LockerStreamResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LockerStreamResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AdminResponse proto.InternalMessageInfo
+var xxx_messageInfo_LockerStreamResponse proto.InternalMessageInfo
 
-func (m *AdminResponse) GetAdminMessage() string {
+func (m *LockerStreamResponse) GetStreamMessage() string {
 	if m != nil {
-		return m.AdminMessage
+		return m.StreamMessage
 	}
 	return ""
 }
 
 type LocationRequest struct {
-	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+	LockerID             int64    `protobuf:"varint,1,opt,name=LockerID,proto3" json:"LockerID"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -840,7 +857,7 @@ func (m *LocationRequest) Reset()         { *m = LocationRequest{} }
 func (m *LocationRequest) String() string { return proto.CompactTextString(m) }
 func (*LocationRequest) ProtoMessage()    {}
 func (*LocationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{14}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{13}
 }
 func (m *LocationRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -869,15 +886,15 @@ func (m *LocationRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_LocationRequest proto.InternalMessageInfo
 
-func (m *LocationRequest) GetIMEI() int64 {
+func (m *LocationRequest) GetLockerID() int64 {
 	if m != nil {
-		return m.IMEI
+		return m.LockerID
 	}
 	return 0
 }
 
 type LocationResponse struct {
-	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+	LockerID             int64    `protobuf:"varint,1,opt,name=LockerID,proto3" json:"LockerID"`
 	IsTracking           bool     `protobuf:"varint,2,opt,name=IsTracking,proto3" json:"IsTracking"`
 	UTCtime              string   `protobuf:"bytes,3,opt,name=UTCtime,proto3" json:"UTCtime"`
 	IsValid              bool     `protobuf:"varint,4,opt,name=IsValid,proto3" json:"IsValid"`
@@ -891,6 +908,7 @@ type LocationResponse struct {
 	Altitude             float32  `protobuf:"fixed32,12,opt,name=Altitude,proto3" json:"Altitude"`
 	HeightUnit           string   `protobuf:"bytes,13,opt,name=HeightUnit,proto3" json:"HeightUnit"`
 	ModeIndication       string   `protobuf:"bytes,14,opt,name=ModeIndication,proto3" json:"ModeIndication"`
+	CreatedAt            string   `protobuf:"bytes,15,opt,name=CreatedAt,proto3" json:"CreatedAt"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -900,7 +918,7 @@ func (m *LocationResponse) Reset()         { *m = LocationResponse{} }
 func (m *LocationResponse) String() string { return proto.CompactTextString(m) }
 func (*LocationResponse) ProtoMessage()    {}
 func (*LocationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{15}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{14}
 }
 func (m *LocationResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -929,9 +947,9 @@ func (m *LocationResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_LocationResponse proto.InternalMessageInfo
 
-func (m *LocationResponse) GetIMEI() int64 {
+func (m *LocationResponse) GetLockerID() int64 {
 	if m != nil {
-		return m.IMEI
+		return m.LockerID
 	}
 	return 0
 }
@@ -1027,6 +1045,13 @@ func (m *LocationResponse) GetModeIndication() string {
 	return ""
 }
 
+func (m *LocationResponse) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
 type Empty struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -1037,7 +1062,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{16}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{15}
 }
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1079,7 +1104,7 @@ func (m *UnlockResponse) Reset()         { *m = UnlockResponse{} }
 func (m *UnlockResponse) String() string { return proto.CompactTextString(m) }
 func (*UnlockResponse) ProtoMessage()    {}
 func (*UnlockResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{17}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{16}
 }
 func (m *UnlockResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1130,7 +1155,7 @@ func (m *UnlockResponse) GetUnlockedTime() int64 {
 }
 
 type UnlockRequest struct {
-	IMEI                 int64    `protobuf:"varint,1,opt,name=IMEI,proto3" json:"IMEI"`
+	ScanId               int64    `protobuf:"varint,1,opt,name=ScanId,proto3" json:"ScanId"`
 	UserID               int64    `protobuf:"varint,2,opt,name=UserID,proto3" json:"UserID"`
 	ResetTime            bool     `protobuf:"varint,3,opt,name=ResetTime,proto3" json:"ResetTime"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1142,7 +1167,7 @@ func (m *UnlockRequest) Reset()         { *m = UnlockRequest{} }
 func (m *UnlockRequest) String() string { return proto.CompactTextString(m) }
 func (*UnlockRequest) ProtoMessage()    {}
 func (*UnlockRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_33c8ee7c4da0abb1, []int{18}
+	return fileDescriptor_33c8ee7c4da0abb1, []int{17}
 }
 func (m *UnlockRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1171,9 +1196,9 @@ func (m *UnlockRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_UnlockRequest proto.InternalMessageInfo
 
-func (m *UnlockRequest) GetIMEI() int64 {
+func (m *UnlockRequest) GetScanId() int64 {
 	if m != nil {
-		return m.IMEI
+		return m.ScanId
 	}
 	return 0
 }
@@ -1193,20 +1218,19 @@ func (m *UnlockRequest) GetResetTime() bool {
 }
 
 func init() {
-	proto.RegisterType((*StationResponse)(nil), "locker.StationResponse")
-	proto.RegisterType((*StationRequest)(nil), "locker.StationRequest")
-	proto.RegisterType((*BikeCategoryRequest)(nil), "locker.BikeCategoryRequest")
-	proto.RegisterType((*BikeCategoryResponse)(nil), "locker.BikeCategoryResponse")
-	proto.RegisterType((*BikeRequest)(nil), "locker.BikeRequest")
-	proto.RegisterType((*BikeResponse)(nil), "locker.BikeResponse")
+	proto.RegisterType((*LockerFullInfoList)(nil), "locker.LockerFullInfoList")
+	proto.RegisterType((*LockerList)(nil), "locker.LockerList")
+	proto.RegisterType((*LockerFullInfoResponse)(nil), "locker.LockerFullInfoResponse")
+	proto.RegisterType((*LockerCreateRequest)(nil), "locker.LockerCreateRequest")
+	proto.RegisterType((*LockerCreateResponse)(nil), "locker.LockerCreateResponse")
 	proto.RegisterType((*LockerInfoResponse)(nil), "locker.LockerInfoResponse")
 	proto.RegisterType((*FirmwareInfoResponse)(nil), "locker.FirmwareInfoResponse")
 	proto.RegisterType((*SimCardResponse)(nil), "locker.SimCardResponse")
-	proto.RegisterType((*LockerImei)(nil), "locker.LockerImei")
+	proto.RegisterType((*LockerID)(nil), "locker.LockerID")
 	proto.RegisterType((*LocationIntervalResponse)(nil), "locker.LocationIntervalResponse")
 	proto.RegisterType((*LocationIntervalRequest)(nil), "locker.LocationIntervalRequest")
 	proto.RegisterType((*LockerRequest)(nil), "locker.LockerRequest")
-	proto.RegisterType((*AdminResponse)(nil), "locker.AdminResponse")
+	proto.RegisterType((*LockerStreamResponse)(nil), "locker.LockerStreamResponse")
 	proto.RegisterType((*LocationRequest)(nil), "locker.LocationRequest")
 	proto.RegisterType((*LocationResponse)(nil), "locker.LocationResponse")
 	proto.RegisterType((*Empty)(nil), "locker.Empty")
@@ -1217,69 +1241,78 @@ func init() {
 func init() { proto.RegisterFile("locker/locker.proto", fileDescriptor_33c8ee7c4da0abb1) }
 
 var fileDescriptor_33c8ee7c4da0abb1 = []byte{
-	// 988 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x56, 0xdd, 0x6e, 0xe3, 0x44,
-	0x14, 0xc6, 0xce, 0x26, 0x4d, 0x4e, 0x9b, 0xb4, 0x4c, 0x4b, 0x6b, 0x65, 0x57, 0x21, 0xb2, 0x00,
-	0x55, 0x20, 0x2d, 0x68, 0x7b, 0x81, 0x90, 0x58, 0x89, 0x6c, 0xd2, 0x2d, 0x96, 0xda, 0xdd, 0x6a,
-	0xdc, 0x54, 0xda, 0x1b, 0xb4, 0x43, 0x3c, 0xa4, 0x56, 0x13, 0x4f, 0xb0, 0x27, 0x5b, 0xf5, 0x4d,
-	0x10, 0x0f, 0x81, 0xc4, 0x5b, 0x70, 0xc9, 0x23, 0xa0, 0xf2, 0x22, 0x68, 0xc6, 0x33, 0xf6, 0x4c,
-	0x12, 0x57, 0x5c, 0x25, 0xe7, 0x9b, 0x39, 0xdf, 0xf9, 0x3f, 0x1e, 0xd8, 0x9f, 0xb1, 0xc9, 0x2d,
-	0x4d, 0xbf, 0xce, 0x7f, 0x9e, 0x2f, 0x52, 0xc6, 0x19, 0x6a, 0xe4, 0x92, 0xcf, 0x60, 0x37, 0xe4,
-	0x84, 0xc7, 0x2c, 0xc1, 0x34, 0x5b, 0xb0, 0x24, 0xa3, 0xa8, 0x03, 0x6e, 0x30, 0xf2, 0x9c, 0xbe,
-	0x73, 0x5c, 0xc3, 0x6e, 0x30, 0x42, 0xcf, 0xa0, 0x75, 0xce, 0x92, 0x69, 0xcc, 0x97, 0x11, 0xf5,
-	0xdc, 0xbe, 0x73, 0xec, 0xe2, 0x12, 0x40, 0x5d, 0x68, 0x9e, 0x13, 0x9e, 0x1f, 0xd6, 0xe4, 0x61,
-	0x21, 0x23, 0x04, 0x4f, 0xde, 0x90, 0x39, 0xf5, 0x9e, 0xf4, 0x9d, 0xe3, 0x16, 0x96, 0xff, 0xfd,
-	0x9f, 0xa0, 0x53, 0x18, 0xfc, 0x75, 0x49, 0x33, 0x6e, 0xf3, 0x3b, 0x8f, 0xf1, 0xbb, 0x15, 0xfc,
-	0x35, 0x83, 0xff, 0x2d, 0xec, 0xbf, 0x8a, 0x6f, 0xe9, 0x90, 0x70, 0x3a, 0x65, 0xe9, 0xbd, 0x61,
-	0x24, 0x98, 0x93, 0x29, 0xbd, 0x24, 0xfc, 0x46, 0x1a, 0x69, 0xe1, 0x12, 0x10, 0x46, 0x84, 0xd2,
-	0xd5, 0xfd, 0x22, 0x37, 0xd2, 0xc2, 0x85, 0xec, 0xbf, 0x87, 0x03, 0x9b, 0xb0, 0x3a, 0x4d, 0xa5,
-	0x05, 0xf7, 0x31, 0x0b, 0xb5, 0x15, 0x0b, 0x03, 0xd8, 0x16, 0xff, 0xb5, 0xab, 0x3d, 0x00, 0x6d,
-	0x2c, 0x88, 0x94, 0x01, 0x03, 0x29, 0xa2, 0x76, 0x8d, 0xa8, 0x31, 0xec, 0xe4, 0x14, 0x15, 0xce,
-	0xd9, 0x9c, 0x6e, 0x25, 0xa7, 0x99, 0xc9, 0xdf, 0x1d, 0x40, 0xe7, 0xb2, 0x4b, 0x82, 0xe4, 0x17,
-	0x56, 0x50, 0x7b, 0xb0, 0x75, 0xcd, 0x66, 0x9c, 0x4c, 0x75, 0xb1, 0xb4, 0x88, 0x0e, 0xa1, 0x11,
-	0xc6, 0xd3, 0x84, 0xcc, 0xa4, 0x81, 0x3a, 0x56, 0x92, 0xd0, 0x38, 0xbb, 0x0c, 0x33, 0xc2, 0x73,
-	0xfe, 0x3a, 0xd6, 0xa2, 0xc8, 0x4a, 0x90, 0x49, 0x1b, 0x91, 0x6c, 0x92, 0x26, 0x2e, 0x64, 0x91,
-	0x4f, 0x4c, 0x39, 0x4d, 0x44, 0xab, 0x78, 0x75, 0xe9, 0x71, 0x09, 0xf8, 0xd7, 0x70, 0xf0, 0x3a,
-	0x4e, 0xe7, 0x77, 0x24, 0xa5, 0x96, 0x77, 0x3d, 0x80, 0x11, 0xfd, 0x10, 0x4f, 0x24, 0xaa, 0x0a,
-	0x6d, 0x20, 0xe5, 0xf9, 0x48, 0xb8, 0xe3, 0x9a, 0xe7, 0x02, 0xf1, 0xbf, 0x82, 0xdd, 0x30, 0x9e,
-	0x0f, 0x49, 0x1a, 0x99, 0x01, 0x87, 0xc1, 0xc5, 0x70, 0x80, 0x75, 0x42, 0xb5, 0xe8, 0xf7, 0x01,
-	0x54, 0x82, 0xe6, 0x34, 0x16, 0x39, 0x0c, 0x2e, 0x4e, 0x03, 0x75, 0x49, 0xfe, 0xf7, 0xbf, 0x07,
-	0xef, 0x9c, 0x4d, 0x64, 0xbb, 0x07, 0x09, 0xa7, 0xe9, 0x07, 0x32, 0x2b, 0x78, 0xfb, 0xb0, 0x1d,
-	0x52, 0xae, 0x61, 0xa5, 0x66, 0x42, 0xfe, 0x3b, 0x38, 0x5a, 0xd7, 0xce, 0x9b, 0x64, 0x83, 0x31,
-	0xf4, 0x25, 0xec, 0xe9, 0x6b, 0x41, 0x12, 0xd2, 0x09, 0x4b, 0x74, 0xa9, 0xd7, 0x70, 0x7f, 0x0c,
-	0xed, 0xdc, 0x75, 0xa3, 0xeb, 0x54, 0x2c, 0x25, 0xad, 0x81, 0xa0, 0xcf, 0xb4, 0xc2, 0x05, 0xcd,
-	0x32, 0x51, 0xfc, 0x3c, 0x77, 0x36, 0xe8, 0x9f, 0x40, 0x7b, 0x10, 0xcd, 0xe3, 0x72, 0x99, 0xf8,
-	0xb0, 0x23, 0x01, 0x5b, 0xcb, 0xc2, 0xfc, 0xcf, 0x61, 0x57, 0x87, 0xf9, 0x48, 0x78, 0xfe, 0x1f,
-	0x35, 0xd8, 0x2b, 0xef, 0x29, 0xfe, 0x4d, 0x79, 0xe8, 0x01, 0x04, 0xd9, 0x55, 0x4a, 0x26, 0xb7,
-	0x71, 0x32, 0x95, 0x16, 0x9b, 0xd8, 0x40, 0x44, 0x41, 0xc7, 0x57, 0x43, 0x1e, 0x17, 0xfd, 0xae,
-	0x45, 0x71, 0x12, 0x64, 0xd7, 0x64, 0x16, 0xeb, 0x76, 0xd4, 0xa2, 0xb5, 0x86, 0xea, 0x2b, 0x6b,
-	0x48, 0x6a, 0xbd, 0x61, 0x29, 0xbf, 0xf1, 0x1a, 0x5a, 0x4b, 0x8a, 0xf6, 0x6a, 0xdb, 0x5a, 0x5d,
-	0x6d, 0x87, 0xd0, 0x08, 0xb2, 0x53, 0x92, 0x71, 0xaf, 0x29, 0xd5, 0x94, 0x24, 0xb4, 0x86, 0x6c,
-	0x99, 0xf0, 0x50, 0xb4, 0x68, 0x4b, 0x4e, 0x4c, 0x09, 0x88, 0x2a, 0x5f, 0xb2, 0x2c, 0x16, 0x59,
-	0x18, 0x4c, 0x26, 0xcb, 0x94, 0x4c, 0xee, 0x3d, 0x90, 0xd4, 0x6b, 0xb8, 0x8a, 0x34, 0x12, 0x3c,
-	0xdb, 0x45, 0xa4, 0x91, 0x9a, 0xbc, 0xc1, 0x4c, 0xc5, 0xb3, 0x93, 0xc7, 0xa3, 0x65, 0x91, 0xbf,
-	0x1f, 0x69, 0x3c, 0xbd, 0xe1, 0xe3, 0x24, 0xe6, 0x5e, 0x3b, 0x9f, 0x91, 0x12, 0x41, 0x5f, 0x40,
-	0xe7, 0x82, 0x45, 0x34, 0x48, 0xa2, 0x38, 0xaf, 0x86, 0xd7, 0x91, 0x77, 0x56, 0x50, 0x7f, 0x0b,
-	0xea, 0xa7, 0xf3, 0x05, 0xbf, 0xf7, 0x17, 0xd0, 0x19, 0x27, 0xe2, 0x83, 0x63, 0xb6, 0x45, 0x81,
-	0x2c, 0x67, 0x5c, 0x96, 0xaf, 0x89, 0x2d, 0x4c, 0xa4, 0x67, 0x9c, 0xd1, 0x34, 0x18, 0xa9, 0x26,
-	0x56, 0x52, 0xa9, 0x4b, 0xa3, 0x2b, 0x5d, 0xc3, 0x1a, 0xb6, 0x30, 0xff, 0x1d, 0xb4, 0x35, 0x57,
-	0xf5, 0xbc, 0x54, 0x19, 0x90, 0x9b, 0x27, 0xa3, 0xbc, 0x60, 0x6f, 0xe2, 0x12, 0x78, 0xf1, 0x67,
-	0x43, 0x4f, 0x42, 0x48, 0x53, 0xb1, 0x37, 0xd0, 0x50, 0xf6, 0xaf, 0x00, 0x78, 0x4a, 0xc9, 0x5c,
-	0xb4, 0xd8, 0x27, 0xcf, 0xd5, 0xd7, 0xd6, 0x1a, 0xb2, 0x6e, 0x01, 0x5b, 0x43, 0x72, 0xec, 0x7c,
-	0xe3, 0xa0, 0x97, 0x3a, 0xaa, 0x5c, 0xa3, 0x64, 0xb0, 0xe2, 0xe8, 0x1e, 0xae, 0xc2, 0x2a, 0xa1,
-	0xef, 0xe1, 0x69, 0x48, 0xb9, 0x1e, 0x0f, 0xdd, 0xea, 0x7a, 0xec, 0xd1, 0xa7, 0x86, 0x3f, 0x9b,
-	0xf6, 0x49, 0xb7, 0x5f, 0x7d, 0x41, 0x59, 0xf8, 0x0e, 0xe0, 0x8c, 0x72, 0xb5, 0x1c, 0x11, 0xb2,
-	0x03, 0x14, 0x0b, 0xb0, 0x7b, 0xa4, 0xb1, 0xd5, 0x0d, 0xfa, 0x1a, 0x3e, 0x3e, 0x93, 0xce, 0xdd,
-	0xd2, 0x54, 0xf3, 0xa3, 0xa3, 0x55, 0x8b, 0xda, 0x15, 0x6f, 0xfd, 0x40, 0xf1, 0x0c, 0x61, 0xf7,
-	0x8c, 0x72, 0x73, 0xef, 0x6f, 0xf4, 0xe3, 0x99, 0xc6, 0x36, 0x7e, 0x21, 0x5e, 0xc2, 0xb6, 0x72,
-	0xa6, 0x92, 0xa0, 0xbb, 0x82, 0x99, 0xea, 0x27, 0xd0, 0x09, 0x6f, 0x96, 0x7c, 0xc4, 0xee, 0x12,
-	0x55, 0xa9, 0x4d, 0x0c, 0x6d, 0x8d, 0xc9, 0x01, 0x40, 0x2f, 0xa0, 0x8d, 0x69, 0xc6, 0x49, 0xca,
-	0xff, 0xbf, 0xce, 0x5b, 0x40, 0xc3, 0x94, 0x12, 0x4e, 0xcd, 0xd7, 0x07, 0x7a, 0xaa, 0x2f, 0x6d,
-	0x78, 0xe4, 0x94, 0x81, 0x6f, 0x7c, 0xb0, 0x7c, 0x0b, 0x50, 0x12, 0xa2, 0x7d, 0xf3, 0xae, 0x26,
-	0x38, 0xb0, 0x41, 0xa5, 0xf8, 0x03, 0xb4, 0x73, 0x45, 0xf5, 0x70, 0x43, 0x45, 0x13, 0xda, 0x2f,
-	0x39, 0xa3, 0x01, 0xec, 0x27, 0xe5, 0xab, 0xbd, 0xbf, 0x1e, 0x7a, 0xce, 0xdf, 0x0f, 0x3d, 0xe7,
-	0x9f, 0x87, 0x9e, 0xf3, 0xdb, 0xbf, 0xbd, 0x8f, 0x7e, 0x6e, 0xc8, 0x67, 0xe8, 0xc9, 0x7f, 0x01,
-	0x00, 0x00, 0xff, 0xff, 0x3e, 0x4d, 0x83, 0xdf, 0x9d, 0x0a, 0x00, 0x00,
+	// 1130 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x57, 0x4b, 0x6f, 0xdb, 0x46,
+	0x10, 0x2e, 0x25, 0x5b, 0x8f, 0xd1, 0xc3, 0xee, 0xc6, 0xb1, 0x09, 0xc5, 0x50, 0x05, 0x22, 0x08,
+	0x84, 0x16, 0x4d, 0x52, 0x17, 0x68, 0x0e, 0x69, 0x81, 0x2a, 0x92, 0xed, 0x32, 0x90, 0x8b, 0x80,
+	0xb4, 0x7c, 0x28, 0x50, 0xa0, 0x2c, 0xb9, 0x95, 0x89, 0x50, 0xa4, 0x4a, 0xae, 0x12, 0xf8, 0x9f,
+	0xf4, 0xd4, 0xdf, 0xd3, 0x63, 0x0f, 0x45, 0xaf, 0x2d, 0xdc, 0x3f, 0x52, 0xec, 0x53, 0x5c, 0xea,
+	0x61, 0xe7, 0x64, 0xcd, 0x37, 0x3b, 0xb3, 0xbb, 0xf3, 0xcd, 0x7c, 0x5c, 0xc3, 0x83, 0x28, 0xf1,
+	0xdf, 0xe2, 0xf4, 0x19, 0xff, 0xf3, 0x74, 0x9e, 0x26, 0x24, 0x41, 0x15, 0x6e, 0x59, 0x57, 0x80,
+	0xc6, 0xec, 0xd7, 0xd9, 0x22, 0x8a, 0xec, 0xf8, 0x97, 0x64, 0x1c, 0x66, 0x04, 0x7d, 0x0b, 0x0d,
+	0x8e, 0x66, 0x14, 0x32, 0x8d, 0x5e, 0xb9, 0xdf, 0x38, 0xe9, 0x3e, 0x15, 0x19, 0xf4, 0x00, 0x07,
+	0x67, 0xf3, 0x24, 0xce, 0xb0, 0x93, 0x0f, 0xb1, 0x46, 0x00, 0xdc, 0x64, 0xf9, 0xbe, 0x82, 0xaa,
+	0x70, 0x8a, 0x5c, 0xc7, 0x7a, 0xae, 0x61, 0x8a, 0x3d, 0x82, 0x55, 0x26, 0xb9, 0xd8, 0xfa, 0xbd,
+	0x0c, 0x87, 0xeb, 0x77, 0x43, 0x6d, 0x28, 0xd9, 0x81, 0x69, 0xf4, 0x8c, 0x7e, 0xd9, 0x29, 0xd9,
+	0x01, 0x42, 0xb0, 0x63, 0x5f, 0x9c, 0xda, 0x66, 0x89, 0x21, 0xec, 0x37, 0x32, 0xa1, 0xea, 0x86,
+	0xb3, 0xa1, 0x97, 0x06, 0x66, 0x99, 0xc1, 0xd2, 0xa4, 0x9e, 0xab, 0x24, 0x22, 0xde, 0x14, 0x9b,
+	0x3b, 0x3d, 0xa3, 0x5f, 0x72, 0xa4, 0x89, 0x0e, 0xa1, 0xe2, 0x86, 0xd3, 0xd8, 0x8b, 0xcc, 0xdd,
+	0x9e, 0xd1, 0xdf, 0x75, 0x84, 0x45, 0xf3, 0xbb, 0x1e, 0xc1, 0x66, 0x85, 0xa1, 0xec, 0x37, 0xea,
+	0x41, 0x63, 0x10, 0x79, 0xe9, 0xcc, 0x25, 0x1e, 0x59, 0x64, 0x66, 0xb5, 0x67, 0xf4, 0xeb, 0x4e,
+	0x1e, 0x42, 0x9f, 0xc2, 0xfe, 0x38, 0xf1, 0x3d, 0x12, 0x26, 0xb1, 0x1d, 0x13, 0x9c, 0xbe, 0xf3,
+	0x22, 0xb3, 0xc6, 0x8e, 0xb2, 0x82, 0xa3, 0x63, 0xa8, 0x8f, 0x93, 0x78, 0x1a, 0x92, 0x45, 0x80,
+	0xcd, 0x3a, 0x3b, 0xd5, 0x12, 0x40, 0x1d, 0xa8, 0x8d, 0x3d, 0xc2, 0x9d, 0xc0, 0x9c, 0xca, 0xa6,
+	0x3e, 0x3b, 0x63, 0x75, 0x0a, 0xcc, 0x46, 0xcf, 0xe8, 0xd7, 0x1c, 0x65, 0xd3, 0x33, 0xda, 0xd9,
+	0x30, 0x89, 0x63, 0xec, 0x13, 0x1c, 0x98, 0x4d, 0xe6, 0xce, 0x43, 0x74, 0x5f, 0x5e, 0xff, 0x60,
+	0x40, 0xcc, 0x16, 0xbb, 0xc3, 0x12, 0xa0, 0xde, 0xc9, 0x3c, 0x10, 0xde, 0x36, 0xf7, 0x2a, 0xc0,
+	0x1a, 0xc2, 0x03, 0x9d, 0xc1, 0x5f, 0x17, 0x38, 0x23, 0x8a, 0x0c, 0x63, 0x3d, 0x19, 0x25, 0x8d,
+	0x0c, 0xeb, 0x12, 0x0e, 0xd6, 0xb5, 0x01, 0xa3, 0x78, 0xa4, 0x28, 0x1e, 0x7d, 0x18, 0xc5, 0xd6,
+	0xdf, 0x86, 0x6c, 0x6d, 0xad, 0x6f, 0x72, 0xcc, 0x1b, 0x9b, 0x98, 0x2f, 0x69, 0xcc, 0x9b, 0x50,
+	0x3d, 0x7f, 0xe3, 0x66, 0x94, 0xfc, 0x32, 0x73, 0x48, 0x53, 0xab, 0xfb, 0x4e, 0xa1, 0xee, 0xc7,
+	0x50, 0x77, 0x30, 0xc1, 0x31, 0xa5, 0x98, 0xb5, 0x52, 0xd9, 0x59, 0x02, 0x7a, 0xcd, 0x2b, 0x5b,
+	0x6b, 0x5e, 0x2d, 0xd6, 0xfc, 0x0a, 0x0e, 0xce, 0xc2, 0x74, 0xf6, 0xde, 0x4b, 0xb1, 0x76, 0xb3,
+	0x2e, 0xc0, 0x08, 0xbf, 0x0b, 0x7d, 0x2c, 0x66, 0x96, 0x86, 0xe5, 0x90, 0xa5, 0x7f, 0x44, 0xaf,
+	0x52, 0xca, 0xfb, 0x29, 0x62, 0x7d, 0x06, 0x7b, 0xa2, 0x76, 0xf9, 0x62, 0xb9, 0xf6, 0xc5, 0x70,
+	0xe0, 0x48, 0x1a, 0xa4, 0x69, 0x3d, 0x81, 0x9a, 0x28, 0xee, 0x88, 0xb5, 0xa6, 0xf8, 0x2d, 0x96,
+	0x29, 0xdb, 0xfa, 0x01, 0xcc, 0x62, 0xa3, 0xab, 0xec, 0x3d, 0x68, 0xb8, 0x98, 0xa8, 0xb9, 0xe0,
+	0xa1, 0x79, 0x48, 0x2f, 0x44, 0xa9, 0x58, 0x08, 0x0f, 0x8e, 0x56, 0x73, 0xf3, 0x06, 0xdc, 0x72,
+	0x24, 0x3a, 0x93, 0x72, 0xb9, 0x1d, 0xbb, 0xd8, 0x4f, 0x62, 0xd9, 0x91, 0x2b, 0xb8, 0x35, 0x81,
+	0x16, 0x8f, 0x93, 0x89, 0xbb, 0x52, 0xd7, 0x72, 0xfd, 0x9d, 0x43, 0xd0, 0x63, 0x19, 0x70, 0x81,
+	0xb3, 0x8c, 0x36, 0x19, 0x3f, 0xb5, 0x0e, 0x5a, 0x5f, 0xcb, 0x8e, 0x77, 0x49, 0x8a, 0xbd, 0x99,
+	0xaa, 0xc8, 0x63, 0x68, 0x71, 0xa4, 0x10, 0xad, 0x81, 0xd6, 0xe7, 0xb0, 0x27, 0xef, 0x7d, 0x8f,
+	0xfb, 0x5a, 0x7f, 0x95, 0x97, 0x22, 0xa4, 0x76, 0xda, 0x56, 0xa0, 0x2e, 0x80, 0x9d, 0x5d, 0xa6,
+	0x9e, 0xff, 0x36, 0x8c, 0xa7, 0xec, 0x08, 0x35, 0x27, 0x87, 0xd0, 0xae, 0x98, 0x5c, 0x0e, 0x49,
+	0x38, 0xe3, 0x03, 0x51, 0x77, 0xa4, 0x49, 0x3d, 0x76, 0x76, 0xe5, 0x45, 0xa1, 0x9c, 0x07, 0x69,
+	0x6a, 0xf2, 0xb5, 0x5b, 0x90, 0x2f, 0x16, 0xf5, 0x7d, 0x92, 0x92, 0x6b, 0x36, 0x0a, 0x2c, 0x8a,
+	0x99, 0xba, 0x24, 0x56, 0x8b, 0x92, 0x78, 0x08, 0x15, 0x3b, 0x3b, 0xf5, 0x32, 0xc2, 0x24, 0xb5,
+	0xe6, 0x08, 0x8b, 0x0d, 0x57, 0xb2, 0x88, 0x09, 0xd3, 0xeb, 0x3a, 0x1b, 0xd9, 0x25, 0x40, 0xe9,
+	0x7f, 0x93, 0x64, 0x21, 0xad, 0xc6, 0xc0, 0xf7, 0x17, 0xa9, 0xe7, 0xdf, 0x08, 0x41, 0x5d, 0xc1,
+	0xc5, 0x4d, 0x69, 0xbf, 0x31, 0x5d, 0xe5, 0x37, 0x0d, 0xc4, 0xe8, 0x0f, 0x22, 0x71, 0x9f, 0x26,
+	0xbf, 0x8f, 0xb4, 0x69, 0xfd, 0xbe, 0xc3, 0xe1, 0xf4, 0x9a, 0x4c, 0xe2, 0x50, 0x2a, 0x6a, 0x0e,
+	0x41, 0x4f, 0xa0, 0x7d, 0x91, 0x04, 0xd8, 0x8e, 0x83, 0x90, 0xb3, 0x22, 0x74, 0xb5, 0x80, 0xea,
+	0x22, 0xb1, 0x57, 0x10, 0x09, 0xab, 0x0a, 0xbb, 0xa7, 0xb3, 0x39, 0xb9, 0xb1, 0xe6, 0xd0, 0x9e,
+	0xc4, 0xf4, 0x73, 0xaa, 0xc8, 0xb5, 0xa0, 0xa9, 0x90, 0x45, 0x44, 0x18, 0xc1, 0x35, 0x47, 0xc3,
+	0x68, 0xf1, 0x26, 0x19, 0xa3, 0x9f, 0xf7, 0xbe, 0xb0, 0x96, 0xb1, 0x38, 0xb8, 0x94, 0x0c, 0x97,
+	0x1d, 0x0d, 0xb3, 0x7e, 0x84, 0x96, 0xcc, 0xc5, 0xdb, 0x8f, 0x4a, 0xa7, 0xef, 0xc5, 0xea, 0x83,
+	0x2c, 0xac, 0x8d, 0x9b, 0x30, 0x71, 0xcc, 0x30, 0x51, 0x3b, 0xd4, 0x9c, 0x25, 0x70, 0xf2, 0x4f,
+	0x4d, 0x0e, 0x91, 0x8b, 0x53, 0x2a, 0x4f, 0xc8, 0x86, 0x26, 0xbf, 0x38, 0x87, 0xd1, 0xa3, 0xf5,
+	0xcf, 0x07, 0x76, 0x98, 0xce, 0xd6, 0xb7, 0x05, 0x7a, 0x0d, 0x4d, 0xae, 0x20, 0x22, 0xd5, 0xd6,
+	0xd5, 0x77, 0xe4, 0x7a, 0x06, 0xcd, 0x11, 0x8e, 0xb0, 0xca, 0xb5, 0xaf, 0xaf, 0xb6, 0x47, 0x9d,
+	0x96, 0x44, 0x18, 0x55, 0xe8, 0x05, 0x1c, 0xe4, 0x03, 0xe4, 0x54, 0xde, 0x1d, 0xf8, 0x12, 0xea,
+	0xe7, 0x98, 0x6c, 0xdc, 0x66, 0xfb, 0x31, 0x4f, 0xe1, 0x63, 0x15, 0x2c, 0xdf, 0x51, 0x6b, 0x92,
+	0xdc, 0xf1, 0xbe, 0x43, 0x27, 0xd0, 0x52, 0x69, 0xd8, 0xab, 0x4e, 0x3f, 0x63, 0x07, 0xe9, 0xf1,
+	0x6c, 0xc9, 0x2b, 0x78, 0xb8, 0xb2, 0xf5, 0xba, 0xd8, 0xce, 0xfa, 0xbd, 0xd9, 0xd2, 0xd7, 0x4c,
+	0xee, 0x94, 0x58, 0x52, 0x05, 0x7a, 0xa8, 0x2f, 0xdf, 0xc0, 0xbc, 0x2e, 0xae, 0x7d, 0xe3, 0xb9,
+	0x81, 0xbe, 0x91, 0xdd, 0x2d, 0x4a, 0xa9, 0x12, 0x69, 0xfd, 0xdc, 0x39, 0x2c, 0xc2, 0xa2, 0x04,
+	0x3f, 0xc1, 0x23, 0x97, 0x5d, 0x87, 0xd1, 0x26, 0x05, 0x51, 0x7d, 0xae, 0x3e, 0xc9, 0xed, 0xbf,
+	0xee, 0xb3, 0xd4, 0xe9, 0x6d, 0x5e, 0x20, 0x76, 0x78, 0x01, 0x70, 0x8e, 0x89, 0x7c, 0xa6, 0xae,
+	0x92, 0x74, 0x24, 0x91, 0xe2, 0xa7, 0xfa, 0x2c, 0x47, 0xb2, 0xea, 0xab, 0xa3, 0xe2, 0x7e, 0xf2,
+	0x20, 0xe6, 0xaa, 0x43, 0xe4, 0x19, 0xc0, 0xde, 0x39, 0x26, 0xf9, 0x07, 0xc6, 0xb6, 0x7e, 0x5b,
+	0xfb, 0x10, 0x79, 0x09, 0x0d, 0x71, 0x94, 0x0d, 0xe1, 0x05, 0xb6, 0xb5, 0xe0, 0x2f, 0xa0, 0xed,
+	0x5e, 0x2f, 0xc8, 0x28, 0x79, 0x1f, 0xdf, 0x77, 0xaa, 0x9e, 0x43, 0xcb, 0xc1, 0x19, 0xf1, 0x52,
+	0x72, 0xcf, 0x88, 0x57, 0xfb, 0x7f, 0xdc, 0x76, 0x8d, 0x3f, 0x6f, 0xbb, 0xc6, 0xbf, 0xb7, 0x5d,
+	0xe3, 0xb7, 0xff, 0xba, 0x1f, 0xfd, 0x5c, 0x61, 0xff, 0x16, 0x7d, 0xf9, 0x7f, 0x00, 0x00, 0x00,
+	0xff, 0xff, 0xb0, 0xb7, 0x5b, 0x15, 0x2d, 0x0d, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1294,21 +1327,23 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LockerServiceClient interface {
-	// Locker Methods
+	CreateLocker(ctx context.Context, in *LockerCreateRequest, opts ...grpc.CallOption) (*LockerCreateResponse, error)
+	UpdateLocker(ctx context.Context, in *LockerCreateResponse, opts ...grpc.CallOption) (*LockerCreateResponse, error)
+	DeleteLocker(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*Empty, error)
+	DeleteLockerLocation(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*Empty, error)
+	GetLocker(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*LockerCreateResponse, error)
+	GetLockerFullInfo(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*LockerFullInfoResponse, error)
+	GetLockerList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*LockerList, error)
+	GetLockerFullInfoList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*LockerFullInfoList, error)
 	LockerStreaming(ctx context.Context, opts ...grpc.CallOption) (LockerService_LockerStreamingClient, error)
 	UnlockLocker(ctx context.Context, in *UnlockRequest, opts ...grpc.CallOption) (*UnlockResponse, error)
 	SetLocationTrackingInterval(ctx context.Context, in *LocationIntervalRequest, opts ...grpc.CallOption) (*LocationIntervalResponse, error)
-	GetSimCard(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*SimCardResponse, error)
+	GetSimCard(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*SimCardResponse, error)
 	GetLockerLocation(ctx context.Context, in *LocationRequest, opts ...grpc.CallOption) (*LocationResponse, error)
-	GetFirmwareInfo(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*FirmwareInfoResponse, error)
-	GetLockInfo(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*LockerInfoResponse, error)
-	ShutDownLocker(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*Empty, error)
-	RestartLocker(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*Empty, error)
-	//Bike Methods
-	CreateBikeCategory(ctx context.Context, in *BikeCategoryRequest, opts ...grpc.CallOption) (*BikeCategoryResponse, error)
-	CreateBike(ctx context.Context, in *BikeRequest, opts ...grpc.CallOption) (*BikeResponse, error)
-	//Station Methods
-	CreateStation(ctx context.Context, in *StationRequest, opts ...grpc.CallOption) (*StationResponse, error)
+	GetFirmwareInfo(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*FirmwareInfoResponse, error)
+	GetLockInfo(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*LockerInfoResponse, error)
+	ShutDownLocker(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*Empty, error)
+	RestartLocker(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type lockerServiceClient struct {
@@ -1317,6 +1352,78 @@ type lockerServiceClient struct {
 
 func NewLockerServiceClient(cc *grpc.ClientConn) LockerServiceClient {
 	return &lockerServiceClient{cc}
+}
+
+func (c *lockerServiceClient) CreateLocker(ctx context.Context, in *LockerCreateRequest, opts ...grpc.CallOption) (*LockerCreateResponse, error) {
+	out := new(LockerCreateResponse)
+	err := c.cc.Invoke(ctx, "/locker.LockerService/CreateLocker", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lockerServiceClient) UpdateLocker(ctx context.Context, in *LockerCreateResponse, opts ...grpc.CallOption) (*LockerCreateResponse, error) {
+	out := new(LockerCreateResponse)
+	err := c.cc.Invoke(ctx, "/locker.LockerService/UpdateLocker", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lockerServiceClient) DeleteLocker(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/locker.LockerService/DeleteLocker", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lockerServiceClient) DeleteLockerLocation(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/locker.LockerService/DeleteLockerLocation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lockerServiceClient) GetLocker(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*LockerCreateResponse, error) {
+	out := new(LockerCreateResponse)
+	err := c.cc.Invoke(ctx, "/locker.LockerService/GetLocker", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lockerServiceClient) GetLockerFullInfo(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*LockerFullInfoResponse, error) {
+	out := new(LockerFullInfoResponse)
+	err := c.cc.Invoke(ctx, "/locker.LockerService/GetLockerFullInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lockerServiceClient) GetLockerList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*LockerList, error) {
+	out := new(LockerList)
+	err := c.cc.Invoke(ctx, "/locker.LockerService/GetLockerList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *lockerServiceClient) GetLockerFullInfoList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*LockerFullInfoList, error) {
+	out := new(LockerFullInfoList)
+	err := c.cc.Invoke(ctx, "/locker.LockerService/GetLockerFullInfoList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *lockerServiceClient) LockerStreaming(ctx context.Context, opts ...grpc.CallOption) (LockerService_LockerStreamingClient, error) {
@@ -1330,7 +1437,7 @@ func (c *lockerServiceClient) LockerStreaming(ctx context.Context, opts ...grpc.
 
 type LockerService_LockerStreamingClient interface {
 	Send(*LockerRequest) error
-	Recv() (*AdminResponse, error)
+	Recv() (*LockerStreamResponse, error)
 	grpc.ClientStream
 }
 
@@ -1342,8 +1449,8 @@ func (x *lockerServiceLockerStreamingClient) Send(m *LockerRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *lockerServiceLockerStreamingClient) Recv() (*AdminResponse, error) {
-	m := new(AdminResponse)
+func (x *lockerServiceLockerStreamingClient) Recv() (*LockerStreamResponse, error) {
+	m := new(LockerStreamResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -1368,7 +1475,7 @@ func (c *lockerServiceClient) SetLocationTrackingInterval(ctx context.Context, i
 	return out, nil
 }
 
-func (c *lockerServiceClient) GetSimCard(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*SimCardResponse, error) {
+func (c *lockerServiceClient) GetSimCard(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*SimCardResponse, error) {
 	out := new(SimCardResponse)
 	err := c.cc.Invoke(ctx, "/locker.LockerService/GetSimCard", in, out, opts...)
 	if err != nil {
@@ -1386,7 +1493,7 @@ func (c *lockerServiceClient) GetLockerLocation(ctx context.Context, in *Locatio
 	return out, nil
 }
 
-func (c *lockerServiceClient) GetFirmwareInfo(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*FirmwareInfoResponse, error) {
+func (c *lockerServiceClient) GetFirmwareInfo(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*FirmwareInfoResponse, error) {
 	out := new(FirmwareInfoResponse)
 	err := c.cc.Invoke(ctx, "/locker.LockerService/GetFirmwareInfo", in, out, opts...)
 	if err != nil {
@@ -1395,7 +1502,7 @@ func (c *lockerServiceClient) GetFirmwareInfo(ctx context.Context, in *LockerIme
 	return out, nil
 }
 
-func (c *lockerServiceClient) GetLockInfo(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*LockerInfoResponse, error) {
+func (c *lockerServiceClient) GetLockInfo(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*LockerInfoResponse, error) {
 	out := new(LockerInfoResponse)
 	err := c.cc.Invoke(ctx, "/locker.LockerService/GetLockInfo", in, out, opts...)
 	if err != nil {
@@ -1404,7 +1511,7 @@ func (c *lockerServiceClient) GetLockInfo(ctx context.Context, in *LockerImei, o
 	return out, nil
 }
 
-func (c *lockerServiceClient) ShutDownLocker(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*Empty, error) {
+func (c *lockerServiceClient) ShutDownLocker(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/locker.LockerService/ShutDownLocker", in, out, opts...)
 	if err != nil {
@@ -1413,7 +1520,7 @@ func (c *lockerServiceClient) ShutDownLocker(ctx context.Context, in *LockerImei
 	return out, nil
 }
 
-func (c *lockerServiceClient) RestartLocker(ctx context.Context, in *LockerImei, opts ...grpc.CallOption) (*Empty, error) {
+func (c *lockerServiceClient) RestartLocker(ctx context.Context, in *LockerID, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/locker.LockerService/RestartLocker", in, out, opts...)
 	if err != nil {
@@ -1422,56 +1529,55 @@ func (c *lockerServiceClient) RestartLocker(ctx context.Context, in *LockerImei,
 	return out, nil
 }
 
-func (c *lockerServiceClient) CreateBikeCategory(ctx context.Context, in *BikeCategoryRequest, opts ...grpc.CallOption) (*BikeCategoryResponse, error) {
-	out := new(BikeCategoryResponse)
-	err := c.cc.Invoke(ctx, "/locker.LockerService/CreateBikeCategory", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *lockerServiceClient) CreateBike(ctx context.Context, in *BikeRequest, opts ...grpc.CallOption) (*BikeResponse, error) {
-	out := new(BikeResponse)
-	err := c.cc.Invoke(ctx, "/locker.LockerService/CreateBike", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *lockerServiceClient) CreateStation(ctx context.Context, in *StationRequest, opts ...grpc.CallOption) (*StationResponse, error) {
-	out := new(StationResponse)
-	err := c.cc.Invoke(ctx, "/locker.LockerService/CreateStation", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // LockerServiceServer is the server API for LockerService service.
 type LockerServiceServer interface {
-	// Locker Methods
+	CreateLocker(context.Context, *LockerCreateRequest) (*LockerCreateResponse, error)
+	UpdateLocker(context.Context, *LockerCreateResponse) (*LockerCreateResponse, error)
+	DeleteLocker(context.Context, *LockerID) (*Empty, error)
+	DeleteLockerLocation(context.Context, *LockerID) (*Empty, error)
+	GetLocker(context.Context, *LockerID) (*LockerCreateResponse, error)
+	GetLockerFullInfo(context.Context, *LockerID) (*LockerFullInfoResponse, error)
+	GetLockerList(context.Context, *Empty) (*LockerList, error)
+	GetLockerFullInfoList(context.Context, *Empty) (*LockerFullInfoList, error)
 	LockerStreaming(LockerService_LockerStreamingServer) error
 	UnlockLocker(context.Context, *UnlockRequest) (*UnlockResponse, error)
 	SetLocationTrackingInterval(context.Context, *LocationIntervalRequest) (*LocationIntervalResponse, error)
-	GetSimCard(context.Context, *LockerImei) (*SimCardResponse, error)
+	GetSimCard(context.Context, *LockerID) (*SimCardResponse, error)
 	GetLockerLocation(context.Context, *LocationRequest) (*LocationResponse, error)
-	GetFirmwareInfo(context.Context, *LockerImei) (*FirmwareInfoResponse, error)
-	GetLockInfo(context.Context, *LockerImei) (*LockerInfoResponse, error)
-	ShutDownLocker(context.Context, *LockerImei) (*Empty, error)
-	RestartLocker(context.Context, *LockerImei) (*Empty, error)
-	//Bike Methods
-	CreateBikeCategory(context.Context, *BikeCategoryRequest) (*BikeCategoryResponse, error)
-	CreateBike(context.Context, *BikeRequest) (*BikeResponse, error)
-	//Station Methods
-	CreateStation(context.Context, *StationRequest) (*StationResponse, error)
+	GetFirmwareInfo(context.Context, *LockerID) (*FirmwareInfoResponse, error)
+	GetLockInfo(context.Context, *LockerID) (*LockerInfoResponse, error)
+	ShutDownLocker(context.Context, *LockerID) (*Empty, error)
+	RestartLocker(context.Context, *LockerID) (*Empty, error)
 }
 
 // UnimplementedLockerServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedLockerServiceServer struct {
 }
 
+func (*UnimplementedLockerServiceServer) CreateLocker(ctx context.Context, req *LockerCreateRequest) (*LockerCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLocker not implemented")
+}
+func (*UnimplementedLockerServiceServer) UpdateLocker(ctx context.Context, req *LockerCreateResponse) (*LockerCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLocker not implemented")
+}
+func (*UnimplementedLockerServiceServer) DeleteLocker(ctx context.Context, req *LockerID) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLocker not implemented")
+}
+func (*UnimplementedLockerServiceServer) DeleteLockerLocation(ctx context.Context, req *LockerID) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLockerLocation not implemented")
+}
+func (*UnimplementedLockerServiceServer) GetLocker(ctx context.Context, req *LockerID) (*LockerCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLocker not implemented")
+}
+func (*UnimplementedLockerServiceServer) GetLockerFullInfo(ctx context.Context, req *LockerID) (*LockerFullInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLockerFullInfo not implemented")
+}
+func (*UnimplementedLockerServiceServer) GetLockerList(ctx context.Context, req *Empty) (*LockerList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLockerList not implemented")
+}
+func (*UnimplementedLockerServiceServer) GetLockerFullInfoList(ctx context.Context, req *Empty) (*LockerFullInfoList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLockerFullInfoList not implemented")
+}
 func (*UnimplementedLockerServiceServer) LockerStreaming(srv LockerService_LockerStreamingServer) error {
 	return status.Errorf(codes.Unimplemented, "method LockerStreaming not implemented")
 }
@@ -1481,36 +1587,171 @@ func (*UnimplementedLockerServiceServer) UnlockLocker(ctx context.Context, req *
 func (*UnimplementedLockerServiceServer) SetLocationTrackingInterval(ctx context.Context, req *LocationIntervalRequest) (*LocationIntervalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetLocationTrackingInterval not implemented")
 }
-func (*UnimplementedLockerServiceServer) GetSimCard(ctx context.Context, req *LockerImei) (*SimCardResponse, error) {
+func (*UnimplementedLockerServiceServer) GetSimCard(ctx context.Context, req *LockerID) (*SimCardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSimCard not implemented")
 }
 func (*UnimplementedLockerServiceServer) GetLockerLocation(ctx context.Context, req *LocationRequest) (*LocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLockerLocation not implemented")
 }
-func (*UnimplementedLockerServiceServer) GetFirmwareInfo(ctx context.Context, req *LockerImei) (*FirmwareInfoResponse, error) {
+func (*UnimplementedLockerServiceServer) GetFirmwareInfo(ctx context.Context, req *LockerID) (*FirmwareInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFirmwareInfo not implemented")
 }
-func (*UnimplementedLockerServiceServer) GetLockInfo(ctx context.Context, req *LockerImei) (*LockerInfoResponse, error) {
+func (*UnimplementedLockerServiceServer) GetLockInfo(ctx context.Context, req *LockerID) (*LockerInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLockInfo not implemented")
 }
-func (*UnimplementedLockerServiceServer) ShutDownLocker(ctx context.Context, req *LockerImei) (*Empty, error) {
+func (*UnimplementedLockerServiceServer) ShutDownLocker(ctx context.Context, req *LockerID) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ShutDownLocker not implemented")
 }
-func (*UnimplementedLockerServiceServer) RestartLocker(ctx context.Context, req *LockerImei) (*Empty, error) {
+func (*UnimplementedLockerServiceServer) RestartLocker(ctx context.Context, req *LockerID) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RestartLocker not implemented")
-}
-func (*UnimplementedLockerServiceServer) CreateBikeCategory(ctx context.Context, req *BikeCategoryRequest) (*BikeCategoryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateBikeCategory not implemented")
-}
-func (*UnimplementedLockerServiceServer) CreateBike(ctx context.Context, req *BikeRequest) (*BikeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateBike not implemented")
-}
-func (*UnimplementedLockerServiceServer) CreateStation(ctx context.Context, req *StationRequest) (*StationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateStation not implemented")
 }
 
 func RegisterLockerServiceServer(s *grpc.Server, srv LockerServiceServer) {
 	s.RegisterService(&_LockerService_serviceDesc, srv)
+}
+
+func _LockerService_CreateLocker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerCreateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockerServiceServer).CreateLocker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/locker.LockerService/CreateLocker",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockerServiceServer).CreateLocker(ctx, req.(*LockerCreateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LockerService_UpdateLocker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerCreateResponse)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockerServiceServer).UpdateLocker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/locker.LockerService/UpdateLocker",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockerServiceServer).UpdateLocker(ctx, req.(*LockerCreateResponse))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LockerService_DeleteLocker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockerServiceServer).DeleteLocker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/locker.LockerService/DeleteLocker",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockerServiceServer).DeleteLocker(ctx, req.(*LockerID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LockerService_DeleteLockerLocation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockerServiceServer).DeleteLockerLocation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/locker.LockerService/DeleteLockerLocation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockerServiceServer).DeleteLockerLocation(ctx, req.(*LockerID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LockerService_GetLocker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockerServiceServer).GetLocker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/locker.LockerService/GetLocker",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockerServiceServer).GetLocker(ctx, req.(*LockerID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LockerService_GetLockerFullInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LockerID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockerServiceServer).GetLockerFullInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/locker.LockerService/GetLockerFullInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockerServiceServer).GetLockerFullInfo(ctx, req.(*LockerID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LockerService_GetLockerList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockerServiceServer).GetLockerList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/locker.LockerService/GetLockerList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockerServiceServer).GetLockerList(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LockerService_GetLockerFullInfoList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LockerServiceServer).GetLockerFullInfoList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/locker.LockerService/GetLockerFullInfoList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LockerServiceServer).GetLockerFullInfoList(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _LockerService_LockerStreaming_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -1518,7 +1759,7 @@ func _LockerService_LockerStreaming_Handler(srv interface{}, stream grpc.ServerS
 }
 
 type LockerService_LockerStreamingServer interface {
-	Send(*AdminResponse) error
+	Send(*LockerStreamResponse) error
 	Recv() (*LockerRequest, error)
 	grpc.ServerStream
 }
@@ -1527,7 +1768,7 @@ type lockerServiceLockerStreamingServer struct {
 	grpc.ServerStream
 }
 
-func (x *lockerServiceLockerStreamingServer) Send(m *AdminResponse) error {
+func (x *lockerServiceLockerStreamingServer) Send(m *LockerStreamResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -1576,7 +1817,7 @@ func _LockerService_SetLocationTrackingInterval_Handler(srv interface{}, ctx con
 }
 
 func _LockerService_GetSimCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LockerImei)
+	in := new(LockerID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1588,7 +1829,7 @@ func _LockerService_GetSimCard_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: "/locker.LockerService/GetSimCard",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LockerServiceServer).GetSimCard(ctx, req.(*LockerImei))
+		return srv.(LockerServiceServer).GetSimCard(ctx, req.(*LockerID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1612,7 +1853,7 @@ func _LockerService_GetLockerLocation_Handler(srv interface{}, ctx context.Conte
 }
 
 func _LockerService_GetFirmwareInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LockerImei)
+	in := new(LockerID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1624,13 +1865,13 @@ func _LockerService_GetFirmwareInfo_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/locker.LockerService/GetFirmwareInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LockerServiceServer).GetFirmwareInfo(ctx, req.(*LockerImei))
+		return srv.(LockerServiceServer).GetFirmwareInfo(ctx, req.(*LockerID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _LockerService_GetLockInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LockerImei)
+	in := new(LockerID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1642,13 +1883,13 @@ func _LockerService_GetLockInfo_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/locker.LockerService/GetLockInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LockerServiceServer).GetLockInfo(ctx, req.(*LockerImei))
+		return srv.(LockerServiceServer).GetLockInfo(ctx, req.(*LockerID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _LockerService_ShutDownLocker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LockerImei)
+	in := new(LockerID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1660,13 +1901,13 @@ func _LockerService_ShutDownLocker_Handler(srv interface{}, ctx context.Context,
 		FullMethod: "/locker.LockerService/ShutDownLocker",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LockerServiceServer).ShutDownLocker(ctx, req.(*LockerImei))
+		return srv.(LockerServiceServer).ShutDownLocker(ctx, req.(*LockerID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _LockerService_RestartLocker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LockerImei)
+	in := new(LockerID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1678,61 +1919,7 @@ func _LockerService_RestartLocker_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: "/locker.LockerService/RestartLocker",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LockerServiceServer).RestartLocker(ctx, req.(*LockerImei))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _LockerService_CreateBikeCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BikeCategoryRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LockerServiceServer).CreateBikeCategory(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/locker.LockerService/CreateBikeCategory",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LockerServiceServer).CreateBikeCategory(ctx, req.(*BikeCategoryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _LockerService_CreateBike_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BikeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LockerServiceServer).CreateBike(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/locker.LockerService/CreateBike",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LockerServiceServer).CreateBike(ctx, req.(*BikeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _LockerService_CreateStation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LockerServiceServer).CreateStation(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/locker.LockerService/CreateStation",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LockerServiceServer).CreateStation(ctx, req.(*StationRequest))
+		return srv.(LockerServiceServer).RestartLocker(ctx, req.(*LockerID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1741,6 +1928,38 @@ var _LockerService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "locker.LockerService",
 	HandlerType: (*LockerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateLocker",
+			Handler:    _LockerService_CreateLocker_Handler,
+		},
+		{
+			MethodName: "UpdateLocker",
+			Handler:    _LockerService_UpdateLocker_Handler,
+		},
+		{
+			MethodName: "DeleteLocker",
+			Handler:    _LockerService_DeleteLocker_Handler,
+		},
+		{
+			MethodName: "DeleteLockerLocation",
+			Handler:    _LockerService_DeleteLockerLocation_Handler,
+		},
+		{
+			MethodName: "GetLocker",
+			Handler:    _LockerService_GetLocker_Handler,
+		},
+		{
+			MethodName: "GetLockerFullInfo",
+			Handler:    _LockerService_GetLockerFullInfo_Handler,
+		},
+		{
+			MethodName: "GetLockerList",
+			Handler:    _LockerService_GetLockerList_Handler,
+		},
+		{
+			MethodName: "GetLockerFullInfoList",
+			Handler:    _LockerService_GetLockerFullInfoList_Handler,
+		},
 		{
 			MethodName: "UnlockLocker",
 			Handler:    _LockerService_UnlockLocker_Handler,
@@ -1773,18 +1992,6 @@ var _LockerService_serviceDesc = grpc.ServiceDesc{
 			MethodName: "RestartLocker",
 			Handler:    _LockerService_RestartLocker_Handler,
 		},
-		{
-			MethodName: "CreateBikeCategory",
-			Handler:    _LockerService_CreateBikeCategory_Handler,
-		},
-		{
-			MethodName: "CreateBike",
-			Handler:    _LockerService_CreateBike_Handler,
-		},
-		{
-			MethodName: "CreateStation",
-			Handler:    _LockerService_CreateStation_Handler,
-		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
@@ -1797,7 +2004,7 @@ var _LockerService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "locker/locker.proto",
 }
 
-func (m *StationResponse) Marshal() (dAtA []byte, err error) {
+func (m *LockerFullInfoList) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1807,12 +2014,12 @@ func (m *StationResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *StationResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *LockerFullInfoList) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *StationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *LockerFullInfoList) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1821,167 +2028,181 @@ func (m *StationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.Name)))
+	if len(m.LockersInfo) > 0 {
+		for iNdEx := len(m.LockersInfo) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.LockersInfo[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintLocker(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LockerList) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LockerList) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LockerList) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.Lockers) > 0 {
+		for iNdEx := len(m.Lockers) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Lockers[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintLocker(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LockerFullInfoResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LockerFullInfoResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LockerFullInfoResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.UpdatedAt) > 0 {
+		i -= len(m.UpdatedAt)
+		copy(dAtA[i:], m.UpdatedAt)
+		i = encodeVarintLocker(dAtA, i, uint64(len(m.UpdatedAt)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x72
+	}
+	if len(m.CreatedAt) > 0 {
+		i -= len(m.CreatedAt)
+		copy(dAtA[i:], m.CreatedAt)
+		i = encodeVarintLocker(dAtA, i, uint64(len(m.CreatedAt)))
+		i--
+		dAtA[i] = 0x6a
+	}
+	if m.IsConnected {
+		i--
+		if m.IsConnected {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x60
+	}
+	if m.IsLocked {
+		i--
+		if m.IsLocked {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x58
 	}
 	if m.Latitude != 0 {
 		i -= 4
 		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Latitude))))
 		i--
-		dAtA[i] = 0x1d
+		dAtA[i] = 0x55
 	}
 	if m.Longitude != 0 {
 		i -= 4
 		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Longitude))))
 		i--
-		dAtA[i] = 0x15
+		dAtA[i] = 0x4d
 	}
-	if m.ID != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.ID))
+	if m.LocationInterval != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.LocationInterval))
 		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0x40
 	}
-	return len(dAtA) - i, nil
-}
-
-func (m *StationRequest) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *StationRequest) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *StationRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.Name)))
+	if len(m.AlarmStatus) > 0 {
+		i -= len(m.AlarmStatus)
+		copy(dAtA[i:], m.AlarmStatus)
+		i = encodeVarintLocker(dAtA, i, uint64(len(m.AlarmStatus)))
 		i--
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x3a
 	}
-	if m.Latitude != 0 {
+	if m.Sate != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.Sate))
+		i--
+		dAtA[i] = 0x30
+	}
+	if m.Signal != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.Signal))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.Voltage != 0 {
 		i -= 4
-		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Latitude))))
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Voltage))))
 		i--
-		dAtA[i] = 0x15
+		dAtA[i] = 0x25
 	}
-	if m.Longitude != 0 {
-		i -= 4
-		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Longitude))))
+	if m.SimCard != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.SimCard))
 		i--
-		dAtA[i] = 0xd
+		dAtA[i] = 0x18
 	}
-	return len(dAtA) - i, nil
-}
-
-func (m *BikeCategoryRequest) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *BikeCategoryRequest) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *BikeCategoryRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
-	if len(m.BikeType) > 0 {
-		i -= len(m.BikeType)
-		copy(dAtA[i:], m.BikeType)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.BikeType)))
+	if m.IMEI != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.IMEI))
 		i--
-		dAtA[i] = 0x12
+		dAtA[i] = 0x10
 	}
-	if len(m.ImagePath) > 0 {
-		i -= len(m.ImagePath)
-		copy(dAtA[i:], m.ImagePath)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.ImagePath)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *BikeCategoryResponse) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *BikeCategoryResponse) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *BikeCategoryResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
-	if len(m.BikeType) > 0 {
-		i -= len(m.BikeType)
-		copy(dAtA[i:], m.BikeType)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.BikeType)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.ImagePath) > 0 {
-		i -= len(m.ImagePath)
-		copy(dAtA[i:], m.ImagePath)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.ImagePath)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if m.ID != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.ID))
+	if m.Id != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.Id))
 		i--
 		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
 
-func (m *BikeRequest) Marshal() (dAtA []byte, err error) {
+func (m *LockerCreateRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1991,12 +2212,12 @@ func (m *BikeRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *BikeRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *LockerCreateRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *BikeRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *LockerCreateRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -2005,22 +2226,20 @@ func (m *BikeRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.Name)))
+	if m.SimCard != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.SimCard))
 		i--
-		dAtA[i] = 0x12
+		dAtA[i] = 0x10
 	}
-	if m.CategoryId != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.CategoryId))
+	if m.IMEI != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.IMEI))
 		i--
 		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
 
-func (m *BikeResponse) Marshal() (dAtA []byte, err error) {
+func (m *LockerCreateResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -2030,12 +2249,12 @@ func (m *BikeResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *BikeResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *LockerCreateResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *BikeResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *LockerCreateResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -2044,15 +2263,13 @@ func (m *BikeResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.Name)))
+	if m.SimCard != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.SimCard))
 		i--
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x18
 	}
-	if m.CategoryId != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.CategoryId))
+	if m.IMEI != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.IMEI))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -2087,6 +2304,20 @@ func (m *LockerInfoResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.UpdatedAt) > 0 {
+		i -= len(m.UpdatedAt)
+		copy(dAtA[i:], m.UpdatedAt)
+		i = encodeVarintLocker(dAtA, i, uint64(len(m.UpdatedAt)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.CreatedAt) > 0 {
+		i -= len(m.CreatedAt)
+		copy(dAtA[i:], m.CreatedAt)
+		i = encodeVarintLocker(dAtA, i, uint64(len(m.CreatedAt)))
+		i--
+		dAtA[i] = 0x32
 	}
 	if m.Retention != 0 {
 		i = encodeVarintLocker(dAtA, i, uint64(m.Retention))
@@ -2195,7 +2426,7 @@ func (m *SimCardResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *LockerImei) Marshal() (dAtA []byte, err error) {
+func (m *LockerID) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -2205,12 +2436,12 @@ func (m *LockerImei) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *LockerImei) MarshalTo(dAtA []byte) (int, error) {
+func (m *LockerID) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *LockerImei) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *LockerID) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -2219,8 +2450,8 @@ func (m *LockerImei) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if m.IMEI != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.IMEI))
+	if m.LockerID != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.LockerID))
 		i--
 		dAtA[i] = 0x8
 	}
@@ -2250,6 +2481,13 @@ func (m *LocationIntervalResponse) MarshalToSizedBuffer(dAtA []byte) (int, error
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.UpdatedAt) > 0 {
+		i -= len(m.UpdatedAt)
+		copy(dAtA[i:], m.UpdatedAt)
+		i = encodeVarintLocker(dAtA, i, uint64(len(m.UpdatedAt)))
+		i--
+		dAtA[i] = 0x12
 	}
 	if m.SetInterval != 0 {
 		i = encodeVarintLocker(dAtA, i, uint64(m.SetInterval))
@@ -2288,8 +2526,8 @@ func (m *LocationIntervalRequest) MarshalToSizedBuffer(dAtA []byte) (int, error)
 		i--
 		dAtA[i] = 0x10
 	}
-	if m.IMEI != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.IMEI))
+	if m.LockerID != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.LockerID))
 		i--
 		dAtA[i] = 0x8
 	}
@@ -2335,7 +2573,7 @@ func (m *LockerRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *AdminResponse) Marshal() (dAtA []byte, err error) {
+func (m *LockerStreamResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -2345,12 +2583,12 @@ func (m *AdminResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *AdminResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *LockerStreamResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *AdminResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *LockerStreamResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -2359,10 +2597,10 @@ func (m *AdminResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.AdminMessage) > 0 {
-		i -= len(m.AdminMessage)
-		copy(dAtA[i:], m.AdminMessage)
-		i = encodeVarintLocker(dAtA, i, uint64(len(m.AdminMessage)))
+	if len(m.StreamMessage) > 0 {
+		i -= len(m.StreamMessage)
+		copy(dAtA[i:], m.StreamMessage)
+		i = encodeVarintLocker(dAtA, i, uint64(len(m.StreamMessage)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -2393,8 +2631,8 @@ func (m *LocationRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if m.IMEI != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.IMEI))
+	if m.LockerID != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.LockerID))
 		i--
 		dAtA[i] = 0x8
 	}
@@ -2424,6 +2662,13 @@ func (m *LocationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.CreatedAt) > 0 {
+		i -= len(m.CreatedAt)
+		copy(dAtA[i:], m.CreatedAt)
+		i = encodeVarintLocker(dAtA, i, uint64(len(m.CreatedAt)))
+		i--
+		dAtA[i] = 0x7a
 	}
 	if len(m.ModeIndication) > 0 {
 		i -= len(m.ModeIndication)
@@ -2522,8 +2767,8 @@ func (m *LocationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x10
 	}
-	if m.IMEI != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.IMEI))
+	if m.LockerID != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.LockerID))
 		i--
 		dAtA[i] = 0x8
 	}
@@ -2643,8 +2888,8 @@ func (m *UnlockRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x10
 	}
-	if m.IMEI != 0 {
-		i = encodeVarintLocker(dAtA, i, uint64(m.IMEI))
+	if m.ScanId != 0 {
+		i = encodeVarintLocker(dAtA, i, uint64(m.ScanId))
 		i--
 		dAtA[i] = 0x8
 	}
@@ -2662,14 +2907,72 @@ func encodeVarintLocker(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *StationResponse) Size() (n int) {
+func (m *LockerFullInfoList) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.ID != 0 {
-		n += 1 + sovLocker(uint64(m.ID))
+	if len(m.LockersInfo) > 0 {
+		for _, e := range m.LockersInfo {
+			l = e.Size()
+			n += 1 + l + sovLocker(uint64(l))
+		}
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *LockerList) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Lockers) > 0 {
+		for _, e := range m.Lockers {
+			l = e.Size()
+			n += 1 + l + sovLocker(uint64(l))
+		}
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *LockerFullInfoResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovLocker(uint64(m.Id))
+	}
+	if m.IMEI != 0 {
+		n += 1 + sovLocker(uint64(m.IMEI))
+	}
+	if m.SimCard != 0 {
+		n += 1 + sovLocker(uint64(m.SimCard))
+	}
+	if m.Voltage != 0 {
+		n += 5
+	}
+	if m.Signal != 0 {
+		n += 1 + sovLocker(uint64(m.Signal))
+	}
+	if m.Sate != 0 {
+		n += 1 + sovLocker(uint64(m.Sate))
+	}
+	l = len(m.AlarmStatus)
+	if l > 0 {
+		n += 1 + l + sovLocker(uint64(l))
+	}
+	if m.LocationInterval != 0 {
+		n += 1 + sovLocker(uint64(m.LocationInterval))
 	}
 	if m.Longitude != 0 {
 		n += 5
@@ -2677,7 +2980,17 @@ func (m *StationResponse) Size() (n int) {
 	if m.Latitude != 0 {
 		n += 5
 	}
-	l = len(m.Name)
+	if m.IsLocked {
+		n += 2
+	}
+	if m.IsConnected {
+		n += 2
+	}
+	l = len(m.CreatedAt)
+	if l > 0 {
+		n += 1 + l + sovLocker(uint64(l))
+	}
+	l = len(m.UpdatedAt)
 	if l > 0 {
 		n += 1 + l + sovLocker(uint64(l))
 	}
@@ -2687,21 +3000,17 @@ func (m *StationResponse) Size() (n int) {
 	return n
 }
 
-func (m *StationRequest) Size() (n int) {
+func (m *LockerCreateRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.Longitude != 0 {
-		n += 5
+	if m.IMEI != 0 {
+		n += 1 + sovLocker(uint64(m.IMEI))
 	}
-	if m.Latitude != 0 {
-		n += 5
-	}
-	l = len(m.Name)
-	if l > 0 {
-		n += 1 + l + sovLocker(uint64(l))
+	if m.SimCard != 0 {
+		n += 1 + sovLocker(uint64(m.SimCard))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -2709,27 +3018,7 @@ func (m *StationRequest) Size() (n int) {
 	return n
 }
 
-func (m *BikeCategoryRequest) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.ImagePath)
-	if l > 0 {
-		n += 1 + l + sovLocker(uint64(l))
-	}
-	l = len(m.BikeType)
-	if l > 0 {
-		n += 1 + l + sovLocker(uint64(l))
-	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
-	}
-	return n
-}
-
-func (m *BikeCategoryResponse) Size() (n int) {
+func (m *LockerCreateResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -2738,54 +3027,11 @@ func (m *BikeCategoryResponse) Size() (n int) {
 	if m.ID != 0 {
 		n += 1 + sovLocker(uint64(m.ID))
 	}
-	l = len(m.ImagePath)
-	if l > 0 {
-		n += 1 + l + sovLocker(uint64(l))
+	if m.IMEI != 0 {
+		n += 1 + sovLocker(uint64(m.IMEI))
 	}
-	l = len(m.BikeType)
-	if l > 0 {
-		n += 1 + l + sovLocker(uint64(l))
-	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
-	}
-	return n
-}
-
-func (m *BikeRequest) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if m.CategoryId != 0 {
-		n += 1 + sovLocker(uint64(m.CategoryId))
-	}
-	l = len(m.Name)
-	if l > 0 {
-		n += 1 + l + sovLocker(uint64(l))
-	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
-	}
-	return n
-}
-
-func (m *BikeResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if m.ID != 0 {
-		n += 1 + sovLocker(uint64(m.ID))
-	}
-	if m.CategoryId != 0 {
-		n += 1 + sovLocker(uint64(m.CategoryId))
-	}
-	l = len(m.Name)
-	if l > 0 {
-		n += 1 + l + sovLocker(uint64(l))
+	if m.SimCard != 0 {
+		n += 1 + sovLocker(uint64(m.SimCard))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -2813,6 +3059,14 @@ func (m *LockerInfoResponse) Size() (n int) {
 	}
 	if m.Retention != 0 {
 		n += 1 + sovLocker(uint64(m.Retention))
+	}
+	l = len(m.CreatedAt)
+	if l > 0 {
+		n += 1 + l + sovLocker(uint64(l))
+	}
+	l = len(m.UpdatedAt)
+	if l > 0 {
+		n += 1 + l + sovLocker(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -2855,14 +3109,14 @@ func (m *SimCardResponse) Size() (n int) {
 	return n
 }
 
-func (m *LockerImei) Size() (n int) {
+func (m *LockerID) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.IMEI != 0 {
-		n += 1 + sovLocker(uint64(m.IMEI))
+	if m.LockerID != 0 {
+		n += 1 + sovLocker(uint64(m.LockerID))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -2879,6 +3133,10 @@ func (m *LocationIntervalResponse) Size() (n int) {
 	if m.SetInterval != 0 {
 		n += 1 + sovLocker(uint64(m.SetInterval))
 	}
+	l = len(m.UpdatedAt)
+	if l > 0 {
+		n += 1 + l + sovLocker(uint64(l))
+	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
@@ -2891,8 +3149,8 @@ func (m *LocationIntervalRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.IMEI != 0 {
-		n += 1 + sovLocker(uint64(m.IMEI))
+	if m.LockerID != 0 {
+		n += 1 + sovLocker(uint64(m.LockerID))
 	}
 	if m.IntervalInSecond != 0 {
 		n += 1 + sovLocker(uint64(m.IntervalInSecond))
@@ -2922,13 +3180,13 @@ func (m *LockerRequest) Size() (n int) {
 	return n
 }
 
-func (m *AdminResponse) Size() (n int) {
+func (m *LockerStreamResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.AdminMessage)
+	l = len(m.StreamMessage)
 	if l > 0 {
 		n += 1 + l + sovLocker(uint64(l))
 	}
@@ -2944,8 +3202,8 @@ func (m *LocationRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.IMEI != 0 {
-		n += 1 + sovLocker(uint64(m.IMEI))
+	if m.LockerID != 0 {
+		n += 1 + sovLocker(uint64(m.LockerID))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -2959,8 +3217,8 @@ func (m *LocationResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.IMEI != 0 {
-		n += 1 + sovLocker(uint64(m.IMEI))
+	if m.LockerID != 0 {
+		n += 1 + sovLocker(uint64(m.LockerID))
 	}
 	if m.IsTracking {
 		n += 2
@@ -3002,6 +3260,10 @@ func (m *LocationResponse) Size() (n int) {
 		n += 1 + l + sovLocker(uint64(l))
 	}
 	l = len(m.ModeIndication)
+	if l > 0 {
+		n += 1 + l + sovLocker(uint64(l))
+	}
+	l = len(m.CreatedAt)
 	if l > 0 {
 		n += 1 + l + sovLocker(uint64(l))
 	}
@@ -3050,8 +3312,8 @@ func (m *UnlockRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.IMEI != 0 {
-		n += 1 + sovLocker(uint64(m.IMEI))
+	if m.ScanId != 0 {
+		n += 1 + sovLocker(uint64(m.ScanId))
 	}
 	if m.UserID != 0 {
 		n += 1 + sovLocker(uint64(m.UserID))
@@ -3071,7 +3333,7 @@ func sovLocker(x uint64) (n int) {
 func sozLocker(x uint64) (n int) {
 	return sovLocker(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *StationResponse) Unmarshal(dAtA []byte) error {
+func (m *LockerFullInfoList) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -3094,17 +3356,17 @@ func (m *StationResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: StationResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: LockerFullInfoList: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: StationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: LockerFullInfoList: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ID", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LockersInfo", wireType)
 			}
-			m.ID = 0
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -3114,36 +3376,271 @@ func (m *StationResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ID |= int64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthLocker
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LockersInfo = append(m.LockersInfo, &LockerFullInfoResponse{})
+			if err := m.LockersInfo[len(m.LockersInfo)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipLocker(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LockerList) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowLocker
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LockerList: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LockerList: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Lockers", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthLocker
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Lockers = append(m.Lockers, &LockerCreateResponse{})
+			if err := m.Lockers[len(m.Lockers)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipLocker(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LockerFullInfoResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowLocker
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LockerFullInfoResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LockerFullInfoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 2:
-			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Longitude", wireType)
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
 			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
+			m.IMEI = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.IMEI |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
 			}
-			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
-			iNdEx += 4
-			m.Longitude = float32(math.Float32frombits(v))
 		case 3:
-			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SimCard", wireType)
 			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
+			m.SimCard = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SimCard |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
 			}
-			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
-			iNdEx += 4
-			m.Latitude = float32(math.Float32frombits(v))
 		case 4:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Voltage", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Voltage = float32(math.Float32frombits(v))
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Signal", wireType)
+			}
+			m.Signal = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Signal |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Sate", wireType)
+			}
+			m.Sate = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Sate |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field AlarmStatus", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -3171,60 +3668,28 @@ func (m *StationResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Name = string(dAtA[iNdEx:postIndex])
+			m.AlarmStatus = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipLocker(dAtA[iNdEx:])
-			if err != nil {
-				return err
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LocationInterval", wireType)
 			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthLocker
+			m.LocationInterval = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LocationInterval |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
 			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *StationRequest) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowLocker
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: StationRequest: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: StationRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
+		case 9:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Longitude", wireType)
 			}
@@ -3235,7 +3700,7 @@ func (m *StationRequest) Unmarshal(dAtA []byte) error {
 			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
 			m.Longitude = float32(math.Float32frombits(v))
-		case 2:
+		case 10:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
 			}
@@ -3246,9 +3711,49 @@ func (m *StationRequest) Unmarshal(dAtA []byte) error {
 			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
 			m.Latitude = float32(math.Float32frombits(v))
-		case 3:
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsLocked", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsLocked = bool(v != 0)
+		case 12:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsConnected", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsConnected = bool(v != 0)
+		case 13:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -3276,7 +3781,39 @@ func (m *StationRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Name = string(dAtA[iNdEx:postIndex])
+			m.CreatedAt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedAt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLocker
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UpdatedAt = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -3300,7 +3837,7 @@ func (m *StationRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *BikeCategoryRequest) Unmarshal(dAtA []byte) error {
+func (m *LockerCreateRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -3323,132 +3860,17 @@ func (m *BikeCategoryRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: BikeCategoryRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: LockerCreateRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: BikeCategoryRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ImagePath", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLocker
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLocker
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLocker
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.ImagePath = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field BikeType", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLocker
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLocker
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLocker
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.BikeType = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipLocker(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthLocker
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *BikeCategoryResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowLocker
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: BikeCategoryResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: BikeCategoryResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: LockerCreateRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ID", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
 			}
-			m.ID = 0
+			m.IMEI = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -3458,131 +3880,16 @@ func (m *BikeCategoryResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ID |= int64(b&0x7F) << shift
+				m.IMEI |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ImagePath", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLocker
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLocker
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLocker
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.ImagePath = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field BikeType", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLocker
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLocker
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLocker
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.BikeType = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipLocker(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthLocker
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *BikeRequest) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowLocker
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: BikeRequest: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: BikeRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CategoryId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SimCard", wireType)
 			}
-			m.CategoryId = 0
+			m.SimCard = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -3592,43 +3899,11 @@ func (m *BikeRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CategoryId |= int64(b&0x7F) << shift
+				m.SimCard |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowLocker
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLocker
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLocker
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Name = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipLocker(dAtA[iNdEx:])
@@ -3651,7 +3926,7 @@ func (m *BikeRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *BikeResponse) Unmarshal(dAtA []byte) error {
+func (m *LockerCreateResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -3674,10 +3949,10 @@ func (m *BikeResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: BikeResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: LockerCreateResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: BikeResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: LockerCreateResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -3701,9 +3976,9 @@ func (m *BikeResponse) Unmarshal(dAtA []byte) error {
 			}
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CategoryId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
 			}
-			m.CategoryId = 0
+			m.IMEI = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -3713,16 +3988,16 @@ func (m *BikeResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CategoryId |= int64(b&0x7F) << shift
+				m.IMEI |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SimCard", wireType)
 			}
-			var stringLen uint64
+			m.SimCard = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -3732,24 +4007,11 @@ func (m *BikeResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.SimCard |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthLocker
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthLocker
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Name = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipLocker(dAtA[iNdEx:])
@@ -3889,6 +4151,70 @@ func (m *LockerInfoResponse) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLocker
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CreatedAt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedAt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLocker
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UpdatedAt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipLocker(dAtA[iNdEx:])
@@ -4096,7 +4422,7 @@ func (m *SimCardResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *LockerImei) Unmarshal(dAtA []byte) error {
+func (m *LockerID) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -4119,17 +4445,17 @@ func (m *LockerImei) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: LockerImei: wiretype end group for non-group")
+			return fmt.Errorf("proto: LockerID: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: LockerImei: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: LockerID: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LockerID", wireType)
 			}
-			m.IMEI = 0
+			m.LockerID = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -4139,7 +4465,7 @@ func (m *LockerImei) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.IMEI |= int64(b&0x7F) << shift
+				m.LockerID |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -4214,6 +4540,38 @@ func (m *LocationIntervalResponse) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedAt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLocker
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UpdatedAt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipLocker(dAtA[iNdEx:])
@@ -4267,9 +4625,9 @@ func (m *LocationIntervalRequest) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LockerID", wireType)
 			}
-			m.IMEI = 0
+			m.LockerID = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -4279,7 +4637,7 @@ func (m *LocationIntervalRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.IMEI |= int64(b&0x7F) << shift
+				m.LockerID |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -4427,7 +4785,7 @@ func (m *LockerRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *AdminResponse) Unmarshal(dAtA []byte) error {
+func (m *LockerStreamResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -4450,15 +4808,15 @@ func (m *AdminResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: AdminResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: LockerStreamResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: AdminResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: LockerStreamResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field AdminMessage", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field StreamMessage", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4486,7 +4844,7 @@ func (m *AdminResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AdminMessage = string(dAtA[iNdEx:postIndex])
+			m.StreamMessage = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -4541,9 +4899,9 @@ func (m *LocationRequest) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LockerID", wireType)
 			}
-			m.IMEI = 0
+			m.LockerID = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -4553,7 +4911,7 @@ func (m *LocationRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.IMEI |= int64(b&0x7F) << shift
+				m.LockerID |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -4611,9 +4969,9 @@ func (m *LocationResponse) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LockerID", wireType)
 			}
-			m.IMEI = 0
+			m.LockerID = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -4623,7 +4981,7 @@ func (m *LocationResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.IMEI |= int64(b&0x7F) << shift
+				m.LockerID |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -4899,6 +5257,38 @@ func (m *LocationResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.ModeIndication = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowLocker
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthLocker
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthLocker
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CreatedAt = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipLocker(dAtA[iNdEx:])
@@ -5112,9 +5502,9 @@ func (m *UnlockRequest) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field IMEI", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ScanId", wireType)
 			}
-			m.IMEI = 0
+			m.ScanId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowLocker
@@ -5124,7 +5514,7 @@ func (m *UnlockRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.IMEI |= int64(b&0x7F) << shift
+				m.ScanId |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}

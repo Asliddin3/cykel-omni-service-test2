@@ -1,4 +1,3 @@
-
 CURRENT_DIR=$(pwd)
 
 for module in $(find $CURRENT_DIR/cykel-protos/* -type d); do

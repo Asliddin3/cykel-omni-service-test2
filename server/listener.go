@@ -65,11 +65,8 @@ func handleRequest(ctx context.Context, conn net.Conn, adminStream pbLocker.Lock
 		select {
 		case <-adminStream.Context().Done():
 			return
-
 		}
-
 	}
-
 }
 
 func writeMessage(conn net.Conn, write chan string, wg *sync.WaitGroup) {
